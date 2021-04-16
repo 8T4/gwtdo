@@ -1,2 +1,2 @@
-# gwtdo
-GWTdo
+
+![](doc/img/logo.png)
