@@ -1,4 +1,3 @@
-
 <p align="center">
     <img width="120" src="https://raw.githubusercontent.com/8T4/gwtdo/main/doc/img/logo.png" />
 </p>
@@ -29,8 +28,8 @@ Install-Package Gwtdo
 dotnet add package Gwtdo
 ```
 
-You need these things to run C4Sharp:
-- [.NET Standard 2.1](https://docs.microsoft.com/pt-br/dotnet/standard/net-standard)
+You need these things to run GWTdo:
+  - [.NET Standard 2.1](https://docs.microsoft.com/pt-br/dotnet/standard/net-standard)
 
 ## Example
 For our demonstration we want to test class `Stock.cs`([see the code](src/Gwtdo.Sample/Stocks/Stock.cs)) and make sure it covers the following specification:
@@ -43,7 +42,6 @@ Feature: User trades stocks
     When I ask to sell 20 shares of MSFT stock
     Then I should have 80 shares of MSFT stock
 ```
-
 
 ### Step 1 - Test fixture 
 A test fixture is an environment used to consistently test some item, device, or piece of software. [[1]]()
@@ -164,24 +162,23 @@ public class UserTradesStocksFeature : Feature<StockFixture>, IClassFixture<Stoc
 ````
 See those examples in the [sample](src/Gwtdo.Sample.Test/Stocks) project 
 
-
 ## Guide to contributing to a GitHub project
 This is a guide to contributing to this open source project that uses GitHub. It’s mostly based on how many open sorce projects operate. That’s all there is to it. The fundamentals are:
 
-- Fork the project & clone locally.
-- Create an upstream remote and sync your local copy before you branch.
-- Branch for each separate piece of work.
-- Do the work, write good commit messages, and read the CONTRIBUTING file if there is one.
-- Push to your origin repository.
-- Create a new PR in GitHub.
-- Respond to any code review feedback.
+  - Fork the project & clone locally.
+  - Create an upstream remote and sync your local copy before you branch.
+  - Branch for each separate piece of work.
+  - Do the work, write good commit messages, and read the CONTRIBUTING file if there is one.
+  - Push to your origin repository.
+  - Create a new PR in GitHub.
+  - Respond to any code review feedback.
 
 If you want to contribute to an open source project, the best one to pick is one that you are using yourself. The maintainers will appreciate it!
 
 # References
 
-- [[1] - Test fixture](https://en.wikipedia.org/wiki/Test_fixture)
-- [[2] - 3A – Arrange, Act, Assert](https://xp123.com/articles/3a-arrange-act-assert/)
-- [[3] - Given-When-Then](https://martinfowler.com/bliki/GivenWhenThen.html)
+  - [[1] - Test fixture](https://en.wikipedia.org/wiki/Test_fixture)
+  - [[2] - 3A – Arrange, Act, Assert](https://xp123.com/articles/3a-arrange-act-assert/)
+  - [[3] - Given-When-Then](https://martinfowler.com/bliki/GivenWhenThen.html)
 
 
