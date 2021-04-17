@@ -42,9 +42,15 @@ namespace Gwtdo.Sample.Stocks
             Orders[stock] = quantity;
         }
 
-        public void SetTimeToCloseTrading(string dateTime, string pattern = "yyyy-MM-dd HH:mm:ss")
+        public void SetTimeToCloseTrading(string dateTime)
         {
+            var pattern = "yyyy-MM-dd HH:mm:ss";
             _timeToCloseTrading = DateTime.ParseExact(dateTime, pattern, CultureInfo.InvariantCulture);
         }
+        
+        public void SetTimeToCloseTrading(string dateTime, string pattern)
+        {
+            _timeToCloseTrading = DateTime.ParseExact(dateTime, pattern, CultureInfo.InvariantCulture);
+        }        
     }
 }
