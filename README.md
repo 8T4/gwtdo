@@ -3,8 +3,7 @@
 </p>
 
 GWTdo is a .NET library that helps developers write readable tests.
-It's a DSL based in Given-When-Then [Given-When-Then](https://martinfowler.com/bliki/GivenWhenThen.html) style which 
-could be used in your test projects.
+It's a DSL based on the [Given-When-Then](https://martinfowler.com/bliki/GivenWhenThen.html) style which could be used in your test projects.
 
 [![.NET](https://github.com/8T4/gwtdo/actions/workflows/dotnet.yml/badge.svg)](https://github.com/8T4/gwtdo/actions/workflows/dotnet.yml)
 [![CodeQL](https://github.com/8T4/gwtdo/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/8T4/gwtdo/actions/workflows/codeql-analysis.yml)
@@ -29,34 +28,35 @@ dotnet add package Gwtdo
 ```
 
 You need these things to run GWTdo:  
-- [.NET Standard 2.1](https://docs.microsoft.com/pt-br/dotnet/standard/net-standard)  
+-  [.NET Standard 2.1](https://docs.microsoft.com/pt-br/dotnet/standard/net-standard)  
 
 ## Example
-For our demonstration we want to test class `Stock.cs`([see the code](src/Gwtdo.Sample/Stocks/Stock.cs)) and make sure it covers the following specification:
+In our demonstration, we want to test class `Stock.cs`([see the code](src/Gwtdo.Sample/Stocks/Stock.cs)) and make sure it covers the following specification. 
 
 ```yaml
 Feature: User trades stocks
   Scenario: User requests a sell before close of trading
-
     Given I have 100 shares of MSFT stock
     When I ask to sell 20 shares of MSFT stock
     Then I should have 80 shares of MSFT stock
 ```
 
-### Step 1 - Test fixture 
-A test fixture is an environment used to consistently test some item, device, or piece of software. [[1]]()
+Sessions "Test fixture", "Extension methods" and "Test" show how to implements this specification.
+
+### Test fixture 
+A test fixture is an environment used to consistently test some item, device, or piece of software. [[2]]()
+In our example, the `StockFixture` is just a simple `record` ([C# 9.0](https://docs.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-9#record-types)) type that contains a
+`Stock` instance as a property. All fixtures using `GWTdo` should have implemented `IFixture` interface.
 
 ```c#
 public record StockFixture (Stock Stocks) : IFixture;
 ```
-In our example, the `StockFixture` is just a simple `record` ([C# 9.0](https://docs.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-9#record-types)) type that contains a
-`Stock` instance as a property. All fixtures using `GWTdo` should have implemented `IFixture` interface.
 
-### Step 2 - Extension methods
+### Extension methods
 
 #### Arrange
 Set up the object to be tested. We may need to surround the object with collaborators. For testing purposes, those collaborators might be test objects (mocks, fakes, etc.) or the real thing.
-[[2]](https://xp123.com/articles/3a-arrange-act-assert/)
+[[3]](https://xp123.com/articles/3a-arrange-act-assert/)
 
 ```c#
 public static Arrange<StockFixture> I_have_100_shares_of_MSFT_stock(this Arrange<StockFixture> fixtures)
@@ -68,7 +68,7 @@ public static Arrange<StockFixture> I_have_100_shares_of_MSFT_stock(this Arrange
 
 #### Act
 Act on the object (through some mutator). You may need to give it parameters (again, possibly test objects).
-[[2]](https://xp123.com/articles/3a-arrange-act-assert/)
+[[3]](https://xp123.com/articles/3a-arrange-act-assert/)
 
 ````c#
 public static Act<StockFixture> I_ask_to_sell_20_shares_of_MSFT_stock(this Act<StockFixture> fixtures)
@@ -80,7 +80,7 @@ public static Act<StockFixture> I_ask_to_sell_20_shares_of_MSFT_stock(this Act<S
 
 #### Assert
 Make claims about the object, its collaborators, its parameters, and possibly (rarely!!) global state.
-[[2]](https://xp123.com/articles/3a-arrange-act-assert/)
+[[3]](https://xp123.com/articles/3a-arrange-act-assert/)
 
 ````c#
 public static Assert<StockFixture> I_should_have_80_shares_of_MSFT_stock(this Assert<StockFixture> fixtures)
@@ -90,9 +90,9 @@ public static Assert<StockFixture> I_should_have_80_shares_of_MSFT_stock(this As
 }
 ````
 
-### Step 3 - Test
+### Test
 Now we are ready to test our code using the `StockFixture` and their extension methods (`Arrange`, `Act` and `Assert`).
-For this you should extends `Feature<T>` class and instantiate the fixture in their `Fixture` property. 
+For this, you should extend the `Feature<T>` class and instantiate the fixture in their `Fixture` property.
 
 #### example (1) - basic
 
@@ -177,6 +177,6 @@ If you want to contribute to an open source project, the best one to pick is one
 
 ## References
 
-- [[1] - Test fixture](https://en.wikipedia.org/wiki/Test_fixture)  
-- [[2] - 3A – Arrange, Act, Assert](https://xp123.com/articles/3a-arrange-act-assert/)  
-- [[3] - Given-When-Then](https://martinfowler.com/bliki/GivenWhenThen.html)
+- [[1] - Given-When-Then](https://martinfowler.com/bliki/GivenWhenThen.html)
+- [[2] - Test fixture](https://en.wikipedia.org/wiki/Test_fixture)  
+- [[3] - 3A – Arrange, Act, Assert](https://xp123.com/articles/3a-arrange-act-assert/)  
