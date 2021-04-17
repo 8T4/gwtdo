@@ -6,6 +6,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gwtdo.Sample", "src\Gwtdo.S
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gwtdo.Sample.Test", "src\Gwtdo.Sample.Test\Gwtdo.Sample.Test.csproj", "{4437A911-7665-41F1-9BC5-F3B80E0B85DA}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Component", "Component", "{CCA6B3CC-F972-4E0F-BB8E-68E2F7A961AC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{F199381E-6357-4B20-98BC-06A50A20B4E4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +28,10 @@ Global
 		{4437A911-7665-41F1-9BC5-F3B80E0B85DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4437A911-7665-41F1-9BC5-F3B80E0B85DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4437A911-7665-41F1-9BC5-F3B80E0B85DA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{2E79A2A3-51DA-4451-95CD-644AAB65E316} = {CCA6B3CC-F972-4E0F-BB8E-68E2F7A961AC}
+		{E8913EF1-78F8-4544-A510-F8CB67024BC7} = {F199381E-6357-4B20-98BC-06A50A20B4E4}
+		{4437A911-7665-41F1-9BC5-F3B80E0B85DA} = {F199381E-6357-4B20-98BC-06A50A20B4E4}
 	EndGlobalSection
 EndGlobal

@@ -1,5 +1,10 @@
 namespace Gwtdo
 {
+    /// <summary>
+    /// This class represents the "Setup" phase (Given)
+    /// <see href="https://martinfowler.com/bliki/GivenWhenThen.html"/>
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public sealed class Setup<T> where T : IFixture
     {
         public T Value { get; }

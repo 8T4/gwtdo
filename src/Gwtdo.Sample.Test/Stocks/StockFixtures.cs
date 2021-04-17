@@ -1,14 +1,10 @@
 using System;
 using FluentAssertions;
-using Gwtdo;
-using Gwtdo.Sample.Application;
+using Gwtdo.Sample.Stocks;
 
-namespace Gwtdo.Sample.Test
+namespace Gwtdo.Sample.Test.Stocks
 {
-    public class Fixture : IFixture
-    {
-        public Stocks Stocks { get; } = new();
-    }
+    public record Fixture (Stock Stocks) : IFixture;
 
     public static class Setup
     {

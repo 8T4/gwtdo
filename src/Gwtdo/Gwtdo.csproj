@@ -2,6 +2,24 @@
 
     <PropertyGroup>
         <TargetFramework>netstandard2.1</TargetFramework>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <Title>GWTdo - Tests more readable</Title>
+        <Authors>yanjustino</Authors>
+        <Description>GWTdo uses Given-When-Then style to make your tests more readable.</Description>
+        <PackageProjectUrl>https://github.com/8T4/gwtdo</PackageProjectUrl>
+        <PackageIcon>icon.png</PackageIcon>
+        <RepositoryUrl>https://github.com/8T4/gwtdo</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        <PackageTags>GWT, tests, BDD</PackageTags>
+        <PackageVersion>1.0.0</PackageVersion>
+        <PackageIconUrl>https://github.com/8T4/gwtdo/blob/main/LICENSE</PackageIconUrl>
+        <PublishRepositoryUrl>true</PublishRepositoryUrl>
+        <IncludeSymbols>true</IncludeSymbols>
+        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     </PropertyGroup>
+
+    <ItemGroup>
+        <None Include="..\..\doc\img\icon.png" Pack="true" PackagePath="\" />
+    </ItemGroup>    
 
 </Project>

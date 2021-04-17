@@ -3,17 +3,17 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 
-namespace Gwtdo.Sample.Application
+namespace Gwtdo.Sample.Stocks
 {
     [ExcludeFromCodeCoverage]
-    public class Stocks
+    public class Stock
     {
         private DateTime _timeToCloseTrading;
         
         public Dictionary<string, int> Shares { get; }
         public Dictionary<string, int> Orders { get; }
 
-        public Stocks()
+        public Stock()
         {
             Shares = new Dictionary<string, int>();
             Orders = new Dictionary<string, int>();

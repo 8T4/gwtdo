@@ -1,5 +1,10 @@
 namespace Gwtdo
 {
+    /// <summary>
+    /// This class represents the "Verify" phase (Then)
+    /// <see href="https://martinfowler.com/bliki/GivenWhenThen.html"/>
+    /// </summary>
+    /// <typeparam name="T"></typeparam>    
     public sealed class Verify<T> where T: IFixture
     {
         public T Value { get; }

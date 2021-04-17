@@ -1,5 +1,10 @@
 namespace Gwtdo
 {
+    /// <summary>
+    /// This class represents the "Exercise" phase (When)
+    /// <see href="https://martinfowler.com/bliki/GivenWhenThen.html"/>
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public sealed class Exercise<T> where T: IFixture
     {
         public T Value { get; }
