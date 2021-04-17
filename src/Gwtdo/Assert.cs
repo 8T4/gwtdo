@@ -1,3 +1,5 @@
+using System;
+
 namespace Gwtdo
 {
     /// <summary>
@@ -11,6 +13,12 @@ namespace Gwtdo
         public Assert<T> And =>  this;
         
         private Assert(T value) => Value = value;
-        public static Assert<T> Create(T value) => new Assert<T>(value);          
+        public static Assert<T> Create(T value) => new Assert<T>(value);
+
+        public Assert<T> Verify(Action<T> action)
+        {
+            action.Invoke(Value);
+            return this;
+        }
     }
 }

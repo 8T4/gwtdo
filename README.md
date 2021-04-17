@@ -54,24 +54,33 @@ public record StockFixture (Stock Stocks) : IFixture;
 
 ### Extension methods
 
+#### Alias directive
+Use [alias directive](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/using-directive) 
+to make your extension methods more readable.
+
+```c#
+using arrange = Arrange<StockFixture>;
+using act = Act<StockFixture>;
+using assert = Assert<StockFixture>;
+```
+
 #### Arrange
 Set up the object to be tested. We may need to surround the object with collaborators. For testing purposes, those collaborators might be test objects (mocks, fakes, etc.) or the real thing.
 [[3]](https://xp123.com/articles/3a-arrange-act-assert/)
 
 ```c#
-public static Arrange<StockFixture> I_have_100_shares_of_MSFT_stock(this Arrange<StockFixture> fixtures)
+public static arrange I_have_100_shares_of_MSFT_stock(this arrange fixtures)
 {
     fixtures.Value.Stocks.Buy("MSFT", 100);
     return fixtures;
 }
 ```
-
 #### Act
 Act on the object (through some mutator). You may need to give it parameters (again, possibly test objects).
 [[3]](https://xp123.com/articles/3a-arrange-act-assert/)
 
 ````c#
-public static Act<StockFixture> I_ask_to_sell_20_shares_of_MSFT_stock(this Act<StockFixture> fixtures)
+public static act I_ask_to_sell_20_shares_of_MSFT_stock(this act fixtures)
 {
     fixtures.Value.Stocks.Sell("MSFT", 20);
     return fixtures;
@@ -83,7 +92,12 @@ Make claims about the object, its collaborators, its parameters, and possibly (r
 [[3]](https://xp123.com/articles/3a-arrange-act-assert/)
 
 ````c#
-public static Assert<StockFixture> I_should_have_80_shares_of_MSFT_stock(this Assert<StockFixture> fixtures)
+// using as inline method calling "Verify" method
+public static assert I_should_have_80_shares_of_MSFT_stock(this assert fixtures) =>
+    fixtures.Verify(x => x.Stocks.Shares["MSFT"].Should().Be(80));
+
+// or tradicional style    
+public static assert I_should_have_80_shares_of_MSFT_stock(this assert fixtures)
 {
     fixtures.Value.Stocks.Shares["MSFT"].Should().Be(80);
     return fixtures;
