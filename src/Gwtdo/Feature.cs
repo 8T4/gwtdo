@@ -18,7 +18,7 @@ namespace Gwtdo
         protected Act<T> When => Act<T>.Create(Fixture);
         protected Assert<T> Then => Assert<T>.Create(Fixture);
 
-        public Feature()
+        protected Feature()
         {
             
         }

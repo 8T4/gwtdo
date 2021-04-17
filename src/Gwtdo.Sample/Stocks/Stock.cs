@@ -22,15 +22,22 @@ namespace Gwtdo.Sample.Stocks
         public void Buy(string stock, int quantity)
         {
             if (Shares.ContainsKey(stock))
+            {
                 Shares[stock] = Shares[stock] + quantity;
+            }
             else
+            {
                 Shares[stock] = quantity;
+            }
         }
         
         public void Sell(string stock, int quantity)
         {
-            if (!Shares.ContainsKey(stock)) return;
-            
+            if (!Shares.ContainsKey(stock))
+            {
+                return;
+            }
+
             Shares[stock] = Shares[stock] - quantity;
             Orders[stock] = quantity;
         }

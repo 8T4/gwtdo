@@ -3,9 +3,9 @@ using Xunit;
 
 namespace Gwtdo.Sample.Test.Stocks
 {
-    public class UserTradesStocksFeature : Gwtdo.Feature<StockFixture>
+    public class UserTradesStocksFeature : Feature<StockFixture>
     {
-        public UserTradesStocksFeature():base()
+        public UserTradesStocksFeature()
         {
             Fixture = new StockFixture(new Stock());
         }
