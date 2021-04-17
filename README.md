@@ -7,9 +7,8 @@ GWTdo is a .NET library that helps developers write readable tests.
 It's a DSL based in Given-When-Then [Given-When-Then](https://martinfowler.com/bliki/GivenWhenThen.html) style which 
 could be used in your test projects.
 
-[![.NET](https://github.com/8T4/c4sharp/actions/workflows/dotnet.yml/badge.svg)](https://github.com/8T4/c4sharp/actions/workflows/dotnet.yml)
-[![CodeQL](https://github.com/8T4/c4sharp/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/8T4/c4sharp/actions/workflows/codeql-analysis.yml)
-
+[![.NET](https://github.com/8T4/gwtdo/actions/workflows/dotnet.yml/badge.svg)](https://github.com/8T4/gwtdo/actions/workflows/dotnet.yml)
+[![CodeQL](https://github.com/8T4/gwtdo/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/8T4/gwtdo/actions/workflows/codeql-analysis.yml)
 
 # Getting Started
 
