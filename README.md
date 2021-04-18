@@ -71,15 +71,9 @@ Make claims about the object, its collaborators, its parameters, and possibly (r
 Now we are ready to test our code using the `StockFixture` and their extension methods (`Arrange`, `Act` and `Assert`).
 For this, you should extend the `Feature<T>` class and instantiate the fixture in their `Fixture` property.
 
-#### example (1) - basic
+#### basic usage
 
 ![image](https://user-images.githubusercontent.com/357114/115121545-b4f19800-9f89-11eb-90df-ca0773676c7d.png)
-
-
-#### example (2) - using dependency injection
-_For this, you must have adapted the `StockFixture` class_
-
-![image](https://user-images.githubusercontent.com/357114/115121509-7fe54580-9f89-11eb-96d2-e1340db6fe4c.png)
 
 
 #### example (3) - A little bit complex
