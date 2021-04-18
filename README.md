@@ -30,6 +30,16 @@ Feature: User trades stocks
     Then I should have 80 shares of MSFT stock
 ```
 
+<p align="center"><b>🇧🇷 "Versão brasileira..."</b></p>
+
+```yaml
+Feature: Transacoes Na Bolsa Pelo Usuario
+  Scenario: Usuario requisitando venda de acao
+    Dado Que eu tenho 100 acoes MSFT
+    Quando solicito a venda de 20 acoes MSFT
+    Entao Eu devo ter 80 acoes MSFT
+```
+
 Sessions "Test fixture", "Extension methods" and "Test" show how to implements this specification.
 
 ### Test fixture 
@@ -49,7 +59,7 @@ to make your extension methods more readable.
 
 <p align="center"><b>🇧🇷 "Versão brasileira..."</b></p>
 
-![image](https://user-images.githubusercontent.com/357114/115149900-81bc1100-a03c-11eb-8a70-127029d8ea33.png)
+![image](https://user-images.githubusercontent.com/357114/115150857-8e426880-a040-11eb-8454-243888cd1170.png)
 
 
 #### Arrange
@@ -60,7 +70,7 @@ Set up the object to be tested. We may need to surround the object with collabor
 
 <p align="center"><b>🇧🇷 "Versão brasileira..."</b></p>
 
-![image](https://user-images.githubusercontent.com/357114/115150084-4110c780-a03d-11eb-9437-b65b64d11e0b.png)
+![image](https://user-images.githubusercontent.com/357114/115150839-79fe6b80-a040-11eb-9d59-f12a9347e2ea.png)
 
 
 #### Act
@@ -71,7 +81,7 @@ Act on the object (through some mutator). You may need to give it parameters (ag
 
 <p align="center"><b>🇧🇷 "Versão brasileira..."</b></p>
 
-![image](https://user-images.githubusercontent.com/357114/115150337-44f11980-a03e-11eb-9f28-7d27507eb06e.png)
+![image](https://user-images.githubusercontent.com/357114/115150807-66eb9b80-a040-11eb-8975-b0c546486226.png)
 
 
 #### Assert
@@ -82,7 +92,7 @@ Make claims about the object, its collaborators, its parameters, and possibly (r
 
 <p align="center"><b>🇧🇷 "Versão brasileira..."</b></p>
 
-![image](https://user-images.githubusercontent.com/357114/115150378-72d65e00-a03e-11eb-902d-681ca90d0390.png)
+![image](https://user-images.githubusercontent.com/357114/115150788-4cb1bd80-a040-11eb-9e74-1317073b046a.png)
 
 
 ### Test
