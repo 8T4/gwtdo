@@ -1,5 +1,7 @@
 <p align="center">
     <img width="120" src="https://raw.githubusercontent.com/8T4/gwtdo/main/doc/img/logo.png" />
+    <span></span>
+    <img width="120" src="https://raw.githubusercontent.com/8T4/gwtdo/main/doc/img/logo-ptBR.png" />
 </p>
 
 GWTdo is a .NET library that helps developers write readable tests.
