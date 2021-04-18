@@ -33,7 +33,7 @@ Feature: User trades stocks
 
 ```yaml
 Feature: O usuário negocia ações 
-  Scenario: O usuário solicita uma venda 
+  Scenario: O usuário solicita uma venda antes do fechamento da negociação 
     Dado que tenho 100 acoes MSFT
     Quando eu peço para vender 20 ações da MSFT
     Entao Eu deveria ter 80 ações da MSFT
