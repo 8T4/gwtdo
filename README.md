@@ -17,19 +17,6 @@ This package is available through Nuget Packages: https://www.nuget.org/packages
 | ------- | ----- | ----- |----- |
 | `GWTdo` | [![NuGet](https://img.shields.io/nuget/v/Gwtdo.svg)](https://www.nuget.org/packages/Gwtdo) | [![Nuget](https://img.shields.io/nuget/dt/Gwtdo.svg)](https://www.nuget.org/packages/Gwtdo) | [![Codacy Badge](https://app.codacy.com/project/badge/Grade/51e1962835f24f65a3813d078061a9ef)](https://www.codacy.com/gh/8T4/gwtdo/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=8T4/gwtdo&amp;utm_campaign=Badge_Grade) |
 
-**Nuget**
-```shell
-Install-Package Gwtdo
-```
-
-**.NET CLI**
-```shell
-dotnet add package Gwtdo
-```
-
-You need these things to run GWTdo:  
--  [.NET Standard 2.1](https://docs.microsoft.com/pt-br/dotnet/standard/net-standard)  
-
 ## Example
 In our demonstration, we want to test class `Stock.cs`([see the code](src/Gwtdo.Sample/Stocks/Stock.cs)) and make sure it covers the following specification. 
 
@@ -48,9 +35,8 @@ A test fixture is an environment used to consistently test some item, device, or
 In our example, the `StockFixture` is just a simple `record` ([C# 9.0](https://docs.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-9#record-types)) type that contains a
 `Stock` instance as a property. All fixtures using `GWTdo` should have implemented `IFixture` interface.
 
-```c#
-public record StockFixture (Stock Stocks) : IFixture;
-```
+![image](https://user-images.githubusercontent.com/357114/115121644-3b0dde80-9f8a-11eb-96c9-18aa5bbcfec2.png)
+
 
 ### Extension methods
 
@@ -58,122 +44,43 @@ public record StockFixture (Stock Stocks) : IFixture;
 Use [alias directive](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/using-directive) 
 to make your extension methods more readable.
 
-```c#
-using arrange = Arrange<StockFixture>;
-using act = Act<StockFixture>;
-using assert = Assert<StockFixture>;
-```
+![image](https://user-images.githubusercontent.com/357114/115121631-2893a500-9f8a-11eb-8371-6df9b2f60447.png)
+
 
 #### Arrange
 Set up the object to be tested. We may need to surround the object with collaborators. For testing purposes, those collaborators might be test objects (mocks, fakes, etc.) or the real thing.
 [[3]](https://xp123.com/articles/3a-arrange-act-assert/)
 
-```c#
-public static arrange I_have_100_shares_of_MSFT_stock(this arrange fixtures)
-{
-    fixtures.Value.Stocks.Buy("MSFT", 100);
-    return fixtures;
-}
-```
+![image](https://user-images.githubusercontent.com/357114/115121620-14e83e80-9f8a-11eb-9cf6-d4998550173f.png)
+
 #### Act
 Act on the object (through some mutator). You may need to give it parameters (again, possibly test objects).
 [[3]](https://xp123.com/articles/3a-arrange-act-assert/)
 
-````c#
-public static act I_ask_to_sell_20_shares_of_MSFT_stock(this act fixtures)
-{
-    fixtures.Value.Stocks.Sell("MSFT", 20);
-    return fixtures;
-}
-````
+![image](https://user-images.githubusercontent.com/357114/115121607-026e0500-9f8a-11eb-995c-07a445aed3c2.png)
+
 
 #### Assert
 Make claims about the object, its collaborators, its parameters, and possibly (rarely!!) global state.
 [[3]](https://xp123.com/articles/3a-arrange-act-assert/)
 
-````c#
-// using as inline method calling "Verify" method
-public static assert I_should_have_80_shares_of_MSFT_stock(this assert fixtures) =>
-    fixtures.Verify(x => x.Stocks.Shares["MSFT"].Should().Be(80));
+![image](https://user-images.githubusercontent.com/357114/115121596-ecf8db00-9f89-11eb-9ad2-0bdf163f9a94.png)
 
-// or tradicional style    
-public static assert I_should_have_80_shares_of_MSFT_stock(this assert fixtures)
-{
-    fixtures.Value.Stocks.Shares["MSFT"].Should().Be(80);
-    return fixtures;
-}
-````
 
 ### Test
 Now we are ready to test our code using the `StockFixture` and their extension methods (`Arrange`, `Act` and `Assert`).
 For this, you should extend the `Feature<T>` class and instantiate the fixture in their `Fixture` property.
 
-#### example (1) - basic
+#### basic usage
 
-````c#
-public class UserTradesStocksFeature : Feature<StockFixture>
-{
-    public UserTradesStocksFeature()
-    {
-        Fixture = new StockFixture(new Stock());
-    }
-    
-    [Fact]
-    public void Scenario_user_requests_a_sell_before_close_of_trading()
-    {
-        Given.I_have_100_shares_of_MSFT_stock();
-        When.I_ask_to_sell_20_shares_of_MSFT_stock();
-        Then.I_should_have_80_shares_of_MSFT_stock();
-    }
-}    
-````
+![image](https://user-images.githubusercontent.com/357114/115121545-b4f19800-9f89-11eb-90df-ca0773676c7d.png)
 
-#### example (2) - using dependency injection
-_For this, you must have adapted the `StockFixture` class_
-````c#
-public class UserTradesStocksFeature : Feature<StockFixture>, IClassFixture<StockFixture>
-{
-    public UserTradesStocksFeature(StockFixture fixture):base(fixture)
-    {
-    }
-    
-    [Fact]
-    public void Scenario_user_requests_a_sell_before_close_of_trading()
-    {
-        Given.I_have_100_shares_of_MSFT_stock();
-        When.I_ask_to_sell_20_shares_of_MSFT_stock();
-        Then.I_should_have_80_shares_of_MSFT_stock();
-    }
-}    
-````
 
 #### example (3) - A little bit complex
 
-````c#
-public class UserTradesStocksFeature : Feature<StockFixture>, IClassFixture<StockFixture>
-{
-    public UserTradesStocksFeature(StockFixture fixture):base(fixture)
-    {
-    }
-    
-    [Fact]
-    public void Scenario_user_requests_a_sell_before_close_of_trading()
-    {
-        Given
-            .I_have_100_shares_of_MSFT_stock()
-            .And.I_have_150_shares_of_APPL_stock()
-            .And.The_time_is_before_close_of_trading();
+![image](https://user-images.githubusercontent.com/357114/115121489-617f4a00-9f89-11eb-8d2b-e8e036438cba.png)
 
-        When
-            .I_ask_to_sell_20_shares_of_MSFT_stock();
 
-        Then
-            .I_should_have_80_shares_of_MSFT_stock()
-            .And.I_should_have_150_shares_of_APPL_stock()
-            .And.A_sell_order_for_20_shares_of_MSFT_stock_should_have_been_executed();
-    }
-}    
-````
 See those examples in the [sample](src/Gwtdo.Sample.Test/Stocks) project 
 
 ## Guide to contributing to a GitHub project
