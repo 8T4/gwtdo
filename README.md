@@ -32,11 +32,11 @@ Feature: User trades stocks
 <p align="center"><b>🇧🇷 "Versão brasileira..."</b></p>
 
 ```yaml
-Feature: Transacoes Na Bolsa Pelo Usuario
-  Scenario: Usuario requisitando venda de acao
-    Dado Que eu tenho 100 acoes MSFT
-    Quando solicito a venda de 20 acoes MSFT
-    Entao Eu devo ter 80 acoes MSFT
+Feature: O usuário negocia ações 
+  Scenario: O usuário solicita uma venda 
+    Dado que tenho 100 acoes MSFT
+    Quando eu peço para vender 20 ações da MSFT
+    Entao Eu deveria ter 80 ações da MSFT
 ```
 
 Sessions "Test fixture", "Extension methods" and "Test" show how to implements this specification.
