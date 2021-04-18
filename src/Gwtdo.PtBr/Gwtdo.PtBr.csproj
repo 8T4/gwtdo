@@ -2,12 +2,16 @@
 
     <PropertyGroup>
         <TargetFramework>netstandard2.1</TargetFramework>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.1</TargetFramework>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-        <Title>GWTdo - Tests more readable</Title>
+        <Title>GWTdo - PTBR: Testes Mais Legíveis</Title>
         <Authors>yanjustino</Authors>
-        <Description>GWTdo uses Given-When-Then style to make your tests more readable.</Description>
+        <Description>GWTdo usa o estilo DADO-QUANDO-ENTÃO (Given-When-Then) para tornar seus testes mais legíveis.</Description>
         <PackageProjectUrl>https://github.com/8T4/gwtdo</PackageProjectUrl>
-        <PackageIcon>icon.png</PackageIcon>
+        <PackageIcon>icon-ptBR.png</PackageIcon>
         <RepositoryUrl>https://github.com/8T4/gwtdo</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
         <PackageTags>GWT, tests, BDD</PackageTags>
@@ -19,11 +23,11 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <None Include="..\..\doc\img\icon.png">
-            <Pack>true</Pack>
-            <PackagePath>/</PackagePath>
-            <Link>icon.png</Link>
-        </None>
-    </ItemGroup>    
+      <None Include="..\..\doc\img\icon-ptBR.png">
+        <Pack>true</Pack>
+        <PackagePath>/</PackagePath>
+        <Link>icon-ptBR.png</Link>
+      </None>
+    </ItemGroup>
 
 </Project>
