@@ -55,7 +55,9 @@ Set up the object to be tested. We may need to surround the object with collabor
 [[3]](https://xp123.com/articles/3a-arrange-act-assert/)
 
 ![image](https://user-images.githubusercontent.com/357114/115150066-2b030700-a03d-11eb-8442-bc4eb64b670b.png)
+
 <p align="center"><b>🇧🇷 "Versão brasileira..."</b></p>
+
 ![image](https://user-images.githubusercontent.com/357114/115150084-4110c780-a03d-11eb-9437-b65b64d11e0b.png)
 
 
@@ -64,7 +66,9 @@ Act on the object (through some mutator). You may need to give it parameters (ag
 [[3]](https://xp123.com/articles/3a-arrange-act-assert/)
 
 ![image](https://user-images.githubusercontent.com/357114/115150212-d57b2a00-a03d-11eb-8939-2933b68bc3d5.png)
+
 <p align="center"><b>🇧🇷 "Versão brasileira..."</b></p>
+
 ![image](https://user-images.githubusercontent.com/357114/115150337-44f11980-a03e-11eb-9f28-7d27507eb06e.png)
 
 
@@ -73,7 +77,9 @@ Make claims about the object, its collaborators, its parameters, and possibly (r
 [[3]](https://xp123.com/articles/3a-arrange-act-assert/)
 
 ![image](https://user-images.githubusercontent.com/357114/115150366-605c2480-a03e-11eb-8b56-cf33f64beae6.png)
+
 <p align="center"><b>🇧🇷 "Versão brasileira..."</b></p>
+
 ![image](https://user-images.githubusercontent.com/357114/115150378-72d65e00-a03e-11eb-902d-681ca90d0390.png)
 
 
