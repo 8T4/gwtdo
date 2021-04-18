@@ -10,7 +10,7 @@ namespace Gwtdo.Sample.Test.Stocks
 
     public record StockFixture (Stock Stocks) : IFixture;
 
-    public static partial class Setup
+    public static class Setup
     {
         public static arrange I_have_100_shares_of_MSFT_stock(this arrange fixtures) =>
             fixtures.Setup((f) => f.Stocks.Buy("MSFT", 100));
@@ -28,13 +28,13 @@ namespace Gwtdo.Sample.Test.Stocks
         }
     }
 
-    public static partial class Exercise
+    public static class Exercise
     {
         public static act I_ask_to_sell_20_shares_of_MSFT_stock(this act fixtures) =>
             fixtures.Excecute(f => f.Stocks.Sell("MSFT", 20));
     }
 
-    public static partial class Verify
+    public static class Verify
     {
         public static assert I_should_have_80_shares_of_MSFT_stock(this assert fixtures) =>
             fixtures.Verify(x => x.Stocks.Shares["MSFT"].Should().Be(80));
