@@ -17,19 +17,6 @@ This package is available through Nuget Packages: https://www.nuget.org/packages
 | ------- | ----- | ----- |----- |
 | `GWTdo` | [![NuGet](https://img.shields.io/nuget/v/Gwtdo.svg)](https://www.nuget.org/packages/Gwtdo) | [![Nuget](https://img.shields.io/nuget/dt/Gwtdo.svg)](https://www.nuget.org/packages/Gwtdo) | [![Codacy Badge](https://app.codacy.com/project/badge/Grade/51e1962835f24f65a3813d078061a9ef)](https://www.codacy.com/gh/8T4/gwtdo/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=8T4/gwtdo&amp;utm_campaign=Badge_Grade) |
 
-**Nuget**
-```shell
-Install-Package Gwtdo
-```
-
-**.NET CLI**
-```shell
-dotnet add package Gwtdo
-```
-
-You need these things to run GWTdo:  
--  [.NET Standard 2.1](https://docs.microsoft.com/pt-br/dotnet/standard/net-standard)  
-
 ## Example
 In our demonstration, we want to test class `Stock.cs`([see the code](src/Gwtdo.Sample/Stocks/Stock.cs)) and make sure it covers the following specification. 
 
