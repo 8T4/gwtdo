@@ -13,7 +13,7 @@ It's a DSL based on the [Given-When-Then](https://martinfowler.com/bliki/GivenWh
 # Getting Started
 
 ## Instalation
-This package is available through Nuget Packages: https://www.nuget.org/packages/Gwtdo
+This package is available through Nuget Packages: ( 🇬🇧 ) https://www.nuget.org/packages/Gwtdo ou ( 🇧🇷 ) https://www.nuget.org/packages/Gwtdo.PtBr
 
 | Package |  Version | Downloads | Maintainability |
 | ------- | ----- | ----- |----- |
