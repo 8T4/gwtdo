@@ -15,7 +15,7 @@
         <RepositoryUrl>https://github.com/8T4/gwtdo</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
         <PackageTags>GWT, tests, BDD</PackageTags>
-        <PackageVersion>1.0.3</PackageVersion>
+        <PackageVersion>1.0.4</PackageVersion>
         <PackageIconUrl>https://github.com/8T4/gwtdo/blob/main/LICENSE</PackageIconUrl>
         <PublishRepositoryUrl>true</PublishRepositoryUrl>
         <IncludeSymbols>true</IncludeSymbols>
