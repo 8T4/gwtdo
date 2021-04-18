@@ -37,8 +37,7 @@ A test fixture is an environment used to consistently test some item, device, or
 In our example, the `StockFixture` is just a simple `record` ([C# 9.0](https://docs.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-9#record-types)) type that contains a
 `Stock` instance as a property. All fixtures using `GWTdo` should have implemented `IFixture` interface.
 
-![image](https://user-images.githubusercontent.com/357114/115121644-3b0dde80-9f8a-11eb-96c9-18aa5bbcfec2.png)
-
+![image](https://user-images.githubusercontent.com/357114/115149792-16723f00-a03c-11eb-8bbe-0685e15e76c4.png)
 
 ### Extension methods
 
@@ -46,27 +45,36 @@ In our example, the `StockFixture` is just a simple `record` ([C# 9.0](https://d
 Use [alias directive](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/using-directive) 
 to make your extension methods more readable.
 
-![image](https://user-images.githubusercontent.com/357114/115121631-2893a500-9f8a-11eb-8371-6df9b2f60447.png)
+![image](https://user-images.githubusercontent.com/357114/115149879-6f41d780-a03c-11eb-859e-b04181d070bc.png)
+<p align="center"><b>🇧🇷 "Versão brasileira..."</b></p>
+![image](https://user-images.githubusercontent.com/357114/115149900-81bc1100-a03c-11eb-8a70-127029d8ea33.png)
 
 
 #### Arrange
 Set up the object to be tested. We may need to surround the object with collaborators. For testing purposes, those collaborators might be test objects (mocks, fakes, etc.) or the real thing.
 [[3]](https://xp123.com/articles/3a-arrange-act-assert/)
 
-![image](https://user-images.githubusercontent.com/357114/115121620-14e83e80-9f8a-11eb-9cf6-d4998550173f.png)
+![image](https://user-images.githubusercontent.com/357114/115150066-2b030700-a03d-11eb-8442-bc4eb64b670b.png)
+<p align="center"><b>🇧🇷 "Versão brasileira..."</b></p>
+![image](https://user-images.githubusercontent.com/357114/115150084-4110c780-a03d-11eb-9437-b65b64d11e0b.png)
+
 
 #### Act
 Act on the object (through some mutator). You may need to give it parameters (again, possibly test objects).
 [[3]](https://xp123.com/articles/3a-arrange-act-assert/)
 
-![image](https://user-images.githubusercontent.com/357114/115121607-026e0500-9f8a-11eb-995c-07a445aed3c2.png)
+![image](https://user-images.githubusercontent.com/357114/115150212-d57b2a00-a03d-11eb-8939-2933b68bc3d5.png)
+<p align="center"><b>🇧🇷 "Versão brasileira..."</b></p>
+![image](https://user-images.githubusercontent.com/357114/115150337-44f11980-a03e-11eb-9f28-7d27507eb06e.png)
 
 
 #### Assert
 Make claims about the object, its collaborators, its parameters, and possibly (rarely!!) global state.
 [[3]](https://xp123.com/articles/3a-arrange-act-assert/)
 
-![image](https://user-images.githubusercontent.com/357114/115121596-ecf8db00-9f89-11eb-9ad2-0bdf163f9a94.png)
+![image](https://user-images.githubusercontent.com/357114/115150366-605c2480-a03e-11eb-8b56-cf33f64beae6.png)
+<p align="center"><b>🇧🇷 "Versão brasileira..."</b></p>
+![image](https://user-images.githubusercontent.com/357114/115150378-72d65e00-a03e-11eb-902d-681ca90d0390.png)
 
 
 ### Test
