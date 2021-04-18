@@ -6,10 +6,7 @@ namespace Gwtdo.Sample.PtBr.Test.Stocks
 {
     public class TransacoesNaBolsaPeloUsuario: Feature<StockFixture>
     {
-        public TransacoesNaBolsaPeloUsuario()
-        {
-            Fixture = new StockFixture(new Stock());
-        }
+        public TransacoesNaBolsaPeloUsuario() => Fixture = new StockFixture(new Stock());
 
         [Fact]
         public void Usuario_requisitando_venda_de_acao()

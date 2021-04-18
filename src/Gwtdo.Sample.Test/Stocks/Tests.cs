@@ -5,10 +5,7 @@ namespace Gwtdo.Sample.Test.Stocks
 {
     public class UserTradesStocks : Feature<StockFixture>
     {
-        public UserTradesStocks()
-        {
-            Fixture = new StockFixture(new Stock());
-        }
+        public UserTradesStocks() => Fixture = new StockFixture(new Stock());
 
         [Fact]
         public void user_requests_a_sell()
