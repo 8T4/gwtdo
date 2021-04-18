@@ -46,7 +46,9 @@ Use [alias directive](https://docs.microsoft.com/en-us/dotnet/csharp/language-re
 to make your extension methods more readable.
 
 ![image](https://user-images.githubusercontent.com/357114/115149879-6f41d780-a03c-11eb-859e-b04181d070bc.png)
+
 <p align="center"><b>🇧🇷 "Versão brasileira..."</b></p>
+
 ![image](https://user-images.githubusercontent.com/357114/115149900-81bc1100-a03c-11eb-8a70-127029d8ea33.png)
 
 
@@ -89,12 +91,21 @@ For this, you should extend the `Feature<T>` class and instantiate the fixture i
 
 #### basic usage
 
-![image](https://user-images.githubusercontent.com/357114/115121545-b4f19800-9f89-11eb-90df-ca0773676c7d.png)
+![image](https://user-images.githubusercontent.com/357114/115150548-3e16d680-a03f-11eb-81a2-afd5bf38c8ea.png)
+
+<p align="center"><b>🇧🇷 "Versão brasileira..."</b></p>
+
+![image](https://user-images.githubusercontent.com/357114/115150699-e88ef980-a03f-11eb-9afe-99c705ad96b0.png)
+
 
 
 #### example (3) - A little bit complex
 
-![image](https://user-images.githubusercontent.com/357114/115121489-617f4a00-9f89-11eb-8d2b-e8e036438cba.png)
+![image](https://user-images.githubusercontent.com/357114/115150606-8209db80-a03f-11eb-9921-e78b28c1a9e2.png)
+
+<p align="center"><b>🇧🇷 "Versão brasileira..."</b></p>
+
+![image](https://user-images.githubusercontent.com/357114/115150659-c2695980-a03f-11eb-99f5-7b73f4575c5a.png)
 
 
 See those examples in the [sample](src/Gwtdo.Sample.Test/Stocks) project 
