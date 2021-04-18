@@ -17,7 +17,8 @@ This package is available through Nuget Packages: https://www.nuget.org/packages
 
 | Package |  Version | Downloads | Maintainability |
 | ------- | ----- | ----- |----- |
-| `GWTdo` | [![NuGet](https://img.shields.io/nuget/v/Gwtdo.svg)](https://www.nuget.org/packages/Gwtdo) | [![Nuget](https://img.shields.io/nuget/dt/Gwtdo.svg)](https://www.nuget.org/packages/Gwtdo) | [![Codacy Badge](https://app.codacy.com/project/badge/Grade/51e1962835f24f65a3813d078061a9ef)](https://www.codacy.com/gh/8T4/gwtdo/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=8T4/gwtdo&amp;utm_campaign=Badge_Grade) |
+| 🇬🇧 `GWTdo` | [![NuGet](https://img.shields.io/nuget/v/Gwtdo.svg)](https://www.nuget.org/packages/Gwtdo) | [![Nuget](https://img.shields.io/nuget/dt/Gwtdo.svg)](https://www.nuget.org/packages/Gwtdo) | [![Codacy Badge](https://app.codacy.com/project/badge/Grade/51e1962835f24f65a3813d078061a9ef)](https://www.codacy.com/gh/8T4/gwtdo/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=8T4/gwtdo&amp;utm_campaign=Badge_Grade) |
+| 🇧🇷 `GWTdo.PtBr` | [![NuGet](https://img.shields.io/nuget/v/Gwtdo.PtBr.svg)](https://www.nuget.org/packages/Gwtdo.PtBr) | [![Nuget](https://img.shields.io/nuget/dt/Gwtdo.PtBr.svg)](https://www.nuget.org/packages/Gwtdo.PtBr) | [![Codacy Badge](https://app.codacy.com/project/badge/Grade/51e1962835f24f65a3813d078061a9ef)](https://www.codacy.com/gh/8T4/gwtdo/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=8T4/gwtdo&amp;utm_campaign=Badge_Grade) |
 
 ## Example
 In our demonstration, we want to test class `Stock.cs`([see the code](src/Gwtdo.Sample/Stocks/Stock.cs)) and make sure it covers the following specification. 
@@ -118,7 +119,7 @@ For this, you should extend the `Feature<T>` class and instantiate the fixture i
 ![image](https://user-images.githubusercontent.com/357114/115150659-c2695980-a03f-11eb-99f5-7b73f4575c5a.png)
 
 
-See those examples in the [sample](src/Gwtdo.Sample.Test/Stocks) project 
+See those examples in the [sample 🇬🇧](src/Gwtdo.Sample.Test/Stocks) project ou, se preferir, veja nossa versão [brazuca 🇧🇷](src/Gwtdo.Sample.PtBr.Test/Stocks)
 
 ## Guide to contributing to a GitHub project
 This is a guide to contributing to this open source project that uses GitHub. It’s mostly based on how many open sorce projects operate. That’s all there is to it. The fundamentals are:
