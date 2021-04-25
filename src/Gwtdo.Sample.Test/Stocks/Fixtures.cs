@@ -14,6 +14,9 @@ namespace Gwtdo.Sample.Test.Stocks
     {
         public static arrange I_have_100_shares_of_MSFT_stock(this arrange fixtures) =>
             fixtures.Setup((f) => f.Stocks.Buy("MSFT", 100));
+        
+        public static arrange I_have_100_shares_of_MSFT_stock_async(this arrange fixtures) =>
+            fixtures.Setup(async (f) => await f.Stocks.BuyAsync("MSFT", 100));        
 
         public static arrange I_have_150_shares_of_APPL_stock(this arrange fixtures) =>
             fixtures.Setup((f) => f.Stocks.Buy("APPL", 150));

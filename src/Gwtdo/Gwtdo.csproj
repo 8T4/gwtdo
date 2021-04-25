@@ -16,14 +16,6 @@
         <PublishRepositoryUrl>true</PublishRepositoryUrl>
         <IncludeSymbols>true</IncludeSymbols>
         <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-    </PropertyGroup>
-
-    <ItemGroup>
-        <None Include="..\..\doc\img\icon.png">
-            <Pack>true</Pack>
-            <PackagePath>/</PackagePath>
-            <Link>icon.png</Link>
-        </None>
-    </ItemGroup>    
+    </PropertyGroup>    
 
 </Project>

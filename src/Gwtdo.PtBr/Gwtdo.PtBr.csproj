@@ -22,12 +22,4 @@
         <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     </PropertyGroup>
 
-    <ItemGroup>
-      <None Include="..\..\doc\img\icon-ptBR.png">
-        <Pack>true</Pack>
-        <PackagePath>/</PackagePath>
-        <Link>icon-ptBR.png</Link>
-      </None>
-    </ItemGroup>
-
 </Project>

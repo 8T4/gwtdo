@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
+using System.Threading.Tasks;
 
 namespace Gwtdo.Sample.Stocks
 {
@@ -30,6 +31,20 @@ namespace Gwtdo.Sample.Stocks
                 Shares[stock] = quantity;
             }
         }
+        
+        public Task BuyAsync(string stock, int quantity)
+        {
+            if (Shares.ContainsKey(stock))
+            {
+                Shares[stock] = Shares[stock] + quantity;
+            }
+            else
+            {
+                Shares[stock] = quantity;
+            }
+            
+            return Task.CompletedTask;
+        }        
         
         public void Sell(string stock, int quantity)
         {
