@@ -32,23 +32,23 @@ Feature: User trades stocks
 <p align="center"><b>🇧🇷 "Versão brasileira..."</b></p>
 
 ```yaml
-Feature: Transacoes Na Bolsa Pelo Usuario
-  Scenario: Usuario requisitando venda de acao
-    Dado Que eu tenho 100 acoes MSFT
-    Quando solicito a venda de 20 acoes MSFT
-    Entao Eu devo ter 80 acoes MSFT
+Feature: O usuário negocia ações 
+  Scenario: O usuário solicita uma venda antes do fechamento da negociação 
+    Dado que tenho 100 acoes MSFT
+    Quando eu peço para vender 20 ações da MSFT
+    Entao Eu deveria ter 80 ações da MSFT
 ```
 
-Sessions "Test fixture", "Extension methods" and "Test" show how to implements this specification.
+Sessions "1. Test fixture", "Extension methods" and "Test" show how to implements this specification.
 
-### Test fixture 
+### 1. Test Fixtures
 A test fixture is an environment used to consistently test some item, device, or piece of software. [[2]]()
 In our example, the `StockFixture` is just a simple `record` ([C# 9.0](https://docs.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-9#record-types)) type that contains a
 `Stock` instance as a property. All fixtures using `GWTdo` should have implemented `IFixture` interface.
 
 ![image](https://user-images.githubusercontent.com/357114/115149792-16723f00-a03c-11eb-8bbe-0685e15e76c4.png)
 
-### Extension methods
+### 2. Extension methods
 
 #### Alias directive
 Use [alias directive](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/using-directive) 
@@ -94,7 +94,7 @@ Make claims about the object, its collaborators, its parameters, and possibly (r
 ![image](https://user-images.githubusercontent.com/357114/115150788-4cb1bd80-a040-11eb-9e74-1317073b046a.png)
 
 
-### Test
+### 3. Test
 Now we are ready to test our code using the `StockFixture` and their extension methods (`Arrange`, `Act` and `Assert`).
 For this, you should extend the `Feature<T>` class and instantiate the fixture in their `Fixture` property.
 
