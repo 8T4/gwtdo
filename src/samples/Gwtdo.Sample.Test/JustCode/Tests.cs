@@ -1,5 +1,4 @@
 using Gwtdo.Sample.Stocks;
-using Gwtdo.Sample.Test.Stocks;
 using Xunit;
 
 namespace Gwtdo.Sample.Test.JustCode
@@ -11,9 +10,9 @@ namespace Gwtdo.Sample.Test.JustCode
         [Fact]
         public void user_requests_a_sell()
         {
-            Given.I_have_100_shares_of_MSFT_stock();
-            When.I_ask_to_sell_20_shares_of_MSFT_stock();
-            Then.I_should_have_80_shares_of_MSFT_stock();
+            GIVEN.I_have_100_shares_of_MSFT_stock();
+            WHEN.I_ask_to_sell_20_shares_of_MSFT_stock();
+            THEN.I_should_have_80_shares_of_MSFT_stock();
         }
         
         [Fact]

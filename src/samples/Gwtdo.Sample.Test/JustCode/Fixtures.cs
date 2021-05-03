@@ -2,7 +2,7 @@ using System;
 using FluentAssertions;
 using Gwtdo.Sample.Stocks;
 
-namespace Gwtdo.Sample.Test.Stocks
+namespace Gwtdo.Sample.Test.JustCode
 {
     using arrange = Arrange<StockFixture>;
     using act = Act<StockFixture>;

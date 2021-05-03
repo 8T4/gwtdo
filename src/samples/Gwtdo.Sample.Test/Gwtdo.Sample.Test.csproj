@@ -23,7 +23,6 @@
     <ItemGroup>
       <ProjectReference Include="..\..\Gwtdo\Gwtdo.csproj" />
       <ProjectReference Include="..\Gwtdo.Sample\Gwtdo.Sample.csproj" />
-      <ProjectReference Include="..\Gwtdo\Gwtdo.csproj" />
     </ItemGroup>
 
 </Project>
