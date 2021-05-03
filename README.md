@@ -27,7 +27,7 @@ public void user_requests_a_sell()
 {
     SCENARIO["User trades stocks"] =
         DESCRIBE | "User requests a sell before close of trading" |
-            GIVEN | "I have 100 shares of MSFT stock" |
+           GIVEN | "I have 100 shares of MSFT stock" |
             WHEN | "I ask to sell 20 shares of MSFT stock" |
             THEN | "I should have 80 shares of MSFT stock";
    ...
@@ -41,9 +41,9 @@ public void Setup_user_trades_stocks_scenario()
 {
     SCENARIO["User trades stocks"] =
         DESCRIBE | "User requests a sell before close of trading" |
-        GIVEN | "I have 100 shares of MSFT stock".MapAction(Have100SharesOfMsftStock) |
-        WHEN | "I ask to sell 20 shares of MSFT stock".MapAction(AskToSell20SharesOfMsftStock) |
-        THEN | "I should have 80 shares of MSFT stock".MapAction(ShouldHave80SharesOfMsftStock);
+           GIVEN | "I have 100 shares of MSFT stock".MapAction(Have100SharesOfMsftStock) |
+            WHEN | "I ask to sell 20 shares of MSFT stock".MapAction(AskToSell20SharesOfMsftStock) |
+            THEN | "I should have 80 shares of MSFT stock".MapAction(ShouldHave80SharesOfMsftStock);
 }
 
 private static Action<StockFixture> Have100SharesOfMsftStock => f => f.Stocks.Buy("MSFT", 100);
