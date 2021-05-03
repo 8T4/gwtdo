@@ -2,13 +2,14 @@
 
     <PropertyGroup>
         <TargetFramework>net5.0</TargetFramework>
+
         <IsPackable>false</IsPackable>
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="FluentAssertions" Version="5.10.3" />
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.7.1" />
         <PackageReference Include="xunit" Version="2.4.1" />
+        <PackageReference Include="FluentAssertions" Version="5.10.3" />
         <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
             <PrivateAssets>all</PrivateAssets>
@@ -20,8 +21,9 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Gwtdo.PtBr\Gwtdo.PtBr.csproj" />
+      <ProjectReference Include="..\..\Gwtdo\Gwtdo.csproj" />
       <ProjectReference Include="..\Gwtdo.Sample\Gwtdo.Sample.csproj" />
+      <ProjectReference Include="..\Gwtdo\Gwtdo.csproj" />
     </ItemGroup>
 
 </Project>

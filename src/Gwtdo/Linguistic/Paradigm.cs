@@ -2,14 +2,12 @@ using System.Collections.Generic;
 
 namespace Gwtdo.Linguistic
 {
-    internal struct Paradigm<T>
+    internal readonly struct Paradigm<T>
     {
-        private Metalanguage Metalanguage { get; set; }
         public Dictionary<string, Syntagma<T>> Syntagmas { get; }
 
         private Paradigm(string description)
         {
-            Metalanguage = description;
             Syntagmas = new Dictionary<string, Syntagma<T>>();
         }
 

@@ -46,6 +46,5 @@ namespace Gwtdo.Extensions
 
             return stringBuilder.ToString().Normalize(NormalizationForm.FormC);
         }  
-        
     }
 }

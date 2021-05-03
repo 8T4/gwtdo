@@ -2,7 +2,7 @@ using FluentAssertions;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace Gwtdo.Sample.Test.LazyLoad
+namespace Gwtdo.Sample.Test.NaturalLanguange
 {
     public class UserTradesStocks : Feature<StockFixture>,IClassFixture<StockFixture>
     {

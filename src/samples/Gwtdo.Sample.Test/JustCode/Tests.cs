@@ -1,7 +1,8 @@
 using Gwtdo.Sample.Stocks;
+using Gwtdo.Sample.Test.Stocks;
 using Xunit;
 
-namespace Gwtdo.Sample.Test.Stocks
+namespace Gwtdo.Sample.Test.JustCode
 {
     public class UserTradesStocks : Feature<StockFixture>
     {

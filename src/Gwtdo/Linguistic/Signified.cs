@@ -1,8 +1,8 @@
 namespace Gwtdo.Linguistic
 {
-    public struct Signified<T>
+    public readonly struct Signified<T>
     {
-        public T Value { get; private set; }
+        public T Value { get; }
 
         private Signified(T value)
         {

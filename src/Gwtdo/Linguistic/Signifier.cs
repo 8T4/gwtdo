@@ -1,8 +1,8 @@
 namespace Gwtdo.Linguistic
 {
-    internal struct Signifier
+    internal readonly struct Signifier
     {
-        public string Value { get; set; }
+        public string Value { get; }
 
         private Signifier(string value)
         {

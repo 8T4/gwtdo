@@ -2,10 +2,10 @@ using System;
 
 namespace Gwtdo.Linguistic
 {
-    internal struct Syntagma<T>
+    internal readonly struct Syntagma<T>
     {
-        public Metalanguage Metalanguage { get; private set; }
-        public Sign<Action<T>> Sign { get; private set; }
+        public Metalanguage Metalanguage { get; }
+        public Sign<Action<T>> Sign { get; }
 
         public Syntagma(string signifier, Action<T> signified)
         {

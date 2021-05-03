@@ -1,9 +1,9 @@
 namespace Gwtdo.Linguistic
 {
-    internal struct Sign<T>
+    internal readonly struct Sign<T>
     {
-        public Signifier Signifier { get; private set; }
-        public Signified<T> Signified { get; private set; }
+        public Signifier Signifier { get; }
+        public Signified<T> Signified { get; }
 
         public Sign(string signifier, T signified)
         {

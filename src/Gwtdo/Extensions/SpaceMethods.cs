@@ -8,7 +8,7 @@ namespace Gwtdo.Extensions
         /// <summary>
         /// Default indentation tabsize
         /// </summary>
-        internal static int TabSize => 4;
+        private static int TabSize => 4;
 
         /// <summary>
         /// Ident string using default tabsize

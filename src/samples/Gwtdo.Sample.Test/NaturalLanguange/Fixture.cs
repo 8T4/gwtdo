@@ -4,7 +4,7 @@ using Gwtdo.Extensions;
 using Gwtdo.Sample.Stocks;
 using Gwtdo.Scenarios;
 
-namespace Gwtdo.Sample.Test.LazyLoad
+namespace Gwtdo.Sample.Test.NaturalLanguange
 {
     public class StockFixture : IFixture
     {
@@ -12,11 +12,6 @@ namespace Gwtdo.Sample.Test.LazyLoad
 
         public void Setup() => Stocks = new Stock();
         public void Clear() => Stocks = null;
-
-        public StockFixture()
-        {
-            Stocks = new Stock();
-        }
     }
 
     public class StockFixtureMapper : ScenarioMapper<StockFixture>
