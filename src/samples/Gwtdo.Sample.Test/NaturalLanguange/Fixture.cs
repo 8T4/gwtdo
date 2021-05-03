@@ -28,7 +28,7 @@ namespace Gwtdo.Sample.Test.NaturalLanguange
                 WHEN | "I ask to sell 20 shares of MSFT stock".MapAction(AskToSell20SharesOfMsftStock) |
                 THEN | "I should have 80 shares of MSFT stock".MapAction(ShouldHave80SharesOfMsftStock);
         }
-        
+
         public void Setup_user_requests_a_sell_before_close_of_trading()
         {
             SCENARIO["User trades stocks before close of trading"] =
@@ -39,23 +39,23 @@ namespace Gwtdo.Sample.Test.NaturalLanguange
                 WHEN | "I ask to sell 20 shares of MSFT stock".MapAction(AskToSell20SharesOfMsftStock) |
                 THEN | "I should have 150 shares of APPL stock".MapAction(ShouldHave150SharesOfApplStock) |
                 AND | "I should have 80 shares of MSFT stock".MapAction(ShouldHave80SharesOfMsftStock);
-        }        
+        }
 
         private static Action<StockFixture> Have100SharesOfMsftStock =>
             f => f.Stocks.Buy("MSFT", 100);
-        
+
         private static Action<StockFixture> Have150SharesOfApplStock =>
-            f => f.Stocks.Buy("APPL", 150);        
+            f => f.Stocks.Buy("APPL", 150);
 
         private static Action<StockFixture> AskToSell20SharesOfMsftStock =>
             f => f.Stocks.Sell("MSFT", 20);
 
         private static Action<StockFixture> ShouldHave80SharesOfMsftStock =>
             f => f.Stocks.Shares["MSFT"].Should().Be(80);
-        
+
         private static Action<StockFixture> ShouldHave150SharesOfApplStock =>
-            f => f.Stocks.Shares["APPL"].Should().Be(150);        
-        
+            f => f.Stocks.Shares["APPL"].Should().Be(150);
+
         private static Action<StockFixture> TheTimeIsBeforeCloseOfTrading =>
             f => f.Stocks.SetTimeToCloseTrading($"{DateTime.Today:yyyy-MM-dd} 23:59:59");
     }

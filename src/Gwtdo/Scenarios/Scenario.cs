@@ -114,6 +114,7 @@ namespace Gwtdo.Scenarios
             }
 
             result.Insert(0, $"\u001b[0m\u001b[32m{this.Description.ToUpper(CultureInfo.InvariantCulture)}\u001b[0m");
+            Console.WriteLine(result.ToString());
             RedirectStandardOutput?.Invoke(result.ToString());
             
             return ScenarioResult.Ok(result.ToString());
