@@ -1,12 +1,12 @@
-<p align="center">
-    <img src="https://raw.githubusercontent.com/8T4/gwtdo/main/doc/img/logo.png" />
-</p>
-
 **GWTdo is a .NET library that helps developers write readable tests**.
 It's a DSL based on the [Given-When-Then](https://martinfowler.com/bliki/GivenWhenThen.html) style which could be used in your test projects.
 
 [![.NET](https://github.com/8T4/gwtdo/actions/workflows/dotnet.yml/badge.svg)](https://github.com/8T4/gwtdo/actions/workflows/dotnet.yml)
 [![CodeQL](https://github.com/8T4/gwtdo/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/8T4/gwtdo/actions/workflows/codeql-analysis.yml)
+
+<p align="center" width="100%">
+    <img src="https://raw.githubusercontent.com/8T4/gwtdo/main/doc/img/banner.png" />
+</p>
 
 # Getting Started
 
