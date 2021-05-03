@@ -27,7 +27,7 @@ public void user_requests_a_sell()
 {
     SCENARIO["User trades stocks"] =
         DESCRIBE | "User requests a sell before close of trading" |
-            GIVEN | "I have 100 shares of MSFT stock" |
+           GIVEN | "I have 100 shares of MSFT stock" |
             WHEN | "I ask to sell 20 shares of MSFT stock" |
             THEN | "I should have 80 shares of MSFT stock";
    ...
@@ -41,9 +41,9 @@ public void Setup_user_trades_stocks_scenario()
 {
     SCENARIO["User trades stocks"] =
         DESCRIBE | "User requests a sell before close of trading" |
-        GIVEN | "I have 100 shares of MSFT stock".MapAction(Have100SharesOfMsftStock) |
-        WHEN | "I ask to sell 20 shares of MSFT stock".MapAction(AskToSell20SharesOfMsftStock) |
-        THEN | "I should have 80 shares of MSFT stock".MapAction(ShouldHave80SharesOfMsftStock);
+           GIVEN | "I have 100 shares of MSFT stock".MapAction(Have100SharesOfMsftStock) |
+            WHEN | "I ask to sell 20 shares of MSFT stock".MapAction(AskToSell20SharesOfMsftStock) |
+            THEN | "I should have 80 shares of MSFT stock".MapAction(ShouldHave80SharesOfMsftStock);
 }
 
 private static Action<StockFixture> Have100SharesOfMsftStock => f => f.Stocks.Buy("MSFT", 100);
@@ -53,7 +53,7 @@ private static Action<StockFixture> Have150SharesOfApplStock => f => f.Stocks.Bu
 private static Action<StockFixture> AskToSell20SharesOfMsftStock => f => f.Stocks.Sell("MSFT", 20);
 
 ```
-See the complete code in the [Natural Languange sample code](https://github.com/8T4/gwtdo/blob/main/src/samples/Gwtdo.Sample.Test/NaturalLanguange/Tests.cs).
+See the complete code in the [Natural Languange sample code](https://github.com/8T4/gwtdo/tree/main/src/samples/Gwtdo.Sample.Test/NaturalLanguange).
 
 
 #### Just code
@@ -84,7 +84,7 @@ public static assert I_should_have_80_shares_of_MSFT_stock(this assert fixtures)
     fixtures.Verify(x => x.Stocks.Shares["MSFT"].Should().Be(80));    
 ```
         
-See the complete code in the [Just Code sample](https://github.com/8T4/gwtdo/blob/main/src/samples/Gwtdo.Sample.Test/JustCode/Tests.cs).
+See the complete code in the [Just Code sample](https://github.com/8T4/gwtdo/tree/main/src/samples/Gwtdo.Sample.Test/JustCode).
 
 
 ## Guide to contributing to a GitHub project
