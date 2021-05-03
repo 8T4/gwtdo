@@ -11,7 +11,6 @@ namespace Gwtdo
     {
         private T Value { get; }
         public Act<T> And => this;
-        public static string Name => $"\u001b[36;1mWHEN\u001b[0m";
 
         private Act(T value)
         {
@@ -28,4 +27,9 @@ namespace Gwtdo
             return this;
         }        
     }
+    
+    internal static class Act
+    {
+        public static string Name => $"\u001b[36;1mWHEN\u001b[0m";
+    }    
 }

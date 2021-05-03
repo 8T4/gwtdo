@@ -55,9 +55,9 @@ namespace Gwtdo
         }
 
         public static Feature<T> operator |(Feature<T> feature, And other) => feature;
-        public static Feature<T> operator |(Feature<T> feature, Arrange<T> other) => Add(feature, Arrange<T>.Name);
-        public static Feature<T> operator |(Feature<T> feature, Act<T> other) => Add(feature, Act<T>.Name);
-        public static Feature<T> operator |(Feature<T> feature, Assert<T> other) => Add(feature, Assert<T>.Name);
+        public static Feature<T> operator |(Feature<T> feature, Arrange<T> other) => Add(feature, Arrange.Name);
+        public static Feature<T> operator |(Feature<T> feature, Act<T> other) => Add(feature, Act.Name);
+        public static Feature<T> operator |(Feature<T> feature, Assert<T> other) => Add(feature, Assert.Name);
         
         private static Feature<T> Add(Feature<T> feature, string value)
         {

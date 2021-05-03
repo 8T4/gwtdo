@@ -52,9 +52,9 @@ namespace Gwtdo.Localizations
         }
 
         public static FeaturePtBr<T> operator |(FeaturePtBr<T> feature, And other) => feature;
-        public static FeaturePtBr<T> operator |(FeaturePtBr<T> feature, Arrange<T> other) => Add(feature, Arrange<T>.Name);
-        public static FeaturePtBr<T> operator |(FeaturePtBr<T> feature, Act<T> other) => Add(feature, Act<T>.Name);
-        public static FeaturePtBr<T> operator |(FeaturePtBr<T> feature, Assert<T> other) => Add(feature, Assert<T>.Name);
+        public static FeaturePtBr<T> operator |(FeaturePtBr<T> feature, Arrange<T> other) => Add(feature, Arrange.Name);
+        public static FeaturePtBr<T> operator |(FeaturePtBr<T> feature, Act<T> other) => Add(feature, Act.Name);
+        public static FeaturePtBr<T> operator |(FeaturePtBr<T> feature, Assert<T> other) => Add(feature, Assert.Name);
         
         private static FeaturePtBr<T> Add(FeaturePtBr<T> feature, string value)
         {

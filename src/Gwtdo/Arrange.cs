@@ -11,7 +11,6 @@ namespace Gwtdo
     {
         private T Value { get; }
         public Arrange<T> And => this;
-        public static string Name => "\u001b[36;1mGIVEN\u001b[0m";
         
         private Arrange(T value)
         {
@@ -30,5 +29,10 @@ namespace Gwtdo
             action.Invoke(Value);
             return this;
         }
+    }
+
+    internal static class Arrange
+    {
+        public static string Name => "\u001b[36;1mGIVEN\u001b[0m";
     }
 }

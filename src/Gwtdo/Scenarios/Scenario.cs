@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using Gwtdo.Extensions;
@@ -17,11 +18,7 @@ namespace Gwtdo.Scenarios
         public Scenario<T> this[string description]
         {
             get => this;
-            set
-            {
-                value = this;
-                value.Description = description;
-            }
+            set => value.Description = description;
         }
 
         public Scenario(string description, T fixture)
@@ -52,10 +49,10 @@ namespace Gwtdo.Scenarios
             result.AppendLine("...");
 
             result.AppendLine(SpaceMethods.PrintLine(60));
-            result.AppendLine($"\u001b[0m\u001b[31;1m{Description.ToUpper()}\u001b[0m");
+            result.AppendLine($"\u001b[0m\u001b[31;1m{Description.ToUpper(CultureInfo.InvariantCulture)}\u001b[0m");
             if (!MappedParadigms.Syntagmas.Any())
             {
-                result.Insert(0, $"\u001b[0m\u001b[33mthe SCENARIO \"{Description.ToUpper()}\" SHOULD BE MAPPED\u001b[0m");
+                result.Insert(0, $"\u001b[0m\u001b[33mthe SCENARIO \"{Description.ToUpper(CultureInfo.InvariantCulture)}\" SHOULD BE MAPPED\u001b[0m");
                 return ScenarioResult.Fail(result.ToString());
             }
 
@@ -111,12 +108,12 @@ namespace Gwtdo.Scenarios
                 {
                     result.AppendLine($"\u001b[0m\u001b[31m{value.Metalanguage.Sign.Signifier.Value}\u001b[0m".Indent(4));
                     result.AppendLine($"\u001b[0m\u001b[31m{ex.Message}\u001b[0m".Indent(4));
-                    result.Insert(0, $"\u001b[0m\u001b[31m{Description.ToUpper()}\u001b[0m");
+                    result.Insert(0, $"\u001b[0m\u001b[31m{Description.ToUpper(CultureInfo.InvariantCulture)}\u001b[0m");
                     return ScenarioResult.Fail(result.ToString());
                 }
             }
 
-            result.Insert(0, $"\u001b[0m\u001b[32m{this.Description.ToUpper()}\u001b[0m");
+            result.Insert(0, $"\u001b[0m\u001b[32m{this.Description.ToUpper(CultureInfo.InvariantCulture)}\u001b[0m");
             RedirectStandardOutput?.Invoke(result.ToString());
             
             return ScenarioResult.Ok(result.ToString());

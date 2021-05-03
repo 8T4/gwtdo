@@ -51,9 +51,9 @@ namespace Gwtdo.Scenarios
         public static ScenarioMapper<T> operator |(ScenarioMapper<T> mapper, (string value, Action) action) => mapper;
         public static ScenarioMapper<T> operator |(ScenarioMapper<T> mapper, And other) => mapper;
         public static ScenarioMapper<T> operator |(ScenarioMapper<T> mapper, ScenarioMapper<T> other) => Add(mapper, And.Name);
-        public static ScenarioMapper<T> operator |(ScenarioMapper<T> mapper, Arrange<T> other) => Add(mapper, Arrange<T>.Name);
-        public static ScenarioMapper<T> operator |(ScenarioMapper<T> mapper, Act<T> other) => Add(mapper, Act<T>.Name);
-        public static ScenarioMapper<T> operator |(ScenarioMapper<T> mapper, Assert<T> other) => Add(mapper, Assert<T>.Name);
+        public static ScenarioMapper<T> operator |(ScenarioMapper<T> mapper, Arrange<T> other) => Add(mapper, Arrange.Name);
+        public static ScenarioMapper<T> operator |(ScenarioMapper<T> mapper, Act<T> other) => Add(mapper, Act.Name);
+        public static ScenarioMapper<T> operator |(ScenarioMapper<T> mapper, Assert<T> other) => Add(mapper, Assert.Name);
         
         private static ScenarioMapper<T> Add(ScenarioMapper<T> mapper, string value)
         {
