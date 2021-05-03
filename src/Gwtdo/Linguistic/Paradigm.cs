@@ -1,15 +1,13 @@
 using System.Collections.Generic;
-using Gwtdo.Extensions;
-using Gwtdo.Scenarios;
 
 namespace Gwtdo.Linguistic
 {
     internal struct Paradigm<T>
     {
-        public Metalanguage Metalanguage { get; private set; }
-        public Dictionary<string, Syntagma<T>> Syntagmas { get; set; }
+        private Metalanguage Metalanguage { get; set; }
+        public Dictionary<string, Syntagma<T>> Syntagmas { get; }
 
-        public Paradigm(string description)
+        private Paradigm(string description)
         {
             Metalanguage = description;
             Syntagmas = new Dictionary<string, Syntagma<T>>();

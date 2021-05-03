@@ -10,8 +10,8 @@ namespace Gwtdo.Scenarios
     {
         private readonly T _fixture;
         private string Description { get; set; }
-        internal Paradigm<T> Paradigms { get; private set; }
-        internal Paradigm<T> MappedParadigms { get; private set; }
+        internal Paradigm<T> Paradigms { get; }
+        internal Paradigm<T> MappedParadigms { get; }
         public Action<string> RedirectStandardOutput { get; set; }
 
         public Scenario<T> this[string description]
@@ -54,12 +54,12 @@ namespace Gwtdo.Scenarios
             if (!MappedParadigms.Syntagmas.Any())
             {
                 result.Insert(0, $"\u001b[0m\u001b[33mthe SCENARIO \"{this.Description.ToUpper()}\" SHOULD BE MAPPED\u001b[0m");
-                return ScenarioResult.Fail(result.ToString(), null);
+                return ScenarioResult.Fail(result.ToString());
             }
 
             var allExpressionMapped = true;
 
-            foreach (var (key, value) in Paradigms.Syntagmas)
+            foreach (var (_, value) in Paradigms.Syntagmas)
             {
                 if (!MappedParadigms.SyntagmaExists(value))
                 {
@@ -73,7 +73,7 @@ namespace Gwtdo.Scenarios
 
             return allExpressionMapped
                 ? ScenarioResult.Ok(result.ToString())
-                : ScenarioResult.Fail(result.ToString(), null);
+                : ScenarioResult.Fail(result.ToString());
         }
 
         private ScenarioResult ExectueMappedParadigms()
@@ -96,11 +96,11 @@ namespace Gwtdo.Scenarios
                     mapped.Sign.Signified.Value.Invoke(_fixture);
                     result.AppendLine($"{mapped.Metalanguage.Sign.Signifier.Value}".Indent(4));
                 }
-                catch (Exception e)
+                catch
                 {
                     result.AppendLine($"\u001b[0m\u001b[31m{value.Metalanguage.Sign.Signifier.Value}\u001b[0m".Indent(4));
-                    result.Insert(0, $"\u001b[0m\u001b[31m{this.Description.ToUpper()}\u001b[0m");
-                    return ScenarioResult.Fail(result.ToString(), e);
+                    result.Insert(0, $"\u001b[0m\u001b[31m{Description.ToUpper()}\u001b[0m");
+                    return ScenarioResult.Fail(result.ToString());
                 }
             }
 

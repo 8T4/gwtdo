@@ -10,10 +10,5 @@ namespace Gwtdo.Linguistic
             Signifier = signifier;
             Signified = signified;
         }
-
-        internal void UpdateSignified(T signified)
-        {
-            Signified = signified;            
-        }
     }
 }

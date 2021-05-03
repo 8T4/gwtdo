@@ -26,12 +26,9 @@ namespace Gwtdo.Sample.Test.LazyLoad
         {
             SCENARIO["User trades stocks"] =
                 DESCRIBE | "User requests a sell before close of trading" |
-                GIVEN | "I have 100 shares of MSFT stock"
-                    .MapAction(I_have_100_shares_of_MSFT_stock()) |
-                WHEN | "I ask to sell 20 shares of MSFT stock"
-                    .MapAction(I_ask_to_sell_20_shares_of_MSFT_stock()) |
-                THEN | "I should have 80 shares of MSFT stock"
-                    .MapAction(I_should_have_80_shares_of_MSFT_stock());
+                GIVEN | "I have 100 shares of MSFT stock".MapAction(I_have_100_shares_of_MSFT_stock()) |
+                WHEN | "I ask to sell 20 shares of MSFT stock".MapAction(I_ask_to_sell_20_shares_of_MSFT_stock()) |
+                THEN | "I should have 80 shares of MSFT stock".MapAction(I_should_have_80_shares_of_MSFT_stock());
         }
 
         private static Action<StockFixture> I_have_100_shares_of_MSFT_stock() =>

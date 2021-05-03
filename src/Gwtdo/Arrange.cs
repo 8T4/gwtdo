@@ -9,8 +9,9 @@ namespace Gwtdo
     /// <typeparam name="T"></typeparam>
     public sealed class Arrange<T>  where T : IFixture
     {
+        private T Value { get; }
         public Arrange<T> And => this;
-        public T Value { get; protected set; }
+        public static string Name => "GIVEN";
         
         private Arrange(T value)
         {

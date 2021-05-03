@@ -1,6 +1,4 @@
 using FluentAssertions;
-using Gwtdo.Sample.Stocks;
-using Gwtdo.Scenarios;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -21,14 +19,12 @@ namespace Gwtdo.Sample.Test.LazyLoad
         {
             SCENARIO["User trades stocks"] =
                 DESCRIBE | "User requests a sell before close of trading" |
-                GIVEN | "I have 100 shares of MSFT stock" |
-                WHEN | "I ask to sell 20 shares of MSFT stock" |
-                THEN | "I should have 80 shares of MSFT stock";
+                    GIVEN | "I have 100 shares of MSFT stock" |
+                    WHEN | "I ask to sell 20 shares of MSFT stock" |
+                    THEN | "I should have 80 shares of MSFT stock";
             
             _mapper.Setup_User_Trades_Stocks_Scenario();
-
             var result = SCENARIO.Execute();
-            
             result.IsSuccess.Should().BeTrue(result.Message);
         }
 
@@ -37,16 +33,14 @@ namespace Gwtdo.Sample.Test.LazyLoad
         {
             SCENARIO["User trades stocks"] =
                 DESCRIBE | "User requests a sell before close of trading" |
-                GIVEN | "I have 100 shares of MSFT stock" |
-                AND | "I have 150 shares of APPL stock" |
-                AND | "The time is before close of trading" |
-                WHEN | "I ask to sell 20 shares of MSFT stock" |
-                THEN | "I should have 80 shares of MSFT stock";
+                    GIVEN | "I have 100 shares of MSFT stock" |
+                        AND | "I have 150 shares of APPL stock" |
+                        AND | "The time is before close of trading" |
+                    WHEN | "I ask to sell 20 shares of MSFT stock" |
+                    THEN | "I should have 80 shares of MSFT stock";
             
             _mapper.Setup_User_Trades_Stocks_Scenario();
-            
             var result = SCENARIO.Execute();
-            
             result.IsSuccess.Should().BeTrue(result.Message);
         }
     }

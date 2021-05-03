@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Gwtdo.PtBr
+﻿namespace Gwtdo.PtBr
 {
     /// <summary>
     /// Although Given-When-Then style is symptomatic to BDD, the basic idea is pretty common when writing tests or

@@ -1,7 +1,6 @@
 using System;
-using Gwtdo.Linguistic;
 
-namespace Gwtdo.Scenarios
+namespace Gwtdo.Linguistic
 {
     internal struct Syntagma<T>
     {

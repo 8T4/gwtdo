@@ -1,6 +1,5 @@
 using System;
-using System.Data;
-using Gwtdo.Extensions;
+using Gwtdo.Linguistic;
 
 namespace Gwtdo.Scenarios
 {
@@ -12,16 +11,14 @@ namespace Gwtdo.Scenarios
     {
         private readonly T _fixture;
 
-        public Scenario<T> SCENARIO { get; set; }
+        public Scenario<T> SCENARIO { get; }
         protected ScenarioMapper<T> DESCRIBE => this;
         protected Arrange<T> GIVEN => Arrange<T>.Create(_fixture);
         protected Act<T> WHEN => Act<T>.Create(_fixture);
         protected Assert<T> THEN => Assert<T>.Create(_fixture);
-
         protected And AND => And.Create();
 
-
-        public ScenarioMapper(Scenario<T> scenario, T fixture)
+        protected ScenarioMapper(Scenario<T> scenario, T fixture)
         {
             SCENARIO = scenario;
             _fixture = fixture;

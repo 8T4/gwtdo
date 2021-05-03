@@ -1,5 +1,3 @@
-using System;
-
 namespace Gwtdo.Scenarios
 {
     public class ScenarioResult
@@ -7,16 +5,14 @@ namespace Gwtdo.Scenarios
         public bool IsSuccess { get; private set; }
         public string Message { get; private set; }
         public bool IsFailure => !IsSuccess;
-        public Exception Exception { get; private set; }
 
-        public ScenarioResult(bool isSuccess, string result, Exception exception)
+        private ScenarioResult(bool isSuccess, string result)
         {
             IsSuccess = isSuccess;
             Message = result;
-            Exception = exception;
         }
 
-        public static ScenarioResult Ok(string result) => new ScenarioResult(true, result, null);
-        public static ScenarioResult Fail(string result, Exception e) => new ScenarioResult(false, result, e);
+        public static ScenarioResult Ok(string result) => new ScenarioResult(true, result);
+        public static ScenarioResult Fail(string result) => new ScenarioResult(false, result);
     }
 }

@@ -10,7 +10,7 @@ namespace Gwtdo.Sample.Test.Stocks
 
     public record StockFixture (Stock Stocks) : IFixture;
 
-    public static partial class Setup
+    public static class Setup
     {
         public static arrange I_have_100_shares_of_MSFT_stock(this arrange fixtures) =>
             fixtures.Setup((f) => f.Stocks.Buy("MSFT", 100));
@@ -24,10 +24,7 @@ namespace Gwtdo.Sample.Test.Stocks
         public static arrange The_time_is_before_close_of_trading(this arrange fixtures)
         {
             var date = DateTime.Today.ToString("yyyy-MM-dd");
-            const string time = "23:59:59";
-
-            fixtures.Value.Stocks.SetTimeToCloseTrading($"{date} {time}");
-            return fixtures;
+            return fixtures.Setup((f) => f.Stocks.SetTimeToCloseTrading($"{date} 23:59:59"));
         }
     }
 

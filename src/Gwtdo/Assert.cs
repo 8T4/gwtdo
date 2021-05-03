@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using Gwtdo.Scenarios;
 
 namespace Gwtdo
 {
@@ -11,8 +9,9 @@ namespace Gwtdo
     /// <typeparam name="T"></typeparam>    
     public sealed class Assert<T> where T : IFixture
     {
+        private T Value { get; }
         public Assert<T> And => this;
-        public T Value { get; protected set; }
+        public static string Name => "THEN";
 
         private Assert(T value)
         {

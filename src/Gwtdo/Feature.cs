@@ -1,4 +1,4 @@
-﻿using Gwtdo.Extensions;
+﻿using Gwtdo.Linguistic;
 using Gwtdo.Scenarios;
 
 namespace Gwtdo
@@ -13,7 +13,7 @@ namespace Gwtdo
     /// <typeparam name="T"></typeparam>
     public abstract partial class Feature<T> where T : IFixture
     {
-        public T Fixture { get; set; }
+        protected T Fixture { get; set; }
         protected Arrange<T> Given => Arrange<T>.Create(Fixture);
         protected Act<T> When => Act<T>.Create(Fixture);
         protected Assert<T> Then => Assert<T>.Create(Fixture);
