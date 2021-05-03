@@ -6,7 +6,7 @@ It's a DSL based on the [Given-When-Then](https://martinfowler.com/bliki/GivenWh
 
 <p align="center" width="100%">
     <img src="https://raw.githubusercontent.com/8T4/gwtdo/main/doc/img/banner.png" />
-</p
+</p>
 
 # Getting Started
 
