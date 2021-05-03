@@ -1,5 +1,4 @@
 using System;
-
 namespace Gwtdo
 {
     /// <summary>
@@ -8,18 +7,27 @@ namespace Gwtdo
     /// <see href="https://xp123.com/articles/3a-arrange-act-assert/"/>
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public sealed class Arrange<T> where T : IFixture
+    public sealed class Arrange<T>  where T : IFixture
     {
-        public T Value { get; }
-        public Arrange<T> And =>  this;
+        public Arrange<T> And => this;
+        public T Value { get; protected set; }
         
-        private Arrange(T value) => Value = value;
-        public static Arrange<T> Create(T value) => new Arrange<T>(value);
+        private Arrange(T value)
+        {
+            Value = value;
+        }
+
+        internal static Arrange<T> Create(T value) => new Arrange<T>(value);        
         
+        /// <summary>
+        /// Use setup to initialize actions that are eager loaded to test your specs.
+        /// </summary>
+        /// <param name="action"></param>
+        /// <returns></returns>
         public Arrange<T> Setup(Action<T> action)
         {
             action.Invoke(Value);
             return this;
-        }        
+        }
     }
 }

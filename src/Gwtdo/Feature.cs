@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Gwtdo.Extensions;
+using Gwtdo.Scenarios;
 
 namespace Gwtdo
 {
@@ -10,16 +11,19 @@ namespace Gwtdo
     /// <see href="https://xp123.com/articles/3a-arrange-act-assert/"/>
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public abstract class Feature<T> where T : IFixture
+    public abstract partial class Feature<T> where T : IFixture
     {
-        protected T Fixture { get; set; }
-
+        public T Fixture { get; set; }
         protected Arrange<T> Given => Arrange<T>.Create(Fixture);
         protected Act<T> When => Act<T>.Create(Fixture);
         protected Assert<T> Then => Assert<T>.Create(Fixture);
-        protected Arrange<T> GIVEN => Given;
-        protected Act<T> WHEN => When;
-        protected Assert<T> THEN => Then;
+
+        public Scenario<T> SCENARIO { get; set; }
+        protected Feature<T> DESCRIBE => this;
+        protected Arrange<T> GIVEN => Arrange<T>.Create(Fixture);
+        protected Act<T> WHEN => Act<T>.Create(Fixture);
+        protected Assert<T> THEN => Assert<T>.Create(Fixture);
+        protected And AND => And.Create();
 
         protected Feature()
         {
@@ -28,6 +32,38 @@ namespace Gwtdo
         protected Feature(T fixture)
         {
             Fixture = fixture;
+            SCENARIO = new Scenario<T>(string.Empty, fixture);
         }
+    }
+
+    /// <summary>
+    /// OPERATORS
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    public abstract partial class Feature<T> where T : IFixture
+    {
+        public static Feature<T> operator |(Feature<T> feature, string other)
+        {
+            var syntagma = new Syntagma<T>(other, null);
+            
+            if (!feature.SCENARIO.Paradigms.SyntagmaExists(syntagma))
+            {
+                feature.SCENARIO.Paradigms.AddSyntagma(syntagma);
+            }
+
+            return feature;
+        }
+
+        public static Feature<T> operator |(Feature<T> feature, And other) => feature;
+        public static Feature<T> operator |(Feature<T> feature, Arrange<T> other) => Add(feature, "GIVEN");
+        public static Feature<T> operator |(Feature<T> feature, Act<T> other) => Add(feature, "WHEN");
+        public static Feature<T> operator |(Feature<T> feature, Assert<T> other) => Add(feature, "THEN");
+        
+        private static Feature<T> Add(Feature<T> feature, string value)
+        {
+            var syntagma = new Syntagma<T>(value, null);
+            feature.SCENARIO.Paradigms.AddSyntagma(syntagma);
+            return feature;
+        }         
     }
 }

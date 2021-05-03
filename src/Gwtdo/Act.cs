@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using Gwtdo.Scenarios;
 
 namespace Gwtdo
 {
@@ -7,18 +9,24 @@ namespace Gwtdo
     /// <see href="https://xp123.com/articles/3a-arrange-act-assert/"/>
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public sealed class Act<T> where T: IFixture
+    public sealed class Act<T> where T : IFixture
     {
-        public T Value { get; }
-        public Act<T> And =>  this;
+        public Act<T> And => this;
+        public T Value { get; protected set; }
+
+        private Act(T value)
+        {
+            Value = value;
+        }
+
+        internal static Act<T> Create(T value) => new Act<T>(value);
+
+        public Act<T> Excecute(Action<T> action) => It(action);
         
-        private Act(T value) => Value = value;
-        public static Act<T> Create(T value) => new Act<T>(value);        
-        
-        public Act<T> Excecute(Action<T> action)
+        public Act<T> It(Action<T> action)
         {
             action.Invoke(Value);
             return this;
-        }            
+        }        
     }
 }
