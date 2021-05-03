@@ -11,7 +11,7 @@ namespace Gwtdo
     {
         private T Value { get; }
         public Assert<T> And => this;
-        public static string Name => "THEN";
+        public static string Name => $"\u001b[36;1mTHEN\u001b[0m";
 
         private Assert(T value)
         {

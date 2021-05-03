@@ -39,34 +39,44 @@ namespace Gwtdo.Scenarios
 
         public ScenarioResult Execute()
         {
-            var isValidScenario = AllScenarioWereMapped();
+            var result = VerifyIfAllScenarioWereMapped();
 
-            return isValidScenario.IsFailure
-                ? isValidScenario
+            return result.IsFailure
+                ? result
                 : ExectueMappedParadigms();
         }
 
-        private ScenarioResult AllScenarioWereMapped()
+        private ScenarioResult VerifyIfAllScenarioWereMapped()
         {
             var result = new StringBuilder();
-            result.AppendLine();
+            result.AppendLine("...");
 
+            result.AppendLine(SpaceMethods.PrintLine(60));
+            result.AppendLine($"\u001b[0m\u001b[31;1m{Description.ToUpper()}\u001b[0m");
             if (!MappedParadigms.Syntagmas.Any())
             {
-                result.Insert(0, $"\u001b[0m\u001b[33mthe SCENARIO \"{this.Description.ToUpper()}\" SHOULD BE MAPPED\u001b[0m");
+                result.Insert(0, $"\u001b[0m\u001b[33mthe SCENARIO \"{Description.ToUpper()}\" SHOULD BE MAPPED\u001b[0m");
                 return ScenarioResult.Fail(result.ToString());
             }
 
             var allExpressionMapped = true;
 
-            foreach (var (_, value) in Paradigms.Syntagmas)
+            foreach (var (key, value) in Paradigms.Syntagmas)
             {
                 if (!MappedParadigms.SyntagmaExists(value))
                 {
                     allExpressionMapped = false;
-                    result.AppendLine($"\u001b[0m\u001b[31m{value.Metalanguage.Sign.Signifier.Value}\u001b[0m\u001b[31;1m (NOT MAPPED)\u001b[0m".Indent());
+                    result.AppendLine($"\u001b[0m{value.Metalanguage.Sign.Signifier.Value}\u001b[0m\u001b[31;1m (NOT MAPPED)\u001b[0m".Indent());
                     continue;
                 }
+
+                var mapped = MappedParadigms.GetSyntagma(key);
+                
+                if (mapped.Sign.Signified.Value == null)
+                {
+                    result.AppendLine($"{value.Metalanguage.Sign.Signifier.Value}");
+                    continue;
+                }                  
 
                 result.AppendLine($"{value.Metalanguage.Sign.Signifier.Value}".Indent());
             }
@@ -79,8 +89,9 @@ namespace Gwtdo.Scenarios
         private ScenarioResult ExectueMappedParadigms()
         {
             var result = new StringBuilder();
-            result.AppendLine();
             
+            result.AppendLine("...");
+            result.AppendLine(SpaceMethods.PrintLine(60));
             foreach (var (key, value) in Paradigms.Syntagmas)
             {
                 try
@@ -96,9 +107,10 @@ namespace Gwtdo.Scenarios
                     mapped.Sign.Signified.Value.Invoke(_fixture);
                     result.AppendLine($"{mapped.Metalanguage.Sign.Signifier.Value}".Indent(4));
                 }
-                catch
+                catch(Exception ex)
                 {
                     result.AppendLine($"\u001b[0m\u001b[31m{value.Metalanguage.Sign.Signifier.Value}\u001b[0m".Indent(4));
+                    result.AppendLine($"\u001b[0m\u001b[31m{ex.Message}\u001b[0m".Indent(4));
                     result.Insert(0, $"\u001b[0m\u001b[31m{Description.ToUpper()}\u001b[0m");
                     return ScenarioResult.Fail(result.ToString());
                 }

@@ -37,7 +37,7 @@ namespace Gwtdo
     }
 
     /// <summary>
-    /// OPERATORS
+    /// Feature OPERATORS
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public abstract partial class Feature<T> where T : IFixture
@@ -55,9 +55,9 @@ namespace Gwtdo
         }
 
         public static Feature<T> operator |(Feature<T> feature, And other) => feature;
-        public static Feature<T> operator |(Feature<T> feature, Arrange<T> other) => Add(feature, "GIVEN");
-        public static Feature<T> operator |(Feature<T> feature, Act<T> other) => Add(feature, "WHEN");
-        public static Feature<T> operator |(Feature<T> feature, Assert<T> other) => Add(feature, "THEN");
+        public static Feature<T> operator |(Feature<T> feature, Arrange<T> other) => Add(feature, Arrange<T>.Name);
+        public static Feature<T> operator |(Feature<T> feature, Act<T> other) => Add(feature, Act<T>.Name);
+        public static Feature<T> operator |(Feature<T> feature, Assert<T> other) => Add(feature, Assert<T>.Name);
         
         private static Feature<T> Add(Feature<T> feature, string value)
         {

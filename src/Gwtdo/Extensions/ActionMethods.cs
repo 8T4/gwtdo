@@ -7,7 +7,7 @@ namespace Gwtdo.Extensions
         public static (string, Action) MapAction(this string phrase, Action action)
         {
             return (phrase, action);
-        }
+        }        
         
         public static (string, Action<T>) MapAction<T>(this string phrase, Action<T> action)
         {

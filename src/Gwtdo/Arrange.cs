@@ -11,7 +11,7 @@ namespace Gwtdo
     {
         private T Value { get; }
         public Arrange<T> And => this;
-        public static string Name => "GIVEN";
+        public static string Name => "\u001b[36;1mGIVEN\u001b[0m";
         
         private Arrange(T value)
         {
