@@ -1,17 +1,19 @@
+using System;
 using FluentAssertions;
 using Xunit;
 using Xunit.Abstractions;
 
 namespace Gwtdo.Sample.Test.NaturalLanguange
 {
-    public class UserTradesStocks : Feature<StockFixture>,IClassFixture<StockFixture>
+    public class UserTradesStocks : Feature<StockFixture>, IClassFixture<StockFixture>
     {
-        private readonly StockFixtureMapper _mapper;
+        private StockFixtureMapper Mapper { get; }
         
         public UserTradesStocks(StockFixture fixture, ITestOutputHelper output):base(fixture)
         {
             SCENARIO.RedirectStandardOutput = output.WriteLine;
-            _mapper = new StockFixtureMapper(SCENARIO, Fixture);
+            Mapper = new StockFixtureMapper(SCENARIO, fixture);
+            fixture.Setup();
         }
 
         [Fact]
@@ -19,11 +21,11 @@ namespace Gwtdo.Sample.Test.NaturalLanguange
         {
             SCENARIO["User trades stocks"] =
                 DESCRIBE | "User requests a sell before close of trading" |
-                    GIVEN | "I have 100 shares of MSFT stock" |
+                   GIVEN | "I have 100 shares of MSFT stock" |
                     WHEN | "I ask to sell 20 shares of MSFT stock" |
                     THEN | "I should have 80 shares of MSFT stock";
             
-            _mapper.Setup_user_trades_stocks_scenario();
+            Mapper.Setup_user_trades_stocks_scenario();
             var result = SCENARIO.Execute();
             result.IsSuccess.Should().BeTrue(result.Message);
         }
@@ -40,7 +42,7 @@ namespace Gwtdo.Sample.Test.NaturalLanguange
                     THEN | "I should have 150 shares of APPL stock" |  
                         AND | "I should have 80 shares of MSFT stock";
             
-            _mapper.Setup_user_requests_a_sell_before_close_of_trading();
+            Mapper.Setup_user_requests_a_sell_before_close_of_trading();
             var result = SCENARIO.Execute();
             result.IsSuccess.Should().BeTrue(result.Message);
         }

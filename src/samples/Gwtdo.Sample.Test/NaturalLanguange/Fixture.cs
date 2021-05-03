@@ -22,21 +22,15 @@ namespace Gwtdo.Sample.Test.NaturalLanguange
 
         public void Setup_user_trades_stocks_scenario()
         {
-            Fixture.Clear();
-            
             SCENARIO["User trades stocks"] =
                 DESCRIBE | "User requests a sell before close of trading" |
                 GIVEN | "I have 100 shares of MSFT stock".MapAction(Have100SharesOfMsftStock) |
                 WHEN | "I ask to sell 20 shares of MSFT stock".MapAction(AskToSell20SharesOfMsftStock) |
                 THEN | "I should have 80 shares of MSFT stock".MapAction(ShouldHave80SharesOfMsftStock);
-            
-            Fixture.Setup();
         }
         
         public void Setup_user_requests_a_sell_before_close_of_trading()
         {
-            Fixture.Clear();
-            
             SCENARIO["User trades stocks before close of trading"] =
                 DESCRIBE | "User requests a sell before close of trading" |
                 GIVEN | "I have 100 shares of MSFT stock".MapAction(Have100SharesOfMsftStock) |
@@ -45,8 +39,6 @@ namespace Gwtdo.Sample.Test.NaturalLanguange
                 WHEN | "I ask to sell 20 shares of MSFT stock".MapAction(AskToSell20SharesOfMsftStock) |
                 THEN | "I should have 150 shares of APPL stock".MapAction(ShouldHave150SharesOfApplStock) |
                 AND | "I should have 80 shares of MSFT stock".MapAction(ShouldHave80SharesOfMsftStock);
-            
-            Fixture.Setup();            
         }        
 
         private static Action<StockFixture> Have100SharesOfMsftStock =>
