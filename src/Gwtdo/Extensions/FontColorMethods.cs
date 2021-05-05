@@ -1,6 +1,9 @@
 namespace Gwtdo.Extensions
 {
-    public static class Colors
+    /// <summary>
+    /// Console Colors Method
+    /// </summary>
+    internal static class Colors
     {
         internal static string Error(string value) =>
             $"\u001b[0m\u001b[31m{value}\u001b[0m";
