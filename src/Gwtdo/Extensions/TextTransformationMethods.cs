@@ -45,13 +45,6 @@ namespace Gwtdo.Extensions
             }
 
             return stringBuilder.ToString().Normalize(NormalizationForm.FormC);
-        }  
-        
-        
-        internal static void AppendHorizontalLine(this StringBuilder builder, int size)
-        {
-            var line = string.Empty.PadLeft(size, '-');
-            builder.AppendLine(line);
-        }        
+        }
     }
 }

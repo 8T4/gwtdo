@@ -1,3 +1,5 @@
+using System.Text;
+
 namespace Gwtdo.Extensions
 {
     /// <summary>
@@ -29,5 +31,11 @@ namespace Gwtdo.Extensions
         {
             return string.Empty.PadLeft(size) + text;
         }
+        
+        internal static void AppendHorizontalLine(this StringBuilder builder, int size)
+        {
+            var line = string.Empty.PadLeft(size, '-');
+            builder.AppendLine(line);
+        }          
     }
 }
