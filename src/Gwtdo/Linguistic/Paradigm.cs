@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Gwtdo.Linguistic
 {
@@ -7,6 +8,9 @@ namespace Gwtdo.Linguistic
     {
         public Metalanguage Metalanguage { get; }
         public Dictionary<string, Syntagma<T>> Syntagmas { get; }
+
+        public bool IsEmpty => !Syntagmas.Any();
+        public bool IsNotEmpty => Syntagmas.Any();
 
         private Paradigm(string description)
         {

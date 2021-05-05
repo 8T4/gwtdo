@@ -24,7 +24,7 @@ namespace Gwtdo.Extensions
             str = Regex.Replace(str, @"\s", "-"); // hyphens   
             return str; 
         }
-        
+
         /// <summary>
         /// Remove Accent from text
         /// </summary>

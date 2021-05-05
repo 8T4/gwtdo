@@ -19,11 +19,6 @@ namespace Gwtdo.Extensions
             return string.Empty.PadLeft(TabSize) + text;
         }
 
-        internal static string PrintLine(int size)
-        {
-            return string.Empty.PadLeft(size, '-');            
-        }
-
         /// <summary>
         /// Ident string using tabsize
         /// </summary>

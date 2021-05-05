@@ -12,7 +12,13 @@ namespace Gwtdo.Scenarios
             Message = result;
         }
 
+        public static ScenarioResult Ok() => new ScenarioResult(true, string.Empty);
         public static ScenarioResult Ok(string result) => new ScenarioResult(true, result);
         public static ScenarioResult Fail(string result) => new ScenarioResult(false, result);
+
+        public override string ToString()
+        {
+            return Message;
+        }
     }
 }
