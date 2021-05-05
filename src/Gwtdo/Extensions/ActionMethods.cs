@@ -5,7 +5,7 @@ namespace Gwtdo.Extensions
     /// <summary>
     /// Action extensions
     /// </summary>
-    public static class ActionMappingMethods
+    public static class ActionMethods
     {
         /// <summary>
         /// Map Action
