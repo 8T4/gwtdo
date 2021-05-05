@@ -6,9 +6,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Component", "Component", "{
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{F199381E-6357-4B20-98BC-06A50A20B4E4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gwtdo.Sample", "src\samples\Gwtdo.Sample\Gwtdo.Sample.csproj", "{005A51F6-8CDF-44FB-80F3-617CA75CCB77}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gwtdo.Sample", "src\Samples\Gwtdo.Sample\Gwtdo.Sample.csproj", "{005A51F6-8CDF-44FB-80F3-617CA75CCB77}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gwtdo.Sample.Test", "src\samples\Gwtdo.Sample.Test\Gwtdo.Sample.Test.csproj", "{E74D739E-7B41-4074-A2E8-2699CF859C6F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gwtdo.Sample.Test", "src\Samples\Gwtdo.Sample.Test\Gwtdo.Sample.Test.csproj", "{E74D739E-7B41-4074-A2E8-2699CF859C6F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
