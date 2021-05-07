@@ -55,7 +55,7 @@ private static Action<StockFixture> Have150SharesOfApplStock => f => f.Stocks.Bu
 private static Action<StockFixture> AskToSell20SharesOfMsftStock => f => f.Stocks.Sell("MSFT", 20);
 
 ```
-See the complete code in the [Natural Languange sample code](https://github.com/8T4/gwtdo/tree/main/src/samples/Gwtdo.Sample.Test/NaturalLanguange).
+See the complete code in the [Natural Languange sample code](https://github.com/8T4/gwtdo/tree/main/src/Samples/Gwtdo.Sample.Test/NaturalLanguange).
 
 
 #### Just code
@@ -86,7 +86,7 @@ public static assert I_should_have_80_shares_of_MSFT_stock(this assert fixtures)
     fixtures.Verify(x => x.Stocks.Shares["MSFT"].Should().Be(80));    
 ```
         
-See the complete code in the [Just Code sample](https://github.com/8T4/gwtdo/tree/main/src/samples/Gwtdo.Sample.Test/JustCode).
+See the complete code in the [Just Code sample](https://github.com/8T4/gwtdo/tree/main/src/Samples/Gwtdo.Sample.Test/JustCode).
 
 
 ## Guide to contributing to a GitHub project
