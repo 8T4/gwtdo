@@ -19,6 +19,7 @@ namespace Gwtdo
 
         internal static Act<T> Create(T value) => new Act<T>(value);
 
+        [Obsolete("Use It()")]
         public Act<T> Excecute(Action<T> action) => It(action);
         
         public Act<T> It(Action<T> action)

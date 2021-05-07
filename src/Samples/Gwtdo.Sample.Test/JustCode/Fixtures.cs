@@ -35,18 +35,18 @@ namespace Gwtdo.Sample.Test.JustCode
     public static class Exercise
     {
         public static act I_ask_to_sell_20_shares_of_MSFT_stock(this act fixtures) =>
-            fixtures.Excecute(f => f.Stocks.Sell("MSFT", 20));
+            fixtures.It(f => f.Stocks.Sell("MSFT", 20));
     }
 
     public static class Verify
     {
         public static assert I_should_have_80_shares_of_MSFT_stock(this assert fixtures) =>
-            fixtures.Verify(x => x.Stocks.Shares["MSFT"].Should().Be(80));
+            fixtures.Expect(x => x.Stocks.Shares["MSFT"].Should().Be(80));
 
         public static assert I_should_have_150_shares_of_APPL_stock(this assert fixtures) =>
-            fixtures.Verify(x => x.Stocks.Shares["APPL"].Should().Be(150));
+            fixtures.Expect(x => x.Stocks.Shares["APPL"].Should().Be(150));
 
         public static assert A_sell_order_for_20_shares_of_MSFT_stock_should_have_been_executed(this assert fixtures) =>
-            fixtures.Verify(x => x.Stocks.Orders["MSFT"].Should().Be(20));
+            fixtures.Expect(x => x.Stocks.Orders["MSFT"].Should().Be(20));
     }
 }

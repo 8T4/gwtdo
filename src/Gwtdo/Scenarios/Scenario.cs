@@ -36,7 +36,14 @@ namespace Gwtdo.Scenarios
             Paradigms = description;
             MappedParadigms = description;
         }
+    }
 
+    /// <summary>
+    /// Scenario OPERATORS
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    public partial class Scenario<T> where T : IFixture
+    {
         public static implicit operator Scenario<T>(Feature<T> feature)
         {
             return feature.SCENARIO;
@@ -45,7 +52,7 @@ namespace Gwtdo.Scenarios
         public static implicit operator Scenario<T>(ScenarioMapper<T> feature)
         {
             return feature.SCENARIO;
-        }
+        }        
     }
 
     /// <summary>

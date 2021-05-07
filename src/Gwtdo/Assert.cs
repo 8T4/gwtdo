@@ -19,6 +19,7 @@ namespace Gwtdo
 
         internal static Assert<T> Create(T value) => new Assert<T>(value);     
         
+        [Obsolete("Use Expect()")]
         public Assert<T> Verify(Action<T> action) => Expect(action);
         
         public Assert<T> Expect(Action<T> action)

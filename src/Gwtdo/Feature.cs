@@ -1,4 +1,5 @@
-﻿using Gwtdo.Linguistic;
+﻿using System;
+using Gwtdo.Linguistic;
 using Gwtdo.Scenarios;
 
 namespace Gwtdo
@@ -14,21 +15,27 @@ namespace Gwtdo
     public abstract partial class Feature<T> where T : IFixture
     {
         protected T Fixture { get; private set; }
+        
+        [Obsolete("use GIVEN")]
         protected Arrange<T> Given => Arrange<T>.Create(Fixture);
+        [Obsolete("use WHEN")]
         protected Act<T> When => Act<T>.Create(Fixture);
+        [Obsolete("use THEN")]
         protected Assert<T> Then => Assert<T>.Create(Fixture);
 
-        public Scenario<T> SCENARIO { get; private set; }
         protected Feature<T> DESCRIBE => this;
         protected Arrange<T> GIVEN => Arrange<T>.Create(Fixture);
         protected Act<T> WHEN => Act<T>.Create(Fixture);
         protected Assert<T> THEN => Assert<T>.Create(Fixture);
         protected And AND => And.Create();
+        public Scenario<T> SCENARIO { get; private set; }
+
 
         protected Feature()
         {
-            
         }
+        
+        public Func<Feature<T>> SetupScenario { get; set; }
 
         protected Feature(T fixture)
         {
@@ -60,7 +67,7 @@ namespace Gwtdo
 
             return feature;
         }
-
+        
         public static Feature<T> operator |(Feature<T> feature, And other) => feature;
         public static Feature<T> operator |(Feature<T> feature, Arrange<T> other) => Add(feature, Arrange.Name);
         public static Feature<T> operator |(Feature<T> feature, Act<T> other) => Add(feature, Act.Name);

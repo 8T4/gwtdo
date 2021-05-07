@@ -25,6 +25,7 @@ namespace Gwtdo.Sample.Test.NaturalLanguange
                     THEN | "I should have 80 shares of MSFT stock";
             
             Mapper.Setup_user_trades_stocks_scenario();
+            
             var result = SCENARIO.Execute();
             result.IsSuccess.Should().BeTrue(result.Message);
         }
@@ -42,6 +43,7 @@ namespace Gwtdo.Sample.Test.NaturalLanguange
                         AND | "I should have 80 shares of MSFT stock";
             
             Mapper.Setup_user_requests_a_sell_before_close_of_trading();
+            
             var result = SCENARIO.Execute();
             result.IsSuccess.Should().BeTrue(result.Message);
         }
