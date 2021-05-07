@@ -1,4 +1,3 @@
-using System;
 using FluentAssertions;
 using Xunit;
 using Xunit.Abstractions;
@@ -12,7 +11,7 @@ namespace Gwtdo.Sample.Test.NaturalLanguange
         public UserTradesStocks(StockFixture fixture, ITestOutputHelper output):base(fixture)
         {
             SCENARIO.RedirectStandardOutput = output.WriteLine;
-            Mapper = new StockFixtureMapper(SCENARIO, fixture);
+            Mapper = new StockFixtureMapper(SCENARIO);
             fixture.Setup();
         }
 

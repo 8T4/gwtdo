@@ -13,12 +13,12 @@ namespace Gwtdo
     /// <typeparam name="T"></typeparam>
     public abstract partial class Feature<T> where T : IFixture
     {
-        protected T Fixture { get; set; }
+        protected T Fixture { get; private set; }
         protected Arrange<T> Given => Arrange<T>.Create(Fixture);
         protected Act<T> When => Act<T>.Create(Fixture);
         protected Assert<T> Then => Assert<T>.Create(Fixture);
 
-        public Scenario<T> SCENARIO { get; set; }
+        public Scenario<T> SCENARIO { get; private set; }
         protected Feature<T> DESCRIBE => this;
         protected Arrange<T> GIVEN => Arrange<T>.Create(Fixture);
         protected Act<T> WHEN => Act<T>.Create(Fixture);
@@ -27,12 +27,19 @@ namespace Gwtdo
 
         protected Feature()
         {
+            
         }
 
         protected Feature(T fixture)
         {
             Fixture = fixture;
             SCENARIO = new Scenario<T>(string.Empty, fixture);
+        }
+
+        protected void SetFixture(T fixture)
+        {
+            Fixture = fixture;
+            SCENARIO = new Scenario<T>(string.Empty, fixture);            
         }
     }
 

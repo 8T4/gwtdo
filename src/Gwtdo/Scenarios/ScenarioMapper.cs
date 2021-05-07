@@ -17,11 +17,18 @@ namespace Gwtdo.Scenarios
         protected Act<T> WHEN => Act<T>.Create(Fixture);
         protected Assert<T> THEN => Assert<T>.Create(Fixture);
         protected And AND => And.Create();
+        
+        protected ScenarioMapper(Scenario<T> scenario)
+        {
+            SCENARIO = scenario;
+            Fixture = scenario.Fixture;
+        }        
 
+        [Obsolete("It's not necessary pass 'T fixture' param any more")]
         protected ScenarioMapper(Scenario<T> scenario, T fixture)
         {
             SCENARIO = scenario;
-            Fixture = fixture;
+            Fixture = scenario.Fixture;
         }
 
         protected static Action<T> DefaultAction => (f) => { };

@@ -16,7 +16,7 @@ namespace Gwtdo.Sample.Test.NaturalLanguange
 
     public class StockFixtureMapper : ScenarioMapper<StockFixture>
     {
-        public StockFixtureMapper(Scenario<StockFixture> scenario, StockFixture fixture) : base(scenario, fixture)
+        public StockFixtureMapper(Scenario<StockFixture> scenario) : base(scenario)
         {
         }
 

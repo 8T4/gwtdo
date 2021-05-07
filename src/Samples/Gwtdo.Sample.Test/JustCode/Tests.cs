@@ -1,11 +1,14 @@
-using Gwtdo.Sample.Stocks;
 using Xunit;
 
 namespace Gwtdo.Sample.Test.JustCode
 {
-    public class UserTradesStocks : Feature<StockFixture>
+    public class UserTradesStocks : Feature<StockFixture>, IClassFixture<StockFixture>
     {
-        public UserTradesStocks() => Fixture = new StockFixture(new Stock());
+        public UserTradesStocks(StockFixture fixture)
+        {
+            SetFixture(fixture);
+            fixture.Setup();
+        }
 
         [Fact]
         public void user_requests_a_sell()

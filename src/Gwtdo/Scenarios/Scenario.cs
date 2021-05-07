@@ -1,6 +1,5 @@
 using System;
 using System.Globalization;
-using System.Linq;
 using System.Text;
 using Gwtdo.Extensions;
 using Gwtdo.Linguistic;
@@ -13,7 +12,7 @@ namespace Gwtdo.Scenarios
     /// <typeparam name="T"></typeparam>
     public partial class Scenario<T> where T : IFixture
     {
-        private readonly T _fixture;
+        public T Fixture { get; }
         private string Description { get; set; }
         internal Paradigm<T> Paradigms { get; }
         internal Paradigm<T> MappedParadigms { get; }
@@ -29,7 +28,7 @@ namespace Gwtdo.Scenarios
         {
             Paradigms = description;
             MappedParadigms = description;
-            _fixture = fixture;
+            Fixture = fixture;
         }
 
         public Scenario(string description)
@@ -93,7 +92,7 @@ namespace Gwtdo.Scenarios
                         continue;
                     }
 
-                    mapped.Sign.Signified.Value.Invoke(_fixture);
+                    mapped.Sign.Signified.Value.Invoke(Fixture);
                     result.AppendLine($"{mapped.Metalanguage.Sign.Signifier.Value}".Indent(4));
                 }
                 catch(Exception ex)

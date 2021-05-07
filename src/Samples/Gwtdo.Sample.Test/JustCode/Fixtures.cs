@@ -8,7 +8,11 @@ namespace Gwtdo.Sample.Test.JustCode
     using act = Act<StockFixture>;
     using assert = Assert<StockFixture>;
 
-    public record StockFixture (Stock Stocks) : IFixture;
+    public class StockFixture: IFixture
+    {
+        public Stock Stocks { get; private set; }
+        public void Setup() =>  Stocks = new Stock();
+    } 
 
     public static class Setup
     {
