@@ -65,20 +65,20 @@ See the complete code [here](https://github.com/8T4/gwtdo/tree/main/src/Samples/
 
 ## Correspondence between specification and mapping
 
-It is the function responsible for maintaining the integrity between the specification and the mapping. Let's assume that developer bob 👨 changes the code `I have 100 shares of MSFT stock` to `I have 99 shares of MSFT stock`. Running this test results in a failure:
+It is the function responsible for maintaining the integrity between the specification and the mapping. Let's assume that developer ( bob 👨 ) changes the code `I have 100 shares of MSFT stock` to `I have 99 shares of MSFT stock`. Running this test results in a failure:
 
 ![image](https://user-images.githubusercontent.com/357114/117551998-4a2efc00-b01f-11eb-9548-460644f5a193.png)
 
 In this result, the expression I have 99 shares of MSFT stock is highlighted with the value (NOT MAPPED), indicating that it has not been mapped.
-Now, imagine that developer alice 👩 adds a little more complexity to your test and adds the expression `AND | I have 150 shares of APPL stock` in the specification, without failing to map it. When running the test, we will have the following result:
+Now, imagine that developer ( alice 👩 ) adds a little more complexity to your test and adds the expression `AND | I have 150 shares of APPL stock` in the specification, without failing to map it. When running the test, we will have the following result:
 
 ![image](https://user-images.githubusercontent.com/357114/117552124-025ca480-b020-11eb-8a09-a8e0779c65e4.png)
 
-## the correspondence between mapping expression and a function:
+## Correspondence between mapping expression and a function:
 It is the function of the mapping class that allows the integration between the expression and the test code, through the call to the `MapAction()` method. This method is responsible for satisfying the correctness formulae `{ X => Y | Y = f:P A Q }`.
 
 
-## Just use c# code
+## Just use C#
 
 If you prefer, you can only use code to write your specifications
 
