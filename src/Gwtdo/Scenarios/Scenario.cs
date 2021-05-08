@@ -78,6 +78,8 @@ namespace Gwtdo.Scenarios
             var result = ExectueMappedParadigms();
             Console.WriteLine(result.ToString());
             RedirectStandardOutput?.Invoke(result.ToString());
+            Paradigms.Clear();
+            MappedParadigms.Clear();
             return result;
         }
 

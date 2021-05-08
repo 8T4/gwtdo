@@ -27,6 +27,8 @@ namespace Gwtdo.Linguistic
         public void AddSyntagma(Syntagma<T> syntagma) =>
             Syntagmas[syntagma.Metalanguage.Sign.Signified.Value] = syntagma;
 
+        public void Clear() => Syntagmas.Clear();
+
         public static implicit operator Paradigm<T>(string value)
         {
             return new Paradigm<T>(value);
