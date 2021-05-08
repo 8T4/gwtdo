@@ -19,12 +19,12 @@ This package is available through Nuget Packages (https://www.nuget.org/packages
 | ------- | ----- | ----- |----- |
 | `GWTDO` | [![NuGet](https://img.shields.io/nuget/v/Gwtdo.svg)](https://www.nuget.org/packages/Gwtdo) | [![Nuget](https://img.shields.io/nuget/dt/Gwtdo.svg)](https://www.nuget.org/packages/Gwtdo) | [![Codacy Badge](https://app.codacy.com/project/badge/Grade/51e1962835f24f65a3813d078061a9ef)](https://www.codacy.com/gh/8T4/gwtdo/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=8T4/gwtdo&amp;utm_campaign=Badge_Grade) |
 
-## Approaches
+## Specification Matching
+Specifiation Matching is a set of features of the DSL `GWTDO` composed of two functionalities: a) **the correspondence between specification and mapping**; b) and the **correspondence between the mapping and the function**. as the following codes illustrate:
 
-#### Natural Language
-use the `GWTDO` DSL to facilitate natural language writing. With it, you write more readable tests with low formal language interference.
-
+- specification
 ```c#
+[Fact]
 public void user_requests_a_sell()
 {
     SCENARIO["User trades stocks"] =
@@ -36,7 +36,7 @@ public void user_requests_a_sell()
 }
 ```
 
-Then map your specification as follows
+- mapping
 
 ```c#
 public void Setup_user_trades_stocks_scenario()
@@ -48,17 +48,37 @@ public void Setup_user_trades_stocks_scenario()
             THEN | "I should have 80 shares of MSFT stock".MapAction(ShouldHave80SharesOfMsftStock);
 }
 
-private static Action<StockFixture> Have100SharesOfMsftStock => f => f.Stocks.Buy("MSFT", 100);
 
-private static Action<StockFixture> Have150SharesOfApplStock => f => f.Stocks.Buy("APPL", 150);        
+private static Action<StockFixture> Have100SharesOfMsftStock => 
+    f => f.Stocks.Buy("MSFT", 100);
 
-private static Action<StockFixture> AskToSell20SharesOfMsftStock => f => f.Stocks.Sell("MSFT", 20);
+private static Action<StockFixture> Have150SharesOfApplStock => 
+    f => f.Stocks.Buy("APPL", 150);        
+
+private static Action<StockFixture> AskToSell20SharesOfMsftStock => 
+    f => f.Stocks.Sell("MSFT", 20);
 
 ```
-See the complete code in the [Natural Languange sample code](https://github.com/8T4/gwtdo/tree/main/src/Samples/Gwtdo.Sample.Test/NaturalLanguange).
+
+See the complete code [here](https://github.com/8T4/gwtdo/tree/main/src/Samples/Gwtdo.Sample.Test/NaturalLanguange).
 
 
-#### Just code
+## Correspondence between specification and mapping
+
+It is the function responsible for maintaining the integrity between the specification and the mapping. Let's assume that developer bob 👨 changes the code `I have 100 shares of MSFT stock` to `I have 99 shares of MSFT stock`. Running this test results in a failure:
+
+![image](https://user-images.githubusercontent.com/357114/117551998-4a2efc00-b01f-11eb-9548-460644f5a193.png)
+
+In this result, the expression I have 99 shares of MSFT stock is highlighted with the value (NOT MAPPED), indicating that it has not been mapped.
+Now, imagine that developer alice 👩 adds a little more complexity to your test and adds the expression `AND | I have 150 shares of APPL stock` in the specification, without failing to map it. When running the test, we will have the following result:
+
+![image](https://user-images.githubusercontent.com/357114/117552124-025ca480-b020-11eb-8a09-a8e0779c65e4.png)
+
+## the correspondence between mapping expression and a function:
+It is the function of the mapping class that allows the integration between the expression and the test code, through the call to the `MapAction()` method. This method is responsible for satisfying the correctness formulae `{ X => Y | Y = f:P A Q }`.
+
+
+## Just use c# code
 
 If you prefer, you can only use code to write your specifications
 
