@@ -22,7 +22,7 @@ This package is available through Nuget Packages (https://www.nuget.org/packages
 ## Specification Matching
 Specifiation Matching is a set of features of the DSL `GWTDO` composed of two functionalities: a) **the correspondence between specification and mapping**; b) and the **correspondence between the mapping and the function**. as the following codes illustrate:
 
-- specification
+#### specification
 ```c#
 [Fact]
 public void user_requests_a_sell()
@@ -36,7 +36,7 @@ public void user_requests_a_sell()
 }
 ```
 
-- mapping
+#### mapping
 
 ```c#
 public void Setup_user_trades_stocks_scenario()
@@ -58,6 +58,48 @@ private static Action<StockFixture> Have150SharesOfAppl =>
 private static Action<StockFixture> AskToSell20SharesOfMsft => 
     f => f.Stocks.Sell("MSFT", 20);
 
+```
+
+#### using "Let"
+
+```c#
+[Theory]
+[InlineData(100, 20, 80)]
+[InlineData(100, 50, 50)]
+[InlineData(100, 30, 70)]
+public void user_requests_a_sell_dynamic(int share, int sells, int total)
+{
+    Let["share-value"] = share;
+    Let["sells-value"] = sells;
+    Let["total-value"] = total;
+    
+    SCENARIO["User trades stocks"] =
+        DESCRIBE | "User requests a sell before close of trading" |
+        GIVEN | "I have :share-value shares of MSFT stock" |
+        WHEN | "I ask to sell :sells-value shares of MSFT stock" |
+        THEN | "I should have :total-value shares of MSFT stock";
+        
+    ...
+}
+
+//Mapping
+public void Setup_user_trades_stocks_scenario_dynamic()
+{
+    SCENARIO["User trades stocks"] =
+        DESCRIBE | "User requests a sell before close of trading" |
+        GIVEN | "I have :share-value shares of MSFT stock".MapAction(HaveDynamicSharesOfMsftStock) |
+        WHEN | "I ask to sell :sells-value shares of MSFT stock".MapAction(AskToSellDynamicSharesOfMsftStock) |
+        THEN | "I should have :total-value shares of MSFT stock".MapAction(ShouldHaveDynamicSharesOfMsftStock);
+} 
+
+private Action<StockFixture> HaveDynamicSharesOfMsftStock =>
+    f => f.Stocks.Buy("MSFT", Let.Get<int>("share-value"));
+    
+private Action<StockFixture> AskToSellDynamicSharesOfMsftStock =>
+    f => f.Stocks.Sell("MSFT", Let.Get<int>("sells-value"));     
+    
+private Action<StockFixture> ShouldHaveDynamicSharesOfMsftStock =>
+    f => f.Stocks.Shares["MSFT"].Should().Be(Let.Get<int>("total-value"));
 ```
 
 See the complete code [here](https://github.com/8T4/gwtdo/tree/main/src/Samples/Gwtdo.Sample.Test/NaturalLanguange).
