@@ -17,7 +17,9 @@ namespace Gwtdo.Scenarios
         protected Act<T> WHEN => Act<T>.Create(Fixture);
         protected Assert<T> THEN => Assert<T>.Create(Fixture);
         protected And AND => And.Create();
-        
+        protected Let Let => SCENARIO?.LET;
+
+
         protected ScenarioMapper(Scenario<T> scenario)
         {
             SCENARIO = scenario;

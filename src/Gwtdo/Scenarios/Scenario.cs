@@ -13,6 +13,9 @@ namespace Gwtdo.Scenarios
     public partial class Scenario<T> where T : IFixture
     {
         public T Fixture { get; }
+        public Let LET { get; internal set; }
+        protected Let ADD => LET;
+        
         private string Description { get; set; }
         internal Paradigm<T> Paradigms { get; }
         internal Paradigm<T> MappedParadigms { get; }
@@ -29,12 +32,7 @@ namespace Gwtdo.Scenarios
             Paradigms = description;
             MappedParadigms = description;
             Fixture = fixture;
-        }
-
-        public Scenario(string description)
-        {
-            Paradigms = description;
-            MappedParadigms = description;
+            LET = new Let();
         }
     }
 
@@ -75,12 +73,15 @@ namespace Gwtdo.Scenarios
                 return allScenarioWereMapped;
             }            
 
-            var result = ExectueMappedParadigms();
-            Console.WriteLine(result.ToString());
-            RedirectStandardOutput?.Invoke(result.ToString());
+            var scenarioResult = ExectueMappedParadigms();
+            var result = LET.Replace(scenarioResult.ToString());
+            
+            Console.WriteLine(result);
+            RedirectStandardOutput?.Invoke(result);
             Paradigms.Clear();
             MappedParadigms.Clear();
-            return result;
+            
+            return scenarioResult;
         }
 
         private ScenarioResult ExectueMappedParadigms()

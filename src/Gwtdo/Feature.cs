@@ -14,8 +14,6 @@ namespace Gwtdo
     /// <typeparam name="T"></typeparam>
     public abstract partial class Feature<T> where T : IFixture
     {
-        protected T Fixture { get; private set; }
-        
         [Obsolete("use GIVEN")]
         protected Arrange<T> Given => Arrange<T>.Create(Fixture);
         [Obsolete("use WHEN")]
@@ -28,16 +26,21 @@ namespace Gwtdo
         protected Act<T> WHEN => Act<T>.Create(Fixture);
         protected Assert<T> THEN => Assert<T>.Create(Fixture);
         protected And AND => And.Create();
-        public Scenario<T> SCENARIO { get; private set; }
 
+        protected Let Let
+        {
+            get => SCENARIO.LET;
+            set => SCENARIO.LET = value;
+        }
+        
+        private T Fixture { get; set; }
+        public Scenario<T> SCENARIO { get; private set; }
 
         protected Feature()
         {
         }
-        
-        public Func<Feature<T>> SetupScenario { get; set; }
 
-        protected Feature(T fixture)
+        protected Feature(T fixture) : this()
         {
             Fixture = fixture;
             SCENARIO = new Scenario<T>(string.Empty, fixture);
@@ -69,6 +72,7 @@ namespace Gwtdo
         }
         
         public static Feature<T> operator |(Feature<T> feature, And other) => feature;
+        public static Feature<T> operator |(Feature<T> feature, Let other) => feature;
         public static Feature<T> operator |(Feature<T> feature, Arrange<T> other) => Add(feature, Arrange.Name);
         public static Feature<T> operator |(Feature<T> feature, Act<T> other) => Add(feature, Act.Name);
         public static Feature<T> operator |(Feature<T> feature, Assert<T> other) => Add(feature, Assert.Name);
