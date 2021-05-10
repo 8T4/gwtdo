@@ -43,12 +43,12 @@ public void Setup_user_trades_stocks_scenario()
 
 private static Action<StockFixture> Have100SharesOfMsft => 
     f => f.Stocks.Buy("MSFT", 100);
-
-private static Action<StockFixture> Have150SharesOfAppl => 
-    f => f.Stocks.Buy("APPL", 150);        
-
+    
 private static Action<StockFixture> AskToSell20SharesOfMsft => 
-    f => f.Stocks.Sell("MSFT", 20);
+    f => f.Stocks.Sell("MSFT", 20);    
+
+private static Action<StockFixture> ShouldHave80SharesOfMsft => 
+     f => f.Stocks.Shares["MSFT"].Should().Be(80);     
 
 ```
 
