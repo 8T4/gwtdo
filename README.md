@@ -1,7 +1,8 @@
+# Getting Started 
 **GWTDO is a .NET library that helps developers write readable tests**.
 It's a DSL based on the [Given-When-Then](https://martinfowler.com/bliki/GivenWhenThen.html) style which could be used in your test projects.
 
-# Instalation
+## Instalation
 This package is available through Nuget Packages (https://www.nuget.org/packages/Gwtdo).
 
 [![.NET](https://github.com/8T4/gwtdo/actions/workflows/dotnet.yml/badge.svg)](https://github.com/8T4/gwtdo/actions/workflows/dotnet.yml)
@@ -9,8 +10,6 @@ This package is available through Nuget Packages (https://www.nuget.org/packages
 [![NuGet](https://img.shields.io/nuget/v/Gwtdo.svg)](https://www.nuget.org/packages/Gwtdo) 
 [![Nuget](https://img.shields.io/nuget/dt/Gwtdo.svg)](https://www.nuget.org/packages/Gwtdo) 
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/51e1962835f24f65a3813d078061a9ef)](https://www.codacy.com/gh/8T4/gwtdo/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=8T4/gwtdo&amp;utm_campaign=Badge_Grade)
-
-# Getting Started 
 
 ## Write the specification
 Specify your test using natural language within a C # method. Easy, simple and fast.
