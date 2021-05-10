@@ -1,28 +1,19 @@
 **GWTDO is a .NET library that helps developers write readable tests**.
 It's a DSL based on the [Given-When-Then](https://martinfowler.com/bliki/GivenWhenThen.html) style which could be used in your test projects.
 
+## Instalation
+This package is available through Nuget Packages (https://www.nuget.org/packages/Gwtdo).
+
 [![.NET](https://github.com/8T4/gwtdo/actions/workflows/dotnet.yml/badge.svg)](https://github.com/8T4/gwtdo/actions/workflows/dotnet.yml)
 [![CodeQL](https://github.com/8T4/gwtdo/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/8T4/gwtdo/actions/workflows/codeql-analysis.yml)
 [![NuGet](https://img.shields.io/nuget/v/Gwtdo.svg)](https://www.nuget.org/packages/Gwtdo) 
 [![Nuget](https://img.shields.io/nuget/dt/Gwtdo.svg)](https://www.nuget.org/packages/Gwtdo) 
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/51e1962835f24f65a3813d078061a9ef)](https://www.codacy.com/gh/8T4/gwtdo/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=8T4/gwtdo&amp;utm_campaign=Badge_Grade)
-<p align="center" width="100%">
-    <img src="https://raw.githubusercontent.com/8T4/gwtdo/main/doc/img/banner.png" />
-</p>
 
 # Getting Started
 
-## Instalation
-This package is available through Nuget Packages (https://www.nuget.org/packages/Gwtdo).
-
-| Package |  Version | Downloads | Maintainability |
-| ------- | ----- | ----- |----- |
-| `GWTDO` | [![NuGet](https://img.shields.io/nuget/v/Gwtdo.svg)](https://www.nuget.org/packages/Gwtdo) | [![Nuget](https://img.shields.io/nuget/dt/Gwtdo.svg)](https://www.nuget.org/packages/Gwtdo) | [![Codacy Badge](https://app.codacy.com/project/badge/Grade/51e1962835f24f65a3813d078061a9ef)](https://www.codacy.com/gh/8T4/gwtdo/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=8T4/gwtdo&amp;utm_campaign=Badge_Grade) |
-
-## Specification Matching
-Specifiation Matching is a set of features of the DSL `GWTDO` composed of two functionalities: a) **the correspondence between specification and mapping**; b) and the **correspondence between the mapping and the function**. as the following codes illustrate:
-
-#### specification
+## Write the specification
+Specify your test using natural language within a C # method. Easy, simple and fast.
 ```c#
 [Fact]
 public void user_requests_a_sell()
@@ -36,7 +27,8 @@ public void user_requests_a_sell()
 }
 ```
 
-#### mapping
+## Mapping the specification
+Copy your specification, paste it into your fixture test and map it using the extension methods.
 
 ```c#
 public void Setup_user_trades_stocks_scenario()
@@ -60,7 +52,7 @@ private static Action<StockFixture> AskToSell20SharesOfMsft =>
 
 ```
 
-#### using "Let"
+## use "Let"
 
 ```c#
 [Theory]
@@ -104,8 +96,10 @@ private Action<StockFixture> ShouldHaveDynamicSharesOfMsftStock =>
 
 See the complete code [here](https://github.com/8T4/gwtdo/tree/main/src/Samples/Gwtdo.Sample.Test/NaturalLanguange).
 
+## Run the test and validate your code with Specification Matching
+Specifiation Matching is a set of features of the DSL `GWTDO` composed of two functionalities: a) **the correspondence between specification and mapping**; b) and the **correspondence between the mapping and the function**. as the following codes illustrate:
 
-## Correspondence between specification and mapping
+### Correspondence between specification and mapping
 
 It is the function responsible for maintaining the integrity between the specification and the mapping. Let's assume that developer ( bob 👨 ) changes the code `I have 100 shares of MSFT stock` to `I have 99 shares of MSFT stock`. Running this test results in a failure:
 
@@ -120,7 +114,7 @@ Now, imagine that developer ( alice 👩 ) adds a little more complexity to your
     <img src="https://user-images.githubusercontent.com/357114/117552124-025ca480-b020-11eb-8a09-a8e0779c65e4.png" />
 </p>
 
-## Correspondence between mapping expression and a function:
+### Correspondence between mapping expression and a function:
 It is the function of the mapping class that allows the integration between the expression and the test code, through the call to the `MapAction()` method. This method is responsible for satisfying the correctness formulae `{ X => Y | Y = f:P A Q }`.
 
 
