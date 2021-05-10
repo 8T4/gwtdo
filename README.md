@@ -97,7 +97,7 @@ private Action<StockFixture> ShouldHaveDynamicSharesOfMsftStock =>
 
 See the complete code [here](https://github.com/8T4/gwtdo/tree/main/src/Samples/Gwtdo.Sample.Test/NaturalLanguange).
 
-## Run the test and validate your code with Specification Matching
+## Validating code with Specification Matching
 Specifiation Matching is a set of features of the DSL `GWTDO` composed of two functionalities: a) **the correspondence between specification and mapping**; b) and the **correspondence between the mapping and the function**. as the following codes illustrate:
 
 ### Correspondence between specification and mapping
