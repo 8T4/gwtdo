@@ -1,10 +1,11 @@
+using System;
 using System.Collections.Generic;
 
 namespace Gwtdo.Scenarios
 {
     public class Let
     {
-        private readonly Dictionary<string, object> _objects;
+        private readonly Dictionary<string, Lazy<object>> _objects;
 
         public object this[string key]
         {
@@ -14,19 +15,19 @@ namespace Gwtdo.Scenarios
 
         public Let()
         {
-            _objects = new Dictionary<string, object>();
+            _objects = new Dictionary<string, Lazy<object>>();
         }
 
         public T Get<T>(string key)
         {
-            return Contains(key) ? (T) _objects[NormalizeKey(key)] : default;
+            return Contains(key) ? (T) _objects[NormalizeKey(key)].Value : default;
         }
 
         public string Replace(string input)
         {
             foreach (var (key, value) in _objects)
             {
-                input = input.Replace(key, value.ToString());
+                input = input.Replace(key, value.Value.ToString());
             }
             return input;
         }
@@ -38,24 +39,13 @@ namespace Gwtdo.Scenarios
 
         private Let Add(string key, object value)
         {
-            _objects[NormalizeKey(key)] = value;
+            _objects[NormalizeKey(key)] = new Lazy<object>(value);
             return this;
         }        
 
         private static string NormalizeKey(string key)
         {
             return key.StartsWith(":") ? key : $":{key}";
-        }
-
-        public static implicit operator Let((string, object)[] tupla)
-        {
-            var let = new Let();
-            foreach (var (key, value) in tupla)
-            {
-                let.Add(key, value);
-            }
-
-            return let;
         }
     }
 }
