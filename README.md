@@ -10,7 +10,7 @@ This package is available through Nuget Packages (https://www.nuget.org/packages
 [![Nuget](https://img.shields.io/nuget/dt/Gwtdo.svg)](https://www.nuget.org/packages/Gwtdo) 
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/51e1962835f24f65a3813d078061a9ef)](https://www.codacy.com/gh/8T4/gwtdo/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=8T4/gwtdo&amp;utm_campaign=Badge_Grade)
 
-# Getting Started
+# Getting Started 
 
 ## Write the specification
 Specify your test using natural language within a C # method. Easy, simple and fast.
@@ -157,7 +157,7 @@ public static assert I_should_have_80_shares_of_MSFT_stock(this assert fixtures)
 See the complete code in the [Just Code sample](https://github.com/8T4/gwtdo/tree/main/src/Samples/Gwtdo.Sample.Test/JustCode).
 
 
-## Guide to contributing to a GitHub project
+# Guide to contributing to a GitHub project
 This is a guide to contributing to this open source project that uses GitHub. It’s mostly based on how many open sorce projects operate. That’s all there is to it. The fundamentals are:
 
 - Fork the project & clone locally.  
@@ -170,7 +170,7 @@ This is a guide to contributing to this open source project that uses GitHub. It
 
 If you want to contribute to an open source project, the best one to pick is one that you are using yourself. The maintainers will appreciate it!
 
-## References
+# References
 
 - [[1] - Given-When-Then](https://martinfowler.com/bliki/GivenWhenThen.html)
 - [[2] - Test fixture](https://en.wikipedia.org/wiki/Test_fixture)  
