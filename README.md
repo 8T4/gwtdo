@@ -52,7 +52,8 @@ private static Action<StockFixture> ShouldHave80SharesOfMsft =>
 
 ```
 
-## use "Let"
+## Using Let variable
+Using Let the variable lazy loads only when it is used the first time in the test and get cached until that specific test is finished.
 
 ```c#
 [Theory]
