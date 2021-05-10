@@ -1,7 +1,7 @@
 **GWTDO is a .NET library that helps developers write readable tests**.
 It's a DSL based on the [Given-When-Then](https://martinfowler.com/bliki/GivenWhenThen.html) style which could be used in your test projects.
 
-## Instalation
+# Instalation
 This package is available through Nuget Packages (https://www.nuget.org/packages/Gwtdo).
 
 [![.NET](https://github.com/8T4/gwtdo/actions/workflows/dotnet.yml/badge.svg)](https://github.com/8T4/gwtdo/actions/workflows/dotnet.yml)
