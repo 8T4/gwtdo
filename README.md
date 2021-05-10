@@ -97,10 +97,10 @@ private Action<StockFixture> ShouldHaveDynamicSharesOfMsftStock =>
 
 See the complete code [here](https://github.com/8T4/gwtdo/tree/main/src/Samples/Gwtdo.Sample.Test/NaturalLanguange).
 
-## Validating code with Specification Matching
-Specifiation Matching is a set of features of the DSL `GWTDO` composed of two functionalities: a) **the correspondence between specification and mapping**; b) and the **correspondence between the mapping and the function**. as the following codes illustrate:
+# Validating code with Specification Matching
+Specifiation Matching is a set of features of the DSL `GWTDO` composed of two functionalities: a) **the correspondence between specification and mapping**; b) and the **correspondence between the mapping and the function**. 
 
-### Correspondence between specification and mapping
+## Correspondence between specification and mapping
 
 It is the function responsible for maintaining the integrity between the specification and the mapping. Let's assume that developer ( bob 👨 ) changes the code `I have 100 shares of MSFT stock` to `I have 99 shares of MSFT stock`. Running this test results in a failure:
 
@@ -115,11 +115,18 @@ Now, imagine that developer ( alice 👩 ) adds a little more complexity to your
     <img src="https://user-images.githubusercontent.com/357114/117552124-025ca480-b020-11eb-8a09-a8e0779c65e4.png" />
 </p>
 
-### Correspondence between mapping expression and a function:
-It is the function of the mapping class that allows the integration between the expression and the test code, through the call to the `MapAction()` method. This method is responsible for satisfying the correctness formulae `{ X => Y | Y = f:P A Q }`.
+## Correspondence between mapping expression and a function:
+It is the function of the mapping class that allows the integration between the expression and the test code, through the call to the `MapAction()` method. This method is responsible for satisfying the correctness formulae `{ X => Y | Y = f:P A Q }`, as the following codes illustrate:
 
+```c#
 
-## Just use C#
+WHEN | "I ask to sell 20 shares of MSFT stock".MapAction(AskToSell20SharesOfMsft)
+...
+
+private static Action<StockFixture> AskToSell20SharesOfMsft => (f) => f.Stocks.Sell("MSFT", 20);    
+```
+
+# Just use C#
 
 If you prefer, you can only use code to write your specifications
 
