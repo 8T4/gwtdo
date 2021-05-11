@@ -25,6 +25,7 @@ public void user_requests_a_sell()
    ...
 }
 ```
+See the complete code [here](https://github.com/8T4/gwtdo/blob/main/src/Samples/Gwtdo.Sample.Test/NaturalLanguange/Tests.cs)
 
 ## Mapping the specification
 Copy your specification, paste it into your fixture test and map it using the extension methods.
@@ -50,6 +51,8 @@ private static Action<StockFixture> ShouldHave80SharesOfMsft =>
      f => f.Stocks.Shares["MSFT"].Should().Be(80);     
 
 ```
+See the complete code [here](https://github.com/8T4/gwtdo/blob/main/src/Samples/Gwtdo.Sample.Test/NaturalLanguange/Fixture.cs)
+
 
 ## Using Let variable
 Using Let the variable lazy loads only when it is used the first time in the test and get cached until that specific test is finished.
