@@ -20,12 +20,9 @@ namespace Gwtdo.Sample.Test.NaturalLanguange
         {
             SCENARIO["User trades stocks"] =
                 DESCRIBE | "User requests a sell before close of trading" |
-                GIVEN
-                | "I have 100 shares of MSFT stock" |
-                WHEN
-                | "I ask to sell 20 shares of MSFT stock" |
-                THEN
-                | "I should have 80 shares of MSFT stock";
+                GIVEN | "I have 100 shares of MSFT stock" |
+                WHEN | "I ask to sell 20 shares of MSFT stock" |
+                THEN | "I should have 80 shares of MSFT stock";
 
             Mapper.Setup_user_trades_stocks_scenario();
             var result = SCENARIO.Execute();
@@ -44,12 +41,9 @@ namespace Gwtdo.Sample.Test.NaturalLanguange
 
             SCENARIO["User trades stocks"] =
                 DESCRIBE | "User requests a sell before close of trading" |
-                GIVEN
-                | "I have :share-value shares of MSFT stock" |
-                WHEN
-                | "I ask to sell :sells-value shares of MSFT stock" |
-                THEN
-                | "I should have :total-value shares of MSFT stock";
+                GIVEN | "I have :share-value shares of MSFT stock" |
+                WHEN | "I ask to sell :sells-value shares of MSFT stock" |
+                THEN | "I should have :total-value shares of MSFT stock";
 
             Mapper.Setup_user_trades_stocks_scenario_dynamic();
             var result = SCENARIO.Execute();
