@@ -19,12 +19,9 @@ public void user_requests_a_sell()
 {
     SCENARIO["User trades stocks"] =
         DESCRIBE | "User requests a sell before close of trading" |
-        GIVEN 
-        | "I have 100 shares of MSFT stock" |
-        WHEN 
-        | "I ask to sell 20 shares of MSFT stock" |
-        THEN 
-        | "I should have 80 shares of MSFT stock";
+           GIVEN | "I have 100 shares of MSFT stock" |
+            WHEN | "I ask to sell 20 shares of MSFT stock" |
+            THEN | "I should have 80 shares of MSFT stock";
    ...
 }
 ```
@@ -38,12 +35,9 @@ public void Setup_user_trades_stocks_scenario()
 {
     SCENARIO["User trades stocks"] =
         DESCRIBE | "User requests a sell before close of trading" |
-        GIVEN 
-        | "I have 100 shares of MSFT stock".MapAction(Have100SharesOfMsft) |
-        WHEN 
-        | "I ask to sell 20 shares of MSFT stock".MapAction(AskToSell20SharesOfMsft) |
-        THEN 
-        | "I should have 80 shares of MSFT stock".MapAction(ShouldHave80SharesOfMsft);
+           GIVEN | "I have 100 shares of MSFT stock".MapAction(Have100SharesOfMsft) |
+            WHEN | "I ask to sell 20 shares of MSFT stock".MapAction(AskToSell20SharesOfMsft) |
+            THEN | "I should have 80 shares of MSFT stock".MapAction(ShouldHave80SharesOfMsft);
 }
 
 
@@ -76,12 +70,9 @@ public void user_requests_a_sell_dynamic(int share, int sells, int total)
     
     SCENARIO["User trades stocks"] =
         DESCRIBE | "User requests a sell before close of trading" |
-        GIVEN 
-        | "I have :share-value shares of MSFT stock" |
-        WHEN 
-        | "I ask to sell :sells-value shares of MSFT stock" |
-        THEN 
-        | "I should have :total-value shares of MSFT stock";
+           GIVEN | "I have :share-value shares of MSFT stock" |
+            WHEN | "I ask to sell :sells-value shares of MSFT stock" |
+            THEN | "I should have :total-value shares of MSFT stock";
         
     ...
 }
@@ -91,12 +82,9 @@ public void Setup_user_trades_stocks_scenario_dynamic()
 {
     SCENARIO["User trades stocks"] =
         DESCRIBE | "User requests a sell before close of trading" |
-        GIVEN 
-        | "I have :share-value shares of MSFT stock".MapAction(HaveDynamicSharesOfMsftStock) |
-        WHEN 
-        | "I ask to sell :sells-value shares of MSFT stock".MapAction(AskToSellDynamicSharesOfMsftStock) |
-        THEN 
-        | "I should have :total-value shares of MSFT stock".MapAction(ShouldHaveDynamicSharesOfMsftStock);
+           GIVEN | "I have :share-value shares of MSFT stock".MapAction(HaveDynamicSharesOfMsftStock) |
+            WHEN | "I ask to sell :sells-value shares of MSFT stock".MapAction(AskToSellDynamicSharesOfMsftStock) |
+            THEN | "I should have :total-value shares of MSFT stock".MapAction(ShouldHaveDynamicSharesOfMsftStock);
 } 
 
 private Action<StockFixture> HaveDynamicSharesOfMsftStock =>
