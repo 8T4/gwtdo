@@ -64,30 +64,35 @@ namespace Gwtdo.Scenarios
             var mappedParadigmsEmpity = VerifyIfMappedParadigmsIsNotEmpity();
             if (mappedParadigmsEmpity.IsFailure)
             {
+                PrintScenarioResult(mappedParadigmsEmpity);
                 return mappedParadigmsEmpity;
             }
             
             var allScenarioWereMapped = VerifyIfAllScenarioWereMapped();
             if (allScenarioWereMapped.IsFailure)
             {
+                PrintScenarioResult(allScenarioWereMapped);
                 return allScenarioWereMapped;
             }            
 
             var scenarioResult = ExectueMappedParadigms();
+            PrintScenarioResult(scenarioResult);
+            return scenarioResult;
+        }
+
+        private void PrintScenarioResult(ScenarioResult scenarioResult)
+        {
             var result = LET.Replace(scenarioResult.ToString());
-            
             Console.WriteLine(result);
             RedirectStandardOutput?.Invoke(result);
             Paradigms.Clear();
-            MappedParadigms.Clear();
-            
-            return scenarioResult;
+            MappedParadigms.Clear();            
         }
 
         private ScenarioResult ExectueMappedParadigms()
         {
             var result = new StringBuilder();
-            result.AppendLine("...");
+            result.AppendLine();
             result.AppendHorizontalLine(60);
             
             foreach (var (key, value) in Paradigms.Syntagmas)
@@ -167,7 +172,6 @@ namespace Gwtdo.Scenarios
 
         private void AppendScenarioDescription(ref StringBuilder builder)
         {
-            builder.AppendLine("...");
             builder.AppendHorizontalLine(60);
             builder.AppendLine(Colors.Success(Description.ToUpper(CultureInfo.InvariantCulture)));            
         }
