@@ -22,7 +22,7 @@ public void user_requests_a_sell()
            GIVEN | "I have 100 shares of MSFT stock" |
             WHEN | "I ask to sell 20 shares of MSFT stock" |
             THEN | "I should have 80 shares of MSFT stock";
-   ...
+    ...
 }
 ```
 See the complete code [here](https://github.com/8T4/gwtdo/blob/main/src/Samples/Gwtdo.Sample.Test/NaturalLanguange/Tests.cs)
