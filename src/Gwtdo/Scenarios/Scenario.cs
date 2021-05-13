@@ -13,9 +13,8 @@ namespace Gwtdo.Scenarios
     public partial class Scenario<T> where T : IFixture
     {
         public T Fixture { get; }
-        public Let LET { get; internal set; }
-        protected Let ADD => LET;
-        
+        public FeatureVariables FeatureVariables { get; internal set; }
+
         private string Description { get; set; }
         internal Paradigm<T> Paradigms { get; }
         internal Paradigm<T> MappedParadigms { get; }
@@ -32,7 +31,7 @@ namespace Gwtdo.Scenarios
             Paradigms = description;
             MappedParadigms = description;
             Fixture = fixture;
-            LET = new Let();
+            FeatureVariables = new FeatureVariables();
         }
     }
 
@@ -50,11 +49,11 @@ namespace Gwtdo.Scenarios
         public static implicit operator Scenario<T>(ScenarioMapper<T> feature)
         {
             return feature.SCENARIO;
-        }        
+        }
     }
 
     /// <summary>
-    /// Scenario Validation and Execution methods
+    /// Handle Scenario for validating and execution
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public partial class Scenario<T> where T : IFixture
@@ -64,32 +63,37 @@ namespace Gwtdo.Scenarios
             var mappedParadigmsEmpity = VerifyIfMappedParadigmsIsNotEmpity();
             if (mappedParadigmsEmpity.IsFailure)
             {
+                PrintScenarioResult(mappedParadigmsEmpity);
                 return mappedParadigmsEmpity;
             }
-            
+
             var allScenarioWereMapped = VerifyIfAllScenarioWereMapped();
             if (allScenarioWereMapped.IsFailure)
             {
+                PrintScenarioResult(allScenarioWereMapped);
                 return allScenarioWereMapped;
-            }            
+            }
 
             var scenarioResult = ExectueMappedParadigms();
-            var result = LET.Replace(scenarioResult.ToString());
-            
+            PrintScenarioResult(scenarioResult);
+            return scenarioResult;
+        }
+
+        private void PrintScenarioResult(ScenarioResult scenarioResult)
+        {
+            var result = FeatureVariables.Replace(scenarioResult.ToString());
             Console.WriteLine(result);
             RedirectStandardOutput?.Invoke(result);
             Paradigms.Clear();
             MappedParadigms.Clear();
-            
-            return scenarioResult;
         }
 
         private ScenarioResult ExectueMappedParadigms()
         {
             var result = new StringBuilder();
-            result.AppendLine("...");
+            result.AppendLine();
             result.AppendHorizontalLine(60);
-            
+
             foreach (var (key, value) in Paradigms.Syntagmas)
             {
                 try
@@ -105,7 +109,7 @@ namespace Gwtdo.Scenarios
                     mapped.Sign.Signified.Value.Invoke(Fixture);
                     result.AppendLine($"{mapped.Metalanguage.Sign.Signifier.Value}".Indent(4));
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     result.AppendLine(Colors.Error(value.Metalanguage.Sign.Signifier.Value.Indent(4)));
                     result.AppendLine(Colors.Error(ex.Message.Indent(4)));
@@ -128,15 +132,17 @@ namespace Gwtdo.Scenarios
             {
                 return ScenarioResult.Ok();
             }
-            
-            result.Insert(0, Colors.Warning($"the SCENARIO \"{Description.ToUpper(CultureInfo.InvariantCulture)}\" SHOULD BE MAPPED"));
+
+            result.Insert(0,
+                Colors.Warning(
+                    $"the SCENARIO \"{Description.ToUpper(CultureInfo.InvariantCulture)}\" SHOULD BE MAPPED"));
             return ScenarioResult.Fail(result.ToString());
         }
-        
+
         private ScenarioResult VerifyIfAllScenarioWereMapped()
         {
             var allExpressionMapped = true;
-            
+
             var result = new StringBuilder();
             AppendScenarioDescription(ref result);
 
@@ -145,17 +151,19 @@ namespace Gwtdo.Scenarios
                 if (!MappedParadigms.SyntagmaExists(value))
                 {
                     allExpressionMapped = false;
-                    result.AppendLine($"{Colors.Reset(value.Metalanguage.Sign.Signifier.Value)} {Colors.Error("(NOT MAPPED)")}".Indent());
+                    result.AppendLine(
+                        $"{Colors.Reset(value.Metalanguage.Sign.Signifier.Value)} {Colors.Error("(NOT MAPPED)")}"
+                            .Indent());
                     continue;
                 }
 
                 var mapped = MappedParadigms.GetSyntagma(key);
-                
+
                 if (mapped.Sign.Signified.Value == null)
                 {
                     result.AppendLine($"{value.Metalanguage.Sign.Signifier.Value}");
                     continue;
-                }                  
+                }
 
                 result.AppendLine($"{value.Metalanguage.Sign.Signifier.Value}".Indent());
             }
@@ -167,9 +175,8 @@ namespace Gwtdo.Scenarios
 
         private void AppendScenarioDescription(ref StringBuilder builder)
         {
-            builder.AppendLine("...");
             builder.AppendHorizontalLine(60);
-            builder.AppendLine(Colors.Success(Description.ToUpper(CultureInfo.InvariantCulture)));            
+            builder.AppendLine(Colors.Success(Description.ToUpper(CultureInfo.InvariantCulture)));
         }
     }
 }

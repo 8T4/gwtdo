@@ -1,19 +1,18 @@
 using System;
 using System.Collections.Generic;
 
-namespace Gwtdo.Scenarios
+namespace Gwtdo
 {
-    public class Let
+    public class FeatureVariables
     {
         private readonly Dictionary<string, Lazy<object>> _objects;
 
         public object this[string key]
         {
-            get => this;
             set => Add(key, value);
         }
 
-        public Let()
+        public FeatureVariables()
         {
             _objects = new Dictionary<string, Lazy<object>>();
         }
@@ -37,10 +36,9 @@ namespace Gwtdo.Scenarios
             return _objects.ContainsKey(NormalizeKey(key));
         }
 
-        private Let Add(string key, object value)
+        private void Add(string key, object value)
         {
             _objects[NormalizeKey(key)] = new Lazy<object>(value);
-            return this;
         }        
 
         private static string NormalizeKey(string key)

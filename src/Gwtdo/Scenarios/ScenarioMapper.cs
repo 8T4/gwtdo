@@ -9,15 +9,16 @@ namespace Gwtdo.Scenarios
     /// <typeparam name="T"></typeparam>
     public abstract partial class ScenarioMapper<T> where T : IFixture
     {
-        protected T Fixture { get; }
-
+        private T Fixture { get; }
         public Scenario<T> SCENARIO { get; }
+        
+        
         protected ScenarioMapper<T> DESCRIBE => this;
         protected Arrange<T> GIVEN => Arrange<T>.Create(Fixture);
         protected Act<T> WHEN => Act<T>.Create(Fixture);
         protected Assert<T> THEN => Assert<T>.Create(Fixture);
         protected And AND => And.Create();
-        protected Let Let => SCENARIO?.LET;
+        protected FeatureVariables Let => SCENARIO?.FeatureVariables;
 
 
         protected ScenarioMapper(Scenario<T> scenario)
