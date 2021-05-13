@@ -1,3 +1,4 @@
+using System;
 using Gwtdo.Linguistic;
 using Gwtdo.Scenarios;
 
@@ -13,23 +14,35 @@ namespace Gwtdo.Localizations
     /// <typeparam name="T"></typeparam>
     public abstract partial class FeaturePtBr<T> where T : IFixture
     {
-        public Scenario<T> SCENARIO { get; set; }
-
-        protected T Fixture { get; set; }
         protected FeaturePtBr<T> DESCREVA => this;
         protected Arrange<T> DADO => Arrange<T>.Create(Fixture);
         protected Act<T> QUANDO => Act<T>.Create(Fixture);
         protected Assert<T> ENTAO => Assert<T>.Create(Fixture);
         protected And E => And.Create();
 
+        protected FeatureVariables FeatureVariables
+        {
+            get => CENARIO.FeatureVariables;
+            set => CENARIO.FeatureVariables = value;
+        }
+        
+        private T Fixture { get; set; }
+        public Scenario<T> CENARIO { get; private set; }
+
         protected FeaturePtBr()
         {
         }
 
-        protected FeaturePtBr(T fixture)
+        protected FeaturePtBr(T fixture) : this()
         {
             Fixture = fixture;
-            SCENARIO = new Scenario<T>(string.Empty, fixture);
+            CENARIO = new Scenario<T>(string.Empty, fixture);
+        }
+
+        protected void SetFixture(T fixture)
+        {
+            Fixture = fixture;
+            CENARIO = new Scenario<T>(string.Empty, fixture);            
         }
     }
 
@@ -43,15 +56,16 @@ namespace Gwtdo.Localizations
         {
             var syntagma = new Syntagma<T>(other, null);
             
-            if (!feature.SCENARIO.Paradigms.SyntagmaExists(syntagma))
+            if (!feature.CENARIO.Paradigms.SyntagmaExists(syntagma))
             {
-                feature.SCENARIO.Paradigms.AddSyntagma(syntagma);
+                feature.CENARIO.Paradigms.AddSyntagma(syntagma);
             }
 
             return feature;
         }
-
+        
         public static FeaturePtBr<T> operator |(FeaturePtBr<T> feature, And other) => feature;
+        public static FeaturePtBr<T> operator |(FeaturePtBr<T> feature, FeatureVariables other) => feature;
         public static FeaturePtBr<T> operator |(FeaturePtBr<T> feature, Arrange<T> other) => Add(feature, Arrange.Name);
         public static FeaturePtBr<T> operator |(FeaturePtBr<T> feature, Act<T> other) => Add(feature, Act.Name);
         public static FeaturePtBr<T> operator |(FeaturePtBr<T> feature, Assert<T> other) => Add(feature, Assert.Name);
@@ -59,7 +73,7 @@ namespace Gwtdo.Localizations
         private static FeaturePtBr<T> Add(FeaturePtBr<T> feature, string value)
         {
             var syntagma = new Syntagma<T>(value, null);
-            feature.SCENARIO.Paradigms.AddSyntagma(syntagma);
+            feature.CENARIO.Paradigms.AddSyntagma(syntagma);
             return feature;
         }         
     }
