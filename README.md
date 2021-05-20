@@ -1,7 +1,7 @@
 <p align='center'>
     <img src="https://raw.githubusercontent.com/8T4/gwtdo/main/doc/img/icon.png">
-    <br/>GWTDO is a dotnet library that helps developers write readable tests.
-    <br/>It's a DSL based on the <strong>Given-When-Then</strong> style which could be used in your test projects.
+    <br/>It´s a dotnet library that helps developers write readable tests.
+    <br/>Also, it's a DSL based on the <strong>Given-When-Then</strong> style which could be used in your test projects.
     <br/>
     <br/>
     <a href='https://github.com/8T4/gwtdo/actions/workflows/dotnet.yml'><img src="https://github.com/8T4/gwtdo/actions/workflows/dotnet.yml/badge.svg"></a>
