@@ -14,10 +14,8 @@ namespace Gwtdo.Extensions
         /// <param name="action"></param>
         /// <returns></returns>
         public static (string, Action) MapAction(this string phrase, Action action)
-        {
-            return (phrase, action);
-        }        
-        
+            => (phrase, action);
+
         /// <summary>
         /// Map Action
         /// </summary>
@@ -26,8 +24,6 @@ namespace Gwtdo.Extensions
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
         public static (string, Action<T>) MapAction<T>(this string phrase, Action<T> action)
-        {
-            return (phrase, action);
-        }        
+            => (phrase, action);
     }
 }

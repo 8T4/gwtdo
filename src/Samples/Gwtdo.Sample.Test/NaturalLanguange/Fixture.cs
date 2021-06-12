@@ -1,8 +1,8 @@
-using System;
 using FluentAssertions;
 using Gwtdo.Extensions;
 using Gwtdo.Sample.Stocks;
 using Gwtdo.Scenarios;
+using System;
 
 namespace Gwtdo.Sample.Test.NaturalLanguange
 {
@@ -20,27 +20,14 @@ namespace Gwtdo.Sample.Test.NaturalLanguange
         {
         }
 
-        public void Setup_user_trades_stocks_scenario()
-        {
-            SCENARIO["User trades stocks"] =
-                DESCRIBE | "User requests a sell before close of trading" |
-                GIVEN | "I have 100 shares of MSFT stock".MapAction(Have100SharesOfMsftStock) |
-                WHEN | "I ask to sell 20 shares of MSFT stock".MapAction(AskToSell20SharesOfMsftStock) |
-                THEN | "I should have 80 shares of MSFT stock".MapAction(ShouldHave80SharesOfMsftStock);
-        }
-
         public void Setup_user_trades_stocks_scenario_dynamic()
-        {
-            SCENARIO["User trades stocks"] =
+            => SCENARIO["User trades stocks"] =
                 DESCRIBE | "User requests a sell before close of trading" |
                 GIVEN | "I have :share-value shares of MSFT stock".MapAction(HaveDynamicSharesOfMsftStock) |
                 WHEN | "I ask to sell :sells-value shares of MSFT stock".MapAction(AskToSellDynamicSharesOfMsftStock) |
                 THEN | "I should have :total-value shares of MSFT stock".MapAction(ShouldHaveDynamicSharesOfMsftStock);
-        }
 
-        public void Setup_user_requests_a_sell_before_close_of_trading()
-        {
-            SCENARIO["User trades stocks before close of trading"] =
+        public void Setup_user_requests_a_sell_before_close_of_trading() => SCENARIO["User trades stocks before close of trading"] =
                 DESCRIBE | "User requests a sell before close of trading" |
                 GIVEN
                 | "I have 100 shares of MSFT stock".MapAction(Have100SharesOfMsftStock) | AND
@@ -51,7 +38,6 @@ namespace Gwtdo.Sample.Test.NaturalLanguange
                 THEN
                 | "I should have 150 shares of APPL stock".MapAction(ShouldHave150SharesOfApplStock) | AND
                 | "I should have 80 shares of MSFT stock".MapAction(ShouldHave80SharesOfMsftStock);
-        }
 
         private Action<StockFixture> HaveDynamicSharesOfMsftStock =>
             f => f.Stocks.Buy("MSFT", Let.Get<int>("share-value"));

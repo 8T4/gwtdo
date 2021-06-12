@@ -1,4 +1,6 @@
 using FluentAssertions;
+using Gwtdo.Extensions;
+using System;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -19,14 +21,26 @@ namespace Gwtdo.Sample.Test.NaturalLanguange
         public void user_requests_a_sell()
         {
             SCENARIO["User trades stocks"] =
-                DESCRIBE | "User requests a sell before close of trading" |
-                GIVEN | "I have 100 shares of MSFT stock" |
-                WHEN | "I ask to sell 20 shares of MSFT stock" |
-                THEN | "I should have 80 shares of MSFT stock";
+                 DESCRIBE
+                 | "User requests a sell before close of trading" |
+                 GIVEN
+                 | "I have 100 shares of MSFT stock".MapAction(Have100SharesOfMsftStock) |
+                 WHEN
+                 | "I ask to sell 20 shares of MSFT stock".MapAction(AskToSell20SharesOfMsftStock) |
+                 THEN
+                 | "I should have 80 shares of MSFT stock".MapAction(ShouldHave80SharesOfMsftStock);
 
-            Mapper.Setup_user_trades_stocks_scenario();
             SCENARIO.Execute().IsSuccess.Should().BeTrue();
         }
+
+        private static Action<StockFixture> Have100SharesOfMsftStock
+            => fixture => fixture.Stocks.Buy("MSFT", 100);
+
+        private static Action<StockFixture> AskToSell20SharesOfMsftStock
+            => fixture => fixture.Stocks.Sell("MSFT", 20);
+
+        private static Action<StockFixture> ShouldHave80SharesOfMsftStock
+            => fixture => fixture.Stocks.Shares["MSFT"].Should().Be(80);
 
         [Theory]
         [InlineData(100, 20, 80)]
