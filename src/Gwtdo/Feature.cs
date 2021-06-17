@@ -1,6 +1,6 @@
-﻿using System;
-using Gwtdo.Linguistic;
+﻿using Gwtdo.Linguistic;
 using Gwtdo.Scenarios;
+using System;
 
 namespace Gwtdo
 {
@@ -13,7 +13,7 @@ namespace Gwtdo
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public abstract partial class Feature<T> where T : IFixture
-    { 
+    {
         [Obsolete("use GIVEN")]
         protected Arrange<T> Given => Arrange<T>.Create(Fixture);
         [Obsolete("use WHEN")]
@@ -32,7 +32,7 @@ namespace Gwtdo
             get => SCENARIO.FeatureVariables;
             set => SCENARIO.FeatureVariables = value;
         }
-        
+
         private T Fixture { get; set; }
         public Scenario<T> SCENARIO { get; private set; }
 
@@ -49,7 +49,7 @@ namespace Gwtdo
         protected void SetFixture(T fixture)
         {
             Fixture = fixture;
-            SCENARIO = new Scenario<T>(string.Empty, fixture);            
+            SCENARIO = new Scenario<T>(string.Empty, fixture);
         }
     }
 
@@ -62,26 +62,41 @@ namespace Gwtdo
         public static Feature<T> operator |(Feature<T> feature, string other)
         {
             var syntagma = new Syntagma<T>(other, null);
-            
+
             if (!feature.SCENARIO.Paradigms.SyntagmaExists(syntagma))
             {
                 feature.SCENARIO.Paradigms.AddSyntagma(syntagma);
+                feature.SCENARIO.MappedParadigms.AddSyntagma(syntagma);
             }
 
             return feature;
         }
-        
+
+        public static Feature<T> operator |(Feature<T> feature, (string, Action<T>) tuple)
+        {
+            var syntagma = new Syntagma<T>(tuple.Item1, tuple.Item2);
+
+            if (!feature.SCENARIO.Paradigms.SyntagmaExists(syntagma))
+            {
+                feature.SCENARIO.Paradigms.AddSyntagma(syntagma);
+                feature.SCENARIO.MappedParadigms.AddSyntagma(syntagma);
+            }
+
+            return feature;
+        }
+
         public static Feature<T> operator |(Feature<T> feature, And other) => feature;
         public static Feature<T> operator |(Feature<T> feature, FeatureVariables other) => feature;
         public static Feature<T> operator |(Feature<T> feature, Arrange<T> other) => Add(feature, Arrange.Name);
         public static Feature<T> operator |(Feature<T> feature, Act<T> other) => Add(feature, Act.Name);
         public static Feature<T> operator |(Feature<T> feature, Assert<T> other) => Add(feature, Assert.Name);
-        
+
         private static Feature<T> Add(Feature<T> feature, string value)
         {
             var syntagma = new Syntagma<T>(value, null);
             feature.SCENARIO.Paradigms.AddSyntagma(syntagma);
+            feature.SCENARIO.MappedParadigms.AddSyntagma(syntagma);
             return feature;
-        }         
+        }
     }
 }
