@@ -119,17 +119,19 @@ public partial class Scenario<T> where T : IFeatureContext
             }
             catch (Exception ex)
             {
-                result.AppendLine(Colors.Error(value.Metalanguage.Sign.Signifier.Value.Indent(4)));
+                result.AppendLine(value.Metalanguage.Sign.Signifier.Value.Indent(4) + Colors.Error(" << Fail"));
                 
                 result.AppendHorizontalLine(60);
                 result.AppendLine(Colors.Warning(ex.Message.Indent(4)));
-                if(ex.InnerException is not null)
+                if (ex.InnerException is not null)
+                {
                     result.AppendLine(Colors.Warning(ex.InnerException.Message.Indent(4)));
+                    result.AppendHorizontalLine(60);
+                    result.AppendLine(Colors.Error(ex.InnerException.StackTrace));
+                }
                 result.AppendHorizontalLine(60);
 
-                throw;
-
-                //return ScenarioResult.Fail(result.ToString());
+                return ScenarioResult.Fail(result.ToString());
             }
         }
 

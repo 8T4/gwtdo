@@ -4,9 +4,9 @@ namespace Gwtdo.Sample.Test.Basic;
 
 public class Tests : Feature<Context>, IClassFixture<Context>
 {
-    public Tests(Context featureContext): base(featureContext)
+    public Tests(Context context): base(context)
     {
-        featureContext.Setup();
+        context.Setup();
     }
 
     [Fact]

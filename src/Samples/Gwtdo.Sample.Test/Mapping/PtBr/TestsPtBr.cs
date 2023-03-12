@@ -1,4 +1,3 @@
-//lang
 using FluentAssertions;
 using Gwtdo.Localizations.PtBr;
 using Gwtdo.Sample.Test.NaturalLanguage;
@@ -57,19 +56,19 @@ public class TestsPtBr : FeaturePtBr<Context, FixturePtBr>, IClassFixture<Contex
     }
 
     [Fact]
-    public void user_requests_a_sell_before_close_of_trading()
+    public void more_complex_sample()
     {
         CENARIO[@"Trade do usuário before close of trading"] =
             DESCREVA
             | @"Usuário solicita venda antes do fechamento do pregão" |
             DADO
-            | @"Eu tenho 100 de açoões MSFT" | AND
-            | @"Eu tenho 150 ações de APPL" | AND
+            | @"Eu tenho 100 de açoões MSFT" | E
+            | @"Eu tenho 150 ações de APPL" | E
             | @"Antes do fechamento do pregão" |
             QUANDO
             | @"Eu solicito a venda de 20 ações de MSFT" |
             ENTAO
-            | @"Eu devo ter 150 ações de APPL" | AND
+            | @"Eu devo ter 150 ações de APPL" | E
             | @"Eu devo ter 80 ações de MSFT";
 
         CENARIO.Execute().IsSuccess.Should().BeTrue();

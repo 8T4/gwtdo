@@ -3,17 +3,16 @@ using Gwtdo.Scenarios;
 
 namespace Gwtdo;
 
-public abstract partial class Feature<TContext, TMapper> : Feature<TContext>
+public abstract class Feature<TContext, TFixture> : Feature<TContext>
     where TContext : IFeatureContext
-    where TMapper : ScenarioFixture<TContext>
+    where TFixture : ScenarioFixture<TContext>
 {
-    protected TMapper Mapper { get; }
+    protected TFixture Fixture { get; }
 
     protected Feature(TContext context) : base(context)
     {
-        Mapper = Activator.CreateInstance<TMapper>();
-        Mapper.SetScenario(SCENARIO);
-        Mapper.MapScenarioMethods();
-        //MapScenarioMethods();
+        Fixture = Activator.CreateInstance<TFixture>();
+        Fixture.SetScenario(SCENARIO);
+        Fixture.MapScenarioMethods();
     }
 }

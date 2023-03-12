@@ -7,17 +7,17 @@ namespace Gwtdo.Sample.Test.NaturalLanguage;
 
 public class Fixture : ScenarioFixture<Context>
 {
-    [Given("I have :share shares of MSFT stock")]
+    [Given("I have :share shares of :asset stock")]
     public void HaveDynamicSharesOfMsftStock() =>
-        Context.Stocks.Buy("MSFT", Let["share"].As<int>());
+        Context.Stocks.Buy(Let["asset"].As<string>(), Let["share"].As<int>());
 
-    [When("I ask to sell :sells shares of MSFT stock")]
+    [When("I ask to sell :sells shares of :asset stock")]
     public void AskToSellDynamicSharesOfMsftStock() =>
-        Context.Stocks.Sell("MSFT", Let["sells"].As<int>());
+        Context.Stocks.Sell(Let["asset"].As<string>(), Let["sells"].As<int>());
 
-    [Then("I should have :total shares of MSFT stock")]
+    [Then("I should have :total shares of :asset stock")]
     public void ShouldHaveDynamicSharesOfMsftStock() =>
-        Context.Stocks.Shares["MSFT"].Should().Be(Let["total"].As<int>());
+        Context.Stocks.Shares[Let["asset"].As<string>()].Should().Be(Let["total"].As<int>());
 
     [Given("I have 100 shares of MSFT stock")]
     public void Have100SharesOfMsftStock() =>
@@ -41,5 +41,5 @@ public class Fixture : ScenarioFixture<Context>
 
     [Then("I should have 150 shares of APPL stock")]
     public void ShouldHave150SharesOfApplStock() =>
-        Context.Stocks.Shares["APPL"].Should().Be(150);
+        Context.Stocks.Shares["APPL"].Should().Be(110);
 }

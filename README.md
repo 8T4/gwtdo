@@ -14,47 +14,92 @@
 
 # Getting Started 
 
-## Write the specification
-Specify your test using natural language within a C # method. Easy, simple and fast.
+## Use base classes
+Use the class `Feature<TContext, TFixture>` to adopt Given-When-Then approach in your tests. 
+
 ```c#
-[Fact]
-public void user_requests_a_sell()
+public class Tests : Feature<Context, Fixture>, IClassFixture<Context>
 {
-    SCENARIO["User trades stocks"] =
-        DESCRIBE | "User requests a sell before close of trading" |
-           GIVEN | "I have 100 shares of MSFT stock" |
-            WHEN | "I ask to sell 20 shares of MSFT stock" |
-            THEN | "I should have 80 shares of MSFT stock";
+    public Tests(Context context, ITestOutputHelper output) : base(context)
+    {
+        //Configuring to use the ITestOutputHelper
+        SCENARIO.RedirectStandardOutput = output.WriteLine;
+        context.Setup();
+    }
+    
     ...
 }
-```
-See the complete code [here](https://github.com/8T4/gwtdo/blob/main/src/Samples/Gwtdo.Sample.Test/NaturalLanguange/Tests.cs)
 
-## Mapping the specification
+//TContext
+public class Context : IFeatureContext
+{
+    public Stock Stocks { get; private set; }
+    public void Setup() => Stocks = new Stock();
+}
+```
+
+## Write a scenario
+Specify your test using natural language within a C # method. Easy, simple and fast.
+
+#### english (en-us)
+```c#
+[Fact]
+public void quickly_sample()
+{
+    SCENARIO["User trades stocks"] =
+        DESCRIBE 
+        | "User requests a sell before close of trading" |
+        GIVEN 
+        | "I have 100 shares of MSFT stock" |
+        WHEN 
+        | "I ask to sell 20 shares of MSFT stock" |
+        THEN 
+        | "I should have 80 shares of MSFT stock";
+        
+    SCENARIO.Execute().IsSuccess.Should().BeTrue();
+}
+```
+See the complete code [here](src/Samples/Gwtdo.Sample.Test/Mapping/Tests.cs)
+
+#### portuguese(pt-br)
+```c#
+[Fact]
+public void quickly_sample()
+{
+    
+    CENARIO[@"Trade do usuário"] =
+        DESCREVA 
+        | @"Usuário solicita venda antes do fechamento do pregão" |
+        DADO 
+        | @"Eu tenho 100 de açoões MSFT" |
+        QUANDO 
+        | @"Eu solicito a venda de 20 ações de MSFT" |
+        ENTAO 
+        | @"Eu devo ter 80 ações de MSFT";
+        
+    CENARIO.Execute().IsSuccess.Should().BeTrue();
+}
+```
+See the pt-br test code [here](src/Samples/Gwtdo.Sample.Test/Mapping/PtBr/TestsPtBr.cs)
+
+
+## Map the scenario
 Copy your specification, paste it into your fixture test and map it using the extension methods.
 
 ```c#
-public void Setup_user_trades_stocks_scenario()
+public class Fixture : ScenarioFixture<Context>
 {
-    SCENARIO["User trades stocks"] =
-        DESCRIBE | "User requests a sell before close of trading" |
-           GIVEN | "I have 100 shares of MSFT stock".MapAction(Have100SharesOfMsft) |
-            WHEN | "I ask to sell 20 shares of MSFT stock".MapAction(AskToSell20SharesOfMsft) |
-            THEN | "I should have 80 shares of MSFT stock".MapAction(ShouldHave80SharesOfMsft);
+    [Given("I have 100 shares of MSFT stock")]
+    public void Have100SharesOfMsftStock() => Context.Stocks.Buy("MSFT", 100);
+
+    [When("I ask to sell 20 shares of MSFT stock")]
+    public void AskToSell20SharesOfMsftStock() => Context.Stocks.Sell("MSFT", 20);
+
+    [Then("I should have 80 shares of MSFT stock")]
+    public void ShouldHave80SharesOfMsftStock() => Context.Stocks.Shares["MSFT"].Should().Be(80);
 }
-
-
-private static Action<StockFixture> Have100SharesOfMsft => 
-    f => f.Stocks.Buy("MSFT", 100);
-    
-private static Action<StockFixture> AskToSell20SharesOfMsft => 
-    f => f.Stocks.Sell("MSFT", 20);    
-
-private static Action<StockFixture> ShouldHave80SharesOfMsft => 
-     f => f.Stocks.Shares["MSFT"].Should().Be(80);     
-
 ```
-See the complete code [here](https://github.com/8T4/gwtdo/blob/main/src/Samples/Gwtdo.Sample.Test/NaturalLanguange/Fixture.cs)
+See the complete code [here](src/Samples/Gwtdo.Sample.Test/Mapping/Fixture.cs)
 
 
 ## Using Let variable
@@ -62,101 +107,146 @@ Using Let the variable lazy loads only when it is used the first time in the tes
 
 ```c#
 [Theory]
-[InlineData(100, 20, 80)]
-[InlineData(100, 50, 50)]
-[InlineData(100, 30, 70)]
-public void user_requests_a_sell_dynamic(int share, int sells, int total)
+[InlineData(100, 20, 80, "MSFT")]
+[InlineData(100, 50, 50, "APPL")]
+[InlineData(100, 30, 70, "XYZW")]
+public void sample_using_let(int share, int sells, int total, string asset)
 {
-    Let["share-value"] = share;
-    Let["sells-value"] = sells;
-    Let["total-value"] = total;
+    Let["share"] = share;
+    Let["sells"] = sells;
+    Let["total"] = total;
+    Let["asset"] = asset;
     
     SCENARIO["User trades stocks"] =
-        DESCRIBE | "User requests a sell before close of trading" |
-           GIVEN | "I have :share-value shares of MSFT stock" |
-            WHEN | "I ask to sell :sells-value shares of MSFT stock" |
-            THEN | "I should have :total-value shares of MSFT stock";
+        DESCRIBE
+        | "User requests a sell before close of trading" |
+        GIVEN
+        | "I have :share shares of :asset stock" |
+        WHEN
+        | "I ask to sell :sells shares of :asset stock" |
+        THEN
+        | "I should have :total shares of :asset stock";
         
-    ...
+    SCENARIO.Execute().IsSuccess.Should().BeTrue();
 }
 
 //Mapping
-public void Setup_user_trades_stocks_scenario_dynamic()
+//The cast method As<T> is provaided by FluentAssertions
+public class Fixture : ScenarioFixture<Context>
 {
-    SCENARIO["User trades stocks"] =
-        DESCRIBE | "User requests a sell before close of trading" |
-           GIVEN | "I have :share-value shares of MSFT stock".MapAction(HaveDynamicSharesOfMsftStock) |
-            WHEN | "I ask to sell :sells-value shares of MSFT stock".MapAction(AskToSellDynamicSharesOfMsftStock) |
-            THEN | "I should have :total-value shares of MSFT stock".MapAction(ShouldHaveDynamicSharesOfMsftStock);
-} 
+    [Given("I have :share shares of :asset stock")]
+    public void HaveDynamicSharesOfMsftStock() =>
+        Context.Stocks.Buy(Let["asset"].As<string>(), Let["share"].As<int>());
 
-private Action<StockFixture> HaveDynamicSharesOfMsftStock =>
-    f => f.Stocks.Buy("MSFT", Let.Get<int>("share-value"));
-    
-private Action<StockFixture> AskToSellDynamicSharesOfMsftStock =>
-    f => f.Stocks.Sell("MSFT", Let.Get<int>("sells-value"));     
-    
-private Action<StockFixture> ShouldHaveDynamicSharesOfMsftStock =>
-    f => f.Stocks.Shares["MSFT"].Should().Be(Let.Get<int>("total-value"));
+    [When("I ask to sell :sells shares of :asset stock")]
+    public void AskToSellDynamicSharesOfMsftStock() =>
+        Context.Stocks.Sell(Let["asset"].As<string>(), Let["sells"].As<int>());
+
+    [Then("I should have :total shares of :asset stock")]
+    public void ShouldHaveDynamicSharesOfMsftStock() =>
+        Context.Stocks.Shares[Let["asset"].As<string>()].Should().Be(Let["total"].As<int>());
+}        
 ```
 
-See the complete code [here](https://github.com/8T4/gwtdo/tree/main/src/Samples/Gwtdo.Sample.Test/NaturalLanguange).
+See the complete code [here](src/Samples/Gwtdo.Sample.Test/Mapping/Tests.cs).
+
+## Executing
+To execute the scenario you should use the method `SCENARIO.Execute()`. Remember validate the results after Scenario execution like this `SCENARIO.Execute().IsSuccess.Should().BeTrue();`.
+The results should be success or fail. 
+
+#### success result
+```
+USER TRADES STOCKS
+------------------------------------------------------------
+GIVEN
+    I have 100 shares of MSFT stock
+WHEN
+    I ask to sell 20 shares of MSFT stock
+THEN
+    I should have 80 shares of MSFT stock
+```
+
+#### fail result
+
+```shell
+------------------------------------------------------------
+GIVEN
+    I have 100 shares of MSFT stock
+    I have 150 shares of APPL stock
+    The time is before close of trading
+WHEN
+    I ask to sell 20 shares of MSFT stock
+THEN
+    I should have 150 shares of APPL stock << Fail
+------------------------------------------------------------
+    Exception has been thrown by the target of an invocation.
+    Expected Context.Stocks.Shares["APPL"] to be 110, but found 150.
+------------------------------------------------------------
+   at FluentAssertions.Execution.XUnit2TestFramework.Throw(String message)
+   at FluentAssertions.Execution.TestFrameworkProvider.Throw(String message)
+   ...
+```
 
 # Validating code with Specification Matching
-Specifiation Matching is a set of features of the DSL `GWTDO` composed of two functionalities: a) **the correspondence between specification and mapping**; b) and the **correspondence between the mapping and the function**. 
+Specification Matching is a set of features of the DSL `GWTDO` composed of two functionalities: 
+- a) **the correspondence between scenarios and their mappings**; 
+- b) and the **correspondence between the mapping and their function**. 
 
-## Correspondence between specification and mapping
+### Correspondence between specification and mapping
 
-It is the function responsible for maintaining the integrity between the specification and the mapping. Let's assume that developer ( bob 👨 ) changes the code `I have 100 shares of MSFT stock` to `I have 99 shares of MSFT stock`. Running this test results in a failure:
+It is the function responsible for maintaining the integrity between scenarios and their mappings. 
+Let's assume that developer ( bob 👨 ) changes the scenario `I have 100 shares of MSFT stock` to `I have 99 shares of MSFT stock`. 
+Running this test results in a failure:
 
 <p align="center">
     <img src="https://user-images.githubusercontent.com/357114/117551998-4a2efc00-b01f-11eb-9548-460644f5a193.png" />
 </p>
 
-In this result, the expression I have 99 shares of MSFT stock is highlighted with the value (NOT MAPPED), indicating that it has not been mapped.
-Now, imagine that developer ( alice 👩 ) adds a little more complexity to your test and adds the expression `AND | I have 150 shares of APPL stock` in the specification, without failing to map it. When running the test, we will have the following result:
+In this result, the expression I have 99 shares of MSFT stock is highlighted with the value `(NOT MAPPED)`, indicating there isn't a mapping in fixture class for the scenario.
 
-<p align="center">
-    <img src="https://user-images.githubusercontent.com/357114/117552124-025ca480-b020-11eb-8a09-a8e0779c65e4.png" />
-</p>
 
-## Correspondence between mapping expression and a function:
-It is the function of the mapping class that allows the integration between the expression and the test code, through the call to the `MapAction()` method. This method is responsible for satisfying the correctness formulae `{ X => Y | Y = f:P A Q }`, as the following codes illustrate:
-
-```c#
-
-WHEN | "I ask to sell 20 shares of MSFT stock".MapAction(AskToSell20SharesOfMsft)
-...
-
-private static Action<StockFixture> AskToSell20SharesOfMsft => (f) => f.Stocks.Sell("MSFT", 20);    
-```
-
-# Just use C#
-
+# Basic usage
 If you prefer, you can only use code to write your specifications
 
+#### scenario in wrote in C#
+
 ```c#
-
-using arrange = Arrange<StockFixture>;
-using act = Act<StockFixture>;
-using assert = Assert<StockFixture>;
-
-[Fact]
-public void user_requests_a_sell()
+public class Tests : Feature<Context>, IClassFixture<Context>
 {
-    GIVEN.I_have_100_shares_of_MSFT_stock();
-    WHEN.I_ask_to_sell_20_shares_of_MSFT_stock();
-    THEN.I_should_have_80_shares_of_MSFT_stock();
-}
+    public Tests(Context context): base(context)
+    {
+        context.Setup();
+    }
 
-public static arrange I_have_100_shares_of_MSFT_stock(this arrange fixtures) =>
-    fixtures.Setup((f) => f.Stocks.Buy("MSFT", 100));
-    
-public static act I_ask_to_sell_20_shares_of_MSFT_stock(this act fixtures) =>
-    fixtures.Excecute(f => f.Stocks.Sell("MSFT", 20));
-    
-public static assert I_should_have_80_shares_of_MSFT_stock(this assert fixtures) =>
-    fixtures.Verify(x => x.Stocks.Shares["MSFT"].Should().Be(80));    
+    [Fact]
+    public void user_requests_a_sell()
+    {
+        GIVEN
+            .I_have_100_shares_of_MSFT_stock();
+        WHEN
+            .I_ask_to_sell_20_shares_of_MSFT_stock();
+        THEN
+            .I_should_have_80_shares_of_MSFT_stock();
+    }
+}
+```
+
+#### Fixture file
+```c#
+public static class Fixture
+{
+    // GIVEN - ARRANGE
+    public static Arrange<Context> I_have_100_shares_of_MSFT_stock(this Arrange<Context> fixtures) =>
+        fixtures.Setup(f => f.Stocks.Buy("MSFT", 100));
+
+    // WHEN - ACT
+    public static void I_ask_to_sell_20_shares_of_MSFT_stock(this Act<Context> fixtures) =>
+        fixtures.It(f => f.Stocks.Sell("MSFT", 20));
+
+    // THEN - ASSERT
+    public static Assert<Context> I_should_have_80_shares_of_MSFT_stock(this Assert<Context> fixtures) =>
+        fixtures.Expect(x => x.Stocks.Shares["MSFT"].Should().Be(80));
+}
 ```
         
 See the complete code in the [Just Code sample](https://github.com/8T4/gwtdo/tree/main/src/Samples/Gwtdo.Sample.Test/JustCode).

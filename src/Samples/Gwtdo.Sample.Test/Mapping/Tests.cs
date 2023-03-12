@@ -29,24 +29,25 @@ public class Tests : Feature<Context, Fixture>, IClassFixture<Context>
     }
 
     [Theory]
-    [InlineData(100, 20, 80)]
-    [InlineData(100, 50, 50)]
-    [InlineData(100, 30, 70)]
-    public void sample_using_let(int share, int sells, int total)
+    [InlineData(100, 20, 80, "MSFT")]
+    [InlineData(100, 50, 50, "APPL")]
+    [InlineData(100, 30, 70, "XYZW")]
+    public void sample_using_let(int share, int sells, int total, string asset)
     {
         Let["share"] = share;
         Let["sells"] = sells;
         Let["total"] = total;
+        Let["asset"] = asset;
 
         SCENARIO["User trades stocks"] =
             DESCRIBE
             | "User requests a sell before close of trading" |
             GIVEN
-            | "I have :share shares of MSFT stock" |
+            | "I have :share shares of :asset stock" |
             WHEN
-            | "I ask to sell :sells shares of MSFT stock" |
+            | "I ask to sell :sells shares of :asset stock" |
             THEN
-            | "I should have :total shares of MSFT stock";
+            | "I should have :total shares of :asset stock";
 
         SCENARIO.Execute().IsSuccess.Should().BeTrue();
     }

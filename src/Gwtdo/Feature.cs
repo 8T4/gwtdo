@@ -11,28 +11,28 @@ namespace Gwtdo;
 /// <see href="https://martinfowler.com/bliki/GivenWhenThen.html"/>
 /// <see href="https://xp123.com/articles/3a-arrange-act-assert/"/>
 /// </summary>
-/// <typeparam name="T"></typeparam>
-public abstract partial class Feature<T> where T : IFeatureContext
+/// <typeparam name="TContext"></typeparam>
+public abstract partial class Feature<TContext> where TContext : IFeatureContext
 {
     public string Id => Guid.NewGuid().ToString("N");
     
-    protected Describe<T> DESCRIBE => Describe<T>.Create(this);
-    protected Arrange<T> GIVEN => Arrange<T>.Create(Context);
-    protected Act<T> WHEN => Act<T>.Create(Context);
-    protected Assert<T> THEN => Assert<T>.Create(Context);
+    protected Describe<TContext> DESCRIBE => Describe<TContext>.Create(this);
+    protected Arrange<TContext> GIVEN => Arrange<TContext>.Create(Context);
+    protected Act<TContext> WHEN => Act<TContext>.Create(Context);
+    protected Assert<TContext> THEN => Assert<TContext>.Create(Context);
     protected And AND => And.Create();
     protected ScenarioVariables Let => SCENARIO.Let;
 
-    protected T Context { get; set; }
-    public Scenario<T> SCENARIO { get; private set; }
+    protected TContext Context { get; }
+    public Scenario<TContext> SCENARIO { get; }
 
     protected Feature()
     {
     }
 
-    protected Feature(T context) : this()
+    protected Feature(TContext context) : this()
     {
         Context = context;
-        SCENARIO = new Scenario<T>(string.Empty, context);
+        SCENARIO = new Scenario<TContext>(string.Empty, context);
     }
 }
