@@ -41,5 +41,5 @@ public class Fixture : ScenarioFixture<Context>
 
     [Then("I should have 150 shares of APPL stock")]
     public void ShouldHave150SharesOfApplStock() =>
-        Context.Stocks.Shares["APPL"].Should().Be(110);
+        Context.Stocks.Shares["APPL"].Should().Be(150);
 }
