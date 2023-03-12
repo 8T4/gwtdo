@@ -11,13 +11,17 @@
         <RepositoryUrl>https://github.com/8T4/gwtdo</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
         <PackageTags>GWT, tests, BDD</PackageTags>
-        <PackageVersion>2.1.2</PackageVersion>
+        <PackageVersion>3.0.0</PackageVersion>
         <PackageIconUrl>https://github.com/8T4/gwtdo/blob/main/LICENSE</PackageIconUrl>
         <PublishRepositoryUrl>true</PublishRepositoryUrl>
         <IncludeSymbols>true</IncludeSymbols>
         <SymbolPackageFormat>snupkg</SymbolPackageFormat>
         <LangVersion>10.0</LangVersion>
     </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
+    </ItemGroup>
 
     <ItemGroup>
         <None Include="..\..\doc\img\icon.png">
