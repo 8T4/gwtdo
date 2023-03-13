@@ -6,23 +6,23 @@ namespace Gwtdo.Scenarios;
 /// <summary>
 /// Scenario
 /// </summary>
-/// <typeparam name="T"></typeparam>
-public sealed partial class Scenario<T> where T : IFeatureContext
+/// <typeparam name="TContext"></typeparam>
+public sealed partial class Scenario<TContext> where TContext : IFeatureContext
 {
-    public T Context { get; }
+    public TContext Context { get; }
     public ScenarioVariables Let { get; }
 
     private string Description { get; set; }
-    internal Paradigm<T> Paradigms { get; }
-    internal Paradigm<T> MappedParadigms { get; }
+    internal Paradigm<TContext> Paradigms { get; }
+    internal Paradigm<TContext> MappedParadigms { get; }
     public Action<string> RedirectStandardOutput { get; set; }
 
-    public Scenario<T> this[string description]
+    public Scenario<TContext> this[string description]
     {
         set => value.Description = description;
     }
 
-    public Scenario(string description, T context)
+    public Scenario(string description, TContext context)
     {
         Paradigms = description;
         MappedParadigms = description;
@@ -30,7 +30,7 @@ public sealed partial class Scenario<T> where T : IFeatureContext
         Let = new ScenarioVariables();
     }
 
-    public static implicit operator Scenario<T>(Feature<T> feature)
+    public static implicit operator Scenario<TContext>(Feature<TContext> feature)
     {
         return feature.SCENARIO;
     }

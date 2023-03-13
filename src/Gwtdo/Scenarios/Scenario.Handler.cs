@@ -8,8 +8,8 @@ namespace Gwtdo.Scenarios;
 /// <summary>
 /// Handle Scenario for validating and execution
 /// </summary>
-/// <typeparam name="T"></typeparam>
-public partial class Scenario<T> where T : IFeatureContext
+/// <typeparam name="TContext"></typeparam>
+public partial class Scenario<TContext> where TContext : IFeatureContext
 {
     public ScenarioResult Execute()
     {
@@ -115,7 +115,7 @@ public partial class Scenario<T> where T : IFeatureContext
                 }
 
                 mapped.Sign.Signified.Value.Invoke(Context);
-                result.AppendLine($"{mapped.Metalanguage.Sign.Signifier.Value}".Indent(4));
+                result.AppendLine(mapped.Metalanguage.Sign.Signifier.Value.Indent(4));
             }
             catch (Exception ex)
             {

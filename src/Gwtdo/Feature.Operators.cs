@@ -16,8 +16,10 @@ public abstract partial class Feature<TContext> where TContext : IFeatureContext
         var syntagma = new Syntagma<TContext>(other, null);
     
         if (!feature.SCENARIO.Paradigms.SyntagmaExists(syntagma))
+        {
             feature.SCENARIO.Paradigms.AddSyntagma(syntagma);
-    
+        }
+
         return feature;
     }
 
