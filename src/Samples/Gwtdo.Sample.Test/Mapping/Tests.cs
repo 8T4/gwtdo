@@ -13,7 +13,7 @@ public class Tests : Feature<Context, Fixture>, IClassFixture<Context>
     }
 
     [Fact]
-    public void quickly_sample()
+    public void test_using_scenario_fixture_a()
     {
         SCENARIO["User trades stocks"] =
             DESCRIBE 
@@ -32,7 +32,7 @@ public class Tests : Feature<Context, Fixture>, IClassFixture<Context>
     [InlineData(100, 20, 80, "MSFT")]
     [InlineData(100, 50, 50, "APPL")]
     [InlineData(100, 30, 70, "XYZW")]
-    public void sample_using_let(int share, int sells, int total, string asset)
+    public void test_using_scenario_fixture_b(int share, int sells, int total, string asset)
     {
         Let["share"] = share;
         Let["sells"] = sells;
@@ -53,7 +53,7 @@ public class Tests : Feature<Context, Fixture>, IClassFixture<Context>
     }
 
     [Fact]
-    public void user_requests_a_sell_before_close_of_trading()
+    public void test_using_scenario_fixture_c()
     {
         SCENARIO["User trades stocks before close of trading"] =
             DESCRIBE

@@ -32,7 +32,10 @@ public abstract class ScenarioFixture<TContext> where TContext : IFeatureContext
                 action = method
             };
 
-        if (!methods.Any()) return;
+        if (!methods.Any())
+        {
+            return;
+        }
 
         foreach (var method in methods)
         {
