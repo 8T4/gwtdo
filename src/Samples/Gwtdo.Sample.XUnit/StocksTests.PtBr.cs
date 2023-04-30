@@ -10,7 +10,6 @@ public class StocksTestsPtBr: FeaturePtBr<TradingContext, TradingFixture>, IClas
     public StocksTestsPtBr(ITestOutputHelper output, TradingContext context) : base(context)
     {
         SetOutputRedirect(new TestOutputRedirect(output));
-        //context.Setup();        
     }
     
     [Theory]

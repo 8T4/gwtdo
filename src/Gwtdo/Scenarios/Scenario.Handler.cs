@@ -1,6 +1,7 @@
 using System;
 using System.Globalization;
 using System.Text;
+using System.Threading.Tasks;
 using Gwtdo.Console;
 using Gwtdo.Extensions;
 
@@ -21,7 +22,17 @@ public partial class Scenario<TContext> where TContext : class
         PrintScenarioResult(result);
         return result;
     }
-
+    
+    public Task<ScenarioResult> ExecuteAsync()
+    {
+        var result = VerifyIfMappedParadigmsIsNotEmpty();
+        result = result.IsFailure ? result : VerifyIfAllMappedScenarios();
+        result = result.IsFailure ? result : ExecuteMappedParadigms();
+        
+        PrintScenarioResult(result);
+        return Task.FromResult(result);
+    }    
+    
     private ScenarioResult VerifyIfMappedParadigmsIsNotEmpty()
     {
         var result = new StringBuilder();

@@ -22,7 +22,7 @@ public class TradingFixture : ScenarioFixture<TradingContext>
             new DateTime(2023, 1, 1, 10, 0, 0)));
 
     [Given("The time is before close of trading")]
-    public void teste() => Debug.WriteLine("OK");
+    public void teste() => Context.Clock.UpdateLimit(new DateTime(2023, 1, 1, 18, 0, 0));
 
     [Given("I have 150 shares of APPL stock")]
     public void Have150SharesOfApplStock() =>
@@ -40,6 +40,11 @@ public class TradingFixture : ScenarioFixture<TradingContext>
         Context?.Trading.Sell(new TradingOrder("MSFT", 20,
             new DateTime(2023, 1, 1, 10, 0, 0)));
 
+    [When("I ask to buy 20 shares of MSFT stock")]
+    public void AskToBuy20SharesOfMsftStock() =>
+        Context?.Trading.Buy(new TradingOrder("MSFT", 20,
+            new DateTime(2023, 1, 1, 10, 0, 0)));
+
     [Then("I should have :total shares of :asset stock")]
     [Then(@"Eu deveria ter :total ações de :asset")]
     public void ShouldHaveDynamicSharesOfMsftStock() =>
@@ -48,12 +53,20 @@ public class TradingFixture : ScenarioFixture<TradingContext>
     [Then("I should have 80 shares of MSFT stock")]
     public void ShouldHave80SharesOfMsftStock() =>
         Context?.Trading.Shares["MSFT"].Should().Be(80);
+    
+    [Then("I should have 120 shares of MSFT stock")]
+    public void ShouldHave120SharesOfMsftStock() =>
+        Context?.Trading.Shares["MSFT"].Should().Be(120);    
 
     [Then("I should have 150 shares of APPL stock")]
     public void ShouldHave150SharesOfApplStock() =>
         Context?.Trading.Shares["APPL"].Should().Be(150);
 
     [Then("A sell order for 20 shares of MSFT stock should have been executed")]
-    public void Test() =>
+    public void ASellOrderFor20SharesOfMSFT() =>
         Context?.Trading.Orders["MSFT"].Should().Be(20);
+    
+    [Then("A sell order for 0 shares of MSFT stock should have been executed")]
+    public void ASellOrderFor0SharesOfMSFT() =>
+        Context?.Trading.Orders.ContainsKey("MSFT").Should().BeFalse();    
 }

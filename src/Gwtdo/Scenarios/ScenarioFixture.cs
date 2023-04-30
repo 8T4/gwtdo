@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using Gwtdo.Attributes;
 using Gwtdo.Linguistic;
 
@@ -21,12 +23,35 @@ public abstract class ScenarioFixture<TContext> where TContext : class
         Context = scenario.Context;   
     }
     
-    public void MapScenarioMethods()
+    public void MapScenario()
     {
         if (Scenario is null)
             throw new FeatureException("Scenario is not defined");
+
+        MapScenarioMethods();
+    }
+
+    private void MapScenarioMethods()
+    {
+        var methods = GetScenarioMethods();
+        if (!methods.Any()) return;
         
-        var methods = 
+        foreach (var method in methods)
+        {
+            foreach (var attribute in method.Attributes)
+            {
+                var syntagma = new Syntagma<TContext>(
+                    signifier: ((IGwtCustomAttribute)attribute).Description,
+                    signified: _ => method.Info.Invoke(this, new object[] { }));
+
+                Scenario.MappedParadigms.AddSyntagma(syntagma);
+            }
+        }
+    }
+
+    private IEnumerable<(object[] Attributes, MethodInfo Info)> GetScenarioMethods()
+    {
+        var methods =
             from method in GetType().GetMethods()
             where method.GetCustomAttributes(typeof(IGwtCustomAttribute), false).Any()
             select new
@@ -34,19 +59,8 @@ public abstract class ScenarioFixture<TContext> where TContext : class
                 attributes = method.GetCustomAttributes(typeof(IGwtCustomAttribute), false),
                 action = method
             };
+        
+        return methods.Select(x => (x.attributes, x.action));
+    }     
 
-        if (!methods.Any()) return;
-
-        foreach (var method in methods)
-        {
-            foreach (var attribute in method.attributes)
-            {
-                var syntagma = new Syntagma<TContext>(
-                    signifier: ((IGwtCustomAttribute)attribute).Description, 
-                    signified: _ => method.action.Invoke(this, new object[] { })); 
-                
-                Scenario.MappedParadigms.AddSyntagma(syntagma);                
-            }
-        }
-    }    
 }

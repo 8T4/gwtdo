@@ -7,9 +7,17 @@ public class Trading
 {
     public Dictionary<string, int> Shares { get; } = new();
     public Dictionary<string, int> Orders { get; } = new();
-    
+    public TradingClock Clock { get; }
+
+    public Trading(TradingClock? clock = null)
+    {
+        Clock = clock ?? new TradingClock();
+    }
+
     public void Buy(TradingOrder order)
     {
+        if (!Clock.IsBeforeCloseOfTrading(order)) return;
+        
         if (Shares.ContainsKey(order.Asset))
             Shares[order.Asset] += order.Quantity;
         else
@@ -18,6 +26,8 @@ public class Trading
 
     public void Sell(TradingOrder order)
     {
+        if (!Clock.IsBeforeCloseOfTrading(order)) return;
+
         if (!Shares.ContainsKey(order.Asset))
             return;
 

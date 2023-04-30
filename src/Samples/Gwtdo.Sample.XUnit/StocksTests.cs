@@ -12,7 +12,6 @@ public class StocksTests : Feature<TradingContext, TradingFixture>, IClassFixtur
     public StocksTests(ITestOutputHelper output, TradingContext context) : base(context)
     {
         SetOutputRedirect(new TestOutputRedirect(output));
-        //context.Setup();
     }
 
     [Fact]
@@ -34,9 +33,9 @@ public class StocksTests : Feature<TradingContext, TradingFixture>, IClassFixtur
     
     [Fact]
     [Scenario(@"User requests a sell before close of trading")]
-    public void test_with_attribute_mapping()
+    public async Task test_with_attribute_mapping()
     {
-        Describe("#trading",
+        await DescribeAsync("When an asset is sold",
             GIVEN
             | "I have 100 shares of MSFT stock" | AND
             | "I have 150 shares of APPL stock" | AND
@@ -47,6 +46,18 @@ public class StocksTests : Feature<TradingContext, TradingFixture>, IClassFixtur
             | "I should have 80 shares of MSFT stock" | AND
             | "I should have 150 shares of APPL stock" | AND
             | "A sell order for 20 shares of MSFT stock should have been executed");
+        
+        await DescribeAsync("When an asset is bought",
+            GIVEN
+            | "I have 100 shares of MSFT stock" | AND
+            | "I have 150 shares of APPL stock" | AND
+            | "The time is before close of trading" |
+            WHEN
+            | "I ask to buy 20 shares of MSFT stock" |
+            THEN
+            | "I should have 120 shares of MSFT stock" | AND
+            | "I should have 150 shares of APPL stock" | AND
+            | "A sell order for 0 shares of MSFT stock should have been executed");
     }    
 
     [Theory]

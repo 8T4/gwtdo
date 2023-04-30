@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Gwtdo.Console;
 using Gwtdo.Scenarios;
 using Gwtdo.Steps;
@@ -12,8 +13,6 @@ public abstract class Feature<TContext, TFixture> : Feature<TContext>
     protected Feature(TContext context, TFixture? fixture = null) : base(context)
     {
         Fixture = fixture ?? Activator.CreateInstance<TFixture>();
-        Fixture.SetScenario(Scenario);
-        Fixture.MapScenarioMethods();
     }
 }
 
@@ -60,7 +59,15 @@ public abstract partial class Feature<TContext>
         {
             if (feature.FeatureContext is IFeatureContextLifeCycle ctx)
                 ctx.Setup();
+            
             feature.Scenario[description] = feature;
+
+            if (feature.Fixture is not null)
+            {
+                feature.Fixture.SetScenario(feature.Scenario);
+                feature.Fixture.MapScenario();
+            }
+
             var result = feature.Scenario.Execute();
 
             if (result.IsFailure)
@@ -77,4 +84,55 @@ public abstract partial class Feature<TContext>
                 ctx.TearDown();            
         }
     }
+    
+    /// <summary>
+    /// Describe your methods
+    /// </summary>
+    /// <param name="description">describe scenario</param>
+    /// <param name="feature"></param>
+    protected async Task DescribeAsync(string description, Feature<TContext> feature)
+    {
+        try
+        {
+            switch (feature.FeatureContext)
+            {
+                case IFeatureContextAsyncLifeCycle ctx:
+                    await ctx.SetupAsync();
+                    break;
+                case IFeatureContextLifeCycle ctx2:
+                    ctx2.Setup();
+                    break;
+            }
+
+            feature.Scenario[description] = feature;
+
+            if (feature.Fixture is not null)
+            {
+                feature.Fixture.SetScenario(feature.Scenario);
+                feature.Fixture.MapScenario();
+            }
+
+            var result = await feature.Scenario.ExecuteAsync();
+
+            if (result.IsFailure)
+                throw new FeatureException($"the feature '{feature.Scenario.Description}' fault!!");
+        }
+        catch (Exception e)
+        {
+            System.Console.WriteLine(e);
+            throw;
+        }
+        finally
+        {
+            switch (feature.FeatureContext)
+            {
+                case IFeatureContextAsyncLifeCycle ctx:
+                    await ctx.TearDownAsync();
+                    break;
+                case IFeatureContextLifeCycle ctx2:
+                    ctx2.TearDown();
+                    break;
+            }            
+        }
+    }    
 }
