@@ -1,35 +1,25 @@
 using System;
 using System.Globalization;
 using System.Text;
+using Gwtdo.Console;
 using Gwtdo.Extensions;
 
 namespace Gwtdo.Scenarios;
 
 /// <summary>
-/// Handle Scenario for validating and execution
+/// Handle Describe for validating and execution
 /// </summary>
 /// <typeparam name="TContext"></typeparam>
-public partial class Scenario<TContext> where TContext : IFeatureContext
+public partial class Scenario<TContext> where TContext : class
 {
     public ScenarioResult Execute()
     {
-        var mappedParadigmsEmpty = VerifyIfMappedParadigmsIsNotEmpty();
-        if (mappedParadigmsEmpty.IsFailure)
-        {
-            PrintScenarioResult(mappedParadigmsEmpty);
-            return mappedParadigmsEmpty;
-        }
-
-        var allScenarioWereMapped = VerifyIfAllScenarioWereMapped();
-        if (allScenarioWereMapped.IsFailure)
-        {
-            PrintScenarioResult(allScenarioWereMapped);
-            return allScenarioWereMapped;
-        }
-
-        var scenarioResult = ExecuteMappedParadigms();
-        PrintScenarioResult(scenarioResult);
-        return scenarioResult;
+        var result = VerifyIfMappedParadigmsIsNotEmpty();
+        result = result.IsFailure ? result : VerifyIfAllMappedScenarios();
+        result = result.IsFailure ? result : ExecuteMappedParadigms();
+        
+        PrintScenarioResult(result);
+        return result;
     }
 
     private ScenarioResult VerifyIfMappedParadigmsIsNotEmpty()
@@ -43,25 +33,24 @@ public partial class Scenario<TContext> where TContext : IFeatureContext
         }
 
         result.Insert(0,
-            Colors.Warning(
-                $"the SCENARIO \"{Description.ToUpper(CultureInfo.InvariantCulture)}\" SHOULD BE MAPPED"));
+            $"the SCENARIO \"{Description.ToUpper(CultureInfo.InvariantCulture)}\" SHOULD BE MAPPED".Warning());
         return ScenarioResult.Fail(result.ToString());
     }
 
-    private ScenarioResult VerifyIfAllScenarioWereMapped()
+    private ScenarioResult VerifyIfAllMappedScenarios()
     {
         var allExpressionMapped = true;
 
         var result = new StringBuilder();
         AppendScenarioDescription(ref result);
 
-        foreach (var (key, value) in Paradigms.Syntagmas)
+        foreach (var (key, value) in Paradigms.SyntagmaCollection)
         {
             if (!MappedParadigms.SyntagmaExists(value))
             {
                 allExpressionMapped = false;
                 result.AppendLine(
-                    $"{Colors.Reset(value.Metalanguage.Sign.Signifier.Value)} {Colors.Error("(NOT MAPPED)")}"
+                    $"{value.Metalanguage.Sign.Signifier.Value.Reset()} {"(NOT MAPPED)".Error()}"
                         .Indent());
                 continue;
             }
@@ -85,13 +74,13 @@ public partial class Scenario<TContext> where TContext : IFeatureContext
     private void AppendScenarioDescription(ref StringBuilder builder)
     {
         builder.AppendHorizontalLine(60);
-        builder.AppendLine(Colors.Success(Description.ToUpper(CultureInfo.InvariantCulture)));
+        builder.AppendLine(Description.ToUpper(CultureInfo.InvariantCulture).Success());
     }
-    
+
     private void PrintScenarioResult(ScenarioResult scenarioResult)
     {
         var result = Let.Replace(scenarioResult.ToString());
-        RedirectStandardOutput?.Invoke(result);
+        OutputRedirect.WriteLine(result);
         Paradigms.Clear();
         MappedParadigms.Clear();
     }
@@ -102,7 +91,7 @@ public partial class Scenario<TContext> where TContext : IFeatureContext
         result.AppendLine();
         result.AppendHorizontalLine(60);
 
-        foreach (var (key, value) in Paradigms.Syntagmas)
+        foreach (var (key, value) in Paradigms.SyntagmaCollection)
         {
             try
             {
@@ -119,23 +108,23 @@ public partial class Scenario<TContext> where TContext : IFeatureContext
             }
             catch (Exception ex)
             {
-                result.AppendLine(value.Metalanguage.Sign.Signifier.Value.Indent(4) + Colors.Error(" << Fail"));
-                
+                result.AppendLine($"{value.Metalanguage.Sign.Signifier.Value.Indent(4)} << {"Fail".Error()}");
                 result.AppendHorizontalLine(60);
-                result.AppendLine(Colors.Warning(ex.Message.Indent(4)));
+                result.AppendLine(ex.Message.Indent(4).Warning());
+                
                 if (ex.InnerException is not null)
                 {
-                    result.AppendLine(Colors.Warning(ex.InnerException.Message.Indent(4)));
+                    result.AppendLine(ex.InnerException.Message.Indent(4).Warning());
                     result.AppendHorizontalLine(60);
-                    result.AppendLine(Colors.Error(ex.InnerException.StackTrace));
+                    result.AppendLine(ex.InnerException.StackTrace.Error());
                 }
-                result.AppendHorizontalLine(60);
 
+                result.AppendHorizontalLine(60);
                 return ScenarioResult.Fail(result.ToString());
             }
         }
 
-        result.Insert(0, Colors.Success(Description.ToUpper(CultureInfo.InvariantCulture)));
+        result.Insert(0, Description.ToUpper(CultureInfo.InvariantCulture).Success());
         return ScenarioResult.Ok(result.ToString());
     }
 }

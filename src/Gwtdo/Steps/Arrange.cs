@@ -1,4 +1,6 @@
 using System;
+using Gwtdo.Constants;
+using Gwtdo.Linguistic;
 
 namespace Gwtdo.Steps;
 
@@ -8,14 +10,16 @@ namespace Gwtdo.Steps;
 /// <see href="https://xp123.com/articles/3a-arrange-act-assert/"/>
 /// </summary>
 /// <typeparam name="T"></typeparam>
-public sealed class Arrange<T>  where T : IFeatureContext
+public sealed class Arrange<T> : Step<T> where T : class
 {
-    private T Value { get; }
     public Arrange<T> And => this;
-        
-    private Arrange(T value) => Value = value;
-    internal static Arrange<T> Create(T value) => new(value);        
-        
+
+    private Arrange(Feature<T> value) : base(value)
+    {
+    }
+
+    public static Arrange<T> Create(Feature<T> value) => new(value);
+
     /// <summary>
     /// Use setup to initialize actions that are eager loaded to test your specs.
     /// </summary>
@@ -23,7 +27,48 @@ public sealed class Arrange<T>  where T : IFeatureContext
     /// <returns></returns>
     public Arrange<T> Setup(Action<T> action)
     {
-        action.Invoke(Value);
+        action.Invoke(Feature.Scenario.Context);
         return this;
+    }
+
+    public static Feature<T> operator |(Arrange<T> arrange, string other)
+    {
+        GwtStatements(arrange.Feature, GwtConstants.GIVEN);
+
+        var syntagma = new Syntagma<T>(other, null);
+        if (!arrange.Feature.Scenario.Paradigms.SyntagmaExists(syntagma))
+        {
+            arrange.Feature.Scenario.Paradigms.AddSyntagma(syntagma);
+        }
+
+        return arrange.Feature;
+    }
+    
+    public static Feature<T> operator |(Arrange<T> arrange, string[] others)
+    {
+        foreach (var other in others)
+        {
+            var syntagma = new Syntagma<T>(other, null);
+
+            if (!arrange.Feature.Scenario.Paradigms.SyntagmaExists(syntagma))
+            {
+                arrange.Feature.Scenario.Paradigms.AddSyntagma(syntagma);
+            }
+        }
+
+        return arrange.Feature;
+    }     
+
+    /// <summary>
+    /// Sign default statements GWT in SCENARIO to satisfy mapping methods when It is processed.
+    /// </summary>
+    /// <param name="feature"></param>
+    /// <param name="value"></param>
+    /// <returns></returns>
+    private static void GwtStatements(Feature<T> feature, string value)
+    {
+        var syntagma = new Syntagma<T>(value, null);
+        feature.Scenario.Paradigms.AddSyntagma(syntagma);
+        feature.Scenario.MappedParadigms.AddSyntagma(syntagma);
     }
 }

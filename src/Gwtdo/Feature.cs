@@ -1,8 +1,21 @@
 ﻿using System;
+using Gwtdo.Console;
 using Gwtdo.Scenarios;
 using Gwtdo.Steps;
 
 namespace Gwtdo;
+
+public abstract class Feature<TContext, TFixture> : Feature<TContext>
+    where TContext : class
+    where TFixture : ScenarioFixture<TContext>
+{
+    protected Feature(TContext context, TFixture? fixture = null) : base(context)
+    {
+        Fixture = fixture ?? Activator.CreateInstance<TFixture>();
+        Fixture.SetScenario(Scenario);
+        Fixture.MapScenarioMethods();
+    }
+}
 
 /// <summary>
 /// Although Given-When-Then style is symptomatic to BDD, the basic idea is pretty common when writing tests or
@@ -12,27 +25,56 @@ namespace Gwtdo;
 /// <see href="https://xp123.com/articles/3a-arrange-act-assert/"/>
 /// </summary>
 /// <typeparam name="TContext"></typeparam>
-public abstract partial class Feature<TContext> where TContext : IFeatureContext
+public abstract partial class Feature<TContext>
 {
-    public string Id => Guid.NewGuid().ToString("N");
-    
-    protected Describe<TContext> DESCRIBE => Describe<TContext>.Create(this);
-    protected Arrange<TContext> GIVEN => Arrange<TContext>.Create(Context);
-    protected Act<TContext> WHEN => Act<TContext>.Create(Context);
-    protected Assert<TContext> THEN => Assert<TContext>.Create(Context);
+    [Obsolete("Use 'Describe()' method")] protected Describe<TContext> DESCRIBE => Describe<TContext>.Create(this);
+    protected Arrange<TContext> GIVEN => Arrange<TContext>.Create(this);
+    protected Act<TContext> WHEN => Act<TContext>.Create(this);
+    protected Assert<TContext> THEN => Assert<TContext>.Create(this);
     protected And AND => And.Create();
     protected ScenarioVariables Let => SCENARIO.Let;
 
-    protected TContext Context { get; }
-    public Scenario<TContext> SCENARIO { get; }
+    [Obsolete("Use 'Describe' method")] public Scenario<TContext> SCENARIO { get; private set; }
+    public Scenario<TContext> Scenario { get; }
+    protected TContext FeatureContext { get; }
+    protected ScenarioFixture<TContext>? Fixture { get; set; }
 
-    protected Feature()
+    protected Feature(TContext context)
     {
+        FeatureContext = context;
+        Scenario = Scenario<TContext>.GetDefault(FeatureContext);
+        SCENARIO = Scenario;
     }
 
-    protected Feature(TContext context) : this()
+    protected void SetOutputRedirect(IOutputRedirect outputRedirect)
+        => Scenario.OutputRedirect = outputRedirect;
+
+    /// <summary>
+    /// Describe your methods
+    /// </summary>
+    /// <param name="description">describe scenario</param>
+    /// <param name="feature"></param>
+    protected void Describe(string description, Feature<TContext> feature)
     {
-        Context = context;
-        SCENARIO = new Scenario<TContext>(string.Empty, context);
+        try
+        {
+            if (feature.FeatureContext is IFeatureContextLifeCycle ctx)
+                ctx.Setup();
+            feature.Scenario[description] = feature;
+            var result = feature.Scenario.Execute();
+
+            if (result.IsFailure)
+                throw new FeatureException($"the feature '{feature.Scenario.Description}' fault!!");
+        }
+        catch (Exception e)
+        {
+            System.Console.WriteLine(e);
+            throw;
+        }
+        finally
+        {
+            if (feature.FeatureContext is IFeatureContextLifeCycle ctx)
+                ctx.TearDown();            
+        }
     }
 }

@@ -1,30 +1,29 @@
+using System;
 using Gwtdo.Constants;
 using Gwtdo.Linguistic;
 
 namespace Gwtdo.Steps;
 
-public sealed class Describe<T> where T : IFeatureContext
+[Obsolete]
+public sealed class Describe<T> : Step<T> where T : class
 {
-    public Feature<T> Value { get; }
     public Describe<T> And => this;
 
-    private Describe(Feature<T> value)
+    private Describe(Feature<T> value): base(value)
     {
-        Value = value;
     }
 
-    internal static Describe<T> Create(Feature<T> value) => new(value);
+    public static Describe<T> Create(Feature<T> value) => new(value);
     
-    public static Feature<T> operator |(Describe<T> describe, string other) => describe.Value;    
-    
+    public static Feature<T> operator |(Describe<T> describe, string other) => describe.Feature;    
     public static Feature<T> operator |(Describe<T> describe, Arrange<T> other)
     {
         var syntagma = new Syntagma<T>(GwtConstants.GIVEN, null);
 
-        if (describe.Value.SCENARIO.Paradigms.SyntagmaExists(syntagma)) return describe.Value;
+        if (describe.Feature.SCENARIO.Paradigms.SyntagmaExists(syntagma)) return describe.Feature;
         
-        describe.Value.SCENARIO.Paradigms.AddSyntagma(syntagma);
-        describe.Value.SCENARIO.MappedParadigms.AddSyntagma(syntagma);
-        return describe.Value;
+        describe.Feature.SCENARIO.Paradigms.AddSyntagma(syntagma);
+        describe.Feature.SCENARIO.MappedParadigms.AddSyntagma(syntagma);
+        return describe.Feature;
     }    
 }

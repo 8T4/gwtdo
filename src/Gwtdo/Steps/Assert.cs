@@ -7,17 +7,15 @@ namespace Gwtdo.Steps;
 /// <see href="https://xp123.com/articles/3a-arrange-act-assert/"/>
 /// </summary>
 /// <typeparam name="T"></typeparam>    
-public sealed class Assert<T> where T : IFeatureContext
+public sealed class Assert<T> : Step<T> where T : class
 {
-    private T Value { get; }
     public Assert<T> And => this;
 
-    private Assert(T value)
+    private Assert(Feature<T> value) : base(value)
     {
-        Value = value;
     }
 
-    internal static Assert<T> Create(T value) => new(value);
+    public static Assert<T> Create(Feature<T> value) => new(value);
 
     public Assert<T> Expect(Action<T> action)
     {

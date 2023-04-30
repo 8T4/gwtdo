@@ -1,6 +1,6 @@
 namespace Gwtdo.Scenarios;
 
-public class ScenarioResult
+public sealed class ScenarioResult
 {
     public bool IsSuccess { get; }
     public string Message { get; }
