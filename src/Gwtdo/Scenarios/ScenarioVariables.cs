@@ -5,11 +5,11 @@ namespace Gwtdo.Scenarios;
 
 public sealed class ScenarioVariables
 {
-    private readonly Dictionary<string, Lazy<object?>> _objects;
+    private readonly IDictionary<string, Lazy<object?>> _objects;
 
     public object? this[string key]
     {
-        set => Add(key, value);
+        set => Load(key, value);
         get => Contains(key) ? _objects[NormalizeKey(key)].Value : default;
     }
 
@@ -18,7 +18,7 @@ public sealed class ScenarioVariables
         _objects = new Dictionary<string, Lazy<object?>>();
     }
 
-    public string Replace(string input)
+    internal string Replace(string input)
     {
         foreach (var (key, lazy) in _objects)
         {
@@ -27,14 +27,14 @@ public sealed class ScenarioVariables
         return input;
     }
 
-    public void Add(object value)
+    public void Load(object value)
     {
         if (value is null)
             throw new ArgumentNullException(nameof(value));
 
         var properties = value.GetType().GetProperties();
         foreach (var propertyInfo in properties)
-            Add(propertyInfo.Name, propertyInfo.GetValue(value));        
+            Load(propertyInfo.Name, propertyInfo.GetValue(value));        
     }
 
     private bool Contains(string key)
@@ -42,7 +42,7 @@ public sealed class ScenarioVariables
         return _objects.ContainsKey(NormalizeKey(key));
     }
 
-    private void Add(string key, object? value)
+    private void Load(string key, object? value)
     {
         _objects[NormalizeKey(key)] = new Lazy<object?>(() => value);
     }        

@@ -66,14 +66,14 @@ public class StocksTests : Feature<TradingContext, TradingFixture>, IClassFixtur
     [Scenario(@"User requests a sell before close of trading")]
     public void test_theory_with_attribute_mapping(int share, int sells, int total, string asset)
     {
-        Let.Add(new { share, sells, total, asset });
+        Let.Load(new { x = share, y = asset, z = sells, w = total });
 
         Describe("User trades stocks",
             GIVEN
-            | "I have :share shares of :asset stock" |
+            | "I have :x shares of :y stock" |
             WHEN
-            | "I ask to sell :sells shares of :asset stock" |
+            | "I ask to sell :z shares of :y stock" |
             THEN
-            | "I should have :total shares of :asset stock");
+            | "I should have :w shares of :y stock");
     }
 }

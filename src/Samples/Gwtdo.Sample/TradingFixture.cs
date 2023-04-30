@@ -10,10 +10,10 @@ namespace Gwtdo.Sample;
 /// </summary>
 public class TradingFixture : ScenarioFixture<TradingContext>
 {
-    [Given("I have :share shares of :asset stock")]
-    [Given(@"Eu tenho :share ações da :asset")]
+    [Given("I have :x shares of :y stock")]
+    [Given(@"Eu tenho :x ações da :y")]
     public void HaveDynamicSharesOfMsftStock() =>
-        Context?.Trading.Buy(new TradingOrder(Let["asset"].As<string>(), Let["share"].As<int>(),
+        Context?.Trading.Buy(new TradingOrder(Let["y"].As<string>(), Let["x"].As<int>(),
             new DateTime(2023, 1, 1, 10, 0, 0)));
 
     [Given("I have 100 shares of MSFT stock")]
@@ -29,10 +29,10 @@ public class TradingFixture : ScenarioFixture<TradingContext>
         Context?.Trading.Buy(new TradingOrder("APPL", 150,
             new DateTime(2023, 1, 1, 10, 0, 0)));
 
-    [When("I ask to sell :sells shares of :asset stock")]
-    [When(@"Peço para vender :sells ações da :asset")]
+    [When("I ask to sell :z shares of :y stock")]
+    [When(@"Peço para vender :z ações da :y")]
     public void AskToSellDynamicSharesOfMsftStock() =>
-        Context?.Trading.Sell(new TradingOrder(Let["asset"].As<string>(), Let["sells"].As<int>(),
+        Context?.Trading.Sell(new TradingOrder(Let["y"].As<string>(), Let["z"].As<int>(),
             new DateTime(2023, 1, 1, 10, 0, 0)));
 
     [When("I ask to sell 20 shares of MSFT stock")]
@@ -45,10 +45,10 @@ public class TradingFixture : ScenarioFixture<TradingContext>
         Context?.Trading.Buy(new TradingOrder("MSFT", 20,
             new DateTime(2023, 1, 1, 10, 0, 0)));
 
-    [Then("I should have :total shares of :asset stock")]
-    [Then(@"Eu deveria ter :total ações de :asset")]
+    [Then("I should have :w shares of :y stock")]
+    [Then(@"Eu deveria ter :w ações de :y")]
     public void ShouldHaveDynamicSharesOfMsftStock() =>
-        Context?.Trading.Shares[Let["asset"].As<string>()].Should().Be(Let["total"].As<int>());
+        Context?.Trading.Shares[Let["y"].As<string>()].Should().Be(Let["w"].As<int>());
 
     [Then("I should have 80 shares of MSFT stock")]
     public void ShouldHave80SharesOfMsftStock() =>

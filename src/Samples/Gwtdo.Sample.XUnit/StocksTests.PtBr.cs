@@ -18,14 +18,14 @@ public class StocksTestsPtBr: FeaturePtBr<TradingContext, TradingFixture>, IClas
     [Scenario(@"Usuário solicita a venda de ações")]
     public void test_theory_with_attribute_mapping(int share, int sells, int total, string asset)
     {
-        Let.Add(new { share, sells, total, asset });
+        Let.Load(new { x = share, y = asset, z = sells, w = total });
 
         Descreva("User trades stocks",
             DADO
-            | @"Eu tenho :share ações da :asset" |
+            | @"Eu tenho :x ações da :y" |
             QUANDO
-            | @"Peço para vender :sells ações da :asset" |
+            | @"Peço para vender :z ações da :y" |
             ENTAO
-            | @"Eu deveria ter :total ações de :asset");
+            | @"Eu deveria ter :w ações de :y");
     }    
 }
