@@ -1,4 +1,4 @@
-namespace Gwtdo.Console;
+namespace Gwtdo.Output;
 
 internal class OutputRedirect: IOutputRedirect
 {

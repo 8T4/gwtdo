@@ -1,6 +1,6 @@
 using System.Text;
 
-namespace Gwtdo.Extensions;
+namespace Gwtdo.Output.Extensions;
 
 /// <summary>
 /// Indentation methods

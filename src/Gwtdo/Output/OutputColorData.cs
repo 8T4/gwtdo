@@ -1,8 +1,12 @@
 using System;
 using System.Collections.Generic;
 
-namespace Gwtdo.Console;
+namespace Gwtdo.Output;
 
+/// <summary>
+/// Class based on OutputColorMethods.Net library
+/// <exception href="https://github.com/ahmelsayed/Colors.Net/blob/master/LICENSE"></exception>
+/// </summary>
 internal static class OutputColorData
 {
     internal static readonly IDictionary<ConsoleColor, char> ConsoleColorToUnicode = new Dictionary<ConsoleColor, char>

@@ -1,4 +1,4 @@
-using Gwtdo.Console;
+using Gwtdo.Output;
 using Xunit.Abstractions;
 
 namespace Gwtdo.Sample.XUnit;

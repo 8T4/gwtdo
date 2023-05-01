@@ -1,8 +1,6 @@
-using Gwtdo.Console;
+namespace Gwtdo.Output;
 
-namespace Gwtdo.Constants;
-
-internal struct GwtConstants
+internal struct OutputConstants
 {
     public static readonly string GIVEN = "GIVEN".Success();
     public static readonly string WHEN = "WHEN".Success();

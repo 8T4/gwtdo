@@ -1,10 +1,10 @@
 using System;
-using Gwtdo.Constants;
-using Gwtdo.Linguistic;
+using Gwtdo.Output;
+using Gwtdo.Scenarios.Linguistic;
 
 namespace Gwtdo.Steps;
 
-[Obsolete]
+[Obsolete("Consider don't use this class in your projects")]
 public sealed class Describe<T> : Step<T> where T : class
 {
     public Describe<T> And => this;
@@ -18,12 +18,12 @@ public sealed class Describe<T> : Step<T> where T : class
     public static Feature<T> operator |(Describe<T> describe, string other) => describe.Feature;    
     public static Feature<T> operator |(Describe<T> describe, Arrange<T> other)
     {
-        var syntagma = new Syntagma<T>(GwtConstants.GIVEN, null);
+        var syntagma = new Syntagma<T>(OutputConstants.GIVEN, null);
 
-        if (describe.Feature.SCENARIO.Paradigms.SyntagmaExists(syntagma)) return describe.Feature;
+        if (describe.Feature.Scenario.Paradigms.SyntagmaExists(syntagma)) return describe.Feature;
         
-        describe.Feature.SCENARIO.Paradigms.AddSyntagma(syntagma);
-        describe.Feature.SCENARIO.MappedParadigms.AddSyntagma(syntagma);
+        describe.Feature.Scenario.Paradigms.AddSyntagma(syntagma);
+        describe.Feature.Scenario.MappedParadigms.AddSyntagma(syntagma);
         return describe.Feature;
     }    
 }

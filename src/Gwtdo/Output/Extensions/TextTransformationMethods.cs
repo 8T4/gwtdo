@@ -2,7 +2,7 @@ using System.Globalization;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace Gwtdo.Extensions;
+namespace Gwtdo.Output.Extensions;
 
 /// <summary>
 /// String methods

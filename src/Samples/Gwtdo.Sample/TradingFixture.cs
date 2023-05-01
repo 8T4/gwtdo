@@ -1,7 +1,7 @@
 using System.Diagnostics;
 using FluentAssertions;
-using Gwtdo.Attributes;
 using Gwtdo.Scenarios;
+using Gwtdo.Scenarios.Attributes;
 
 namespace Gwtdo.Sample;
 
@@ -10,8 +10,8 @@ namespace Gwtdo.Sample;
 /// </summary>
 public class TradingFixture : ScenarioFixture<TradingContext>
 {
-    [Given("I have :x shares of :y stock")]
     [Given(@"Eu tenho :x ações da :y")]
+    [Given("I have :x shares of :y stock")]
     public void HaveDynamicSharesOfMsftStock() =>
         Context?.Trading.Buy(new TradingOrder(Let["y"].As<string>(), Let["x"].As<int>(),
             new DateTime(2023, 1, 1, 10, 0, 0)));
@@ -29,8 +29,8 @@ public class TradingFixture : ScenarioFixture<TradingContext>
         Context?.Trading.Buy(new TradingOrder("APPL", 150,
             new DateTime(2023, 1, 1, 10, 0, 0)));
 
-    [When("I ask to sell :z shares of :y stock")]
     [When(@"Peço para vender :z ações da :y")]
+    [When("I ask to sell :z shares of :y stock")]
     public void AskToSellDynamicSharesOfMsftStock() =>
         Context?.Trading.Sell(new TradingOrder(Let["y"].As<string>(), Let["z"].As<int>(),
             new DateTime(2023, 1, 1, 10, 0, 0)));
@@ -45,8 +45,8 @@ public class TradingFixture : ScenarioFixture<TradingContext>
         Context?.Trading.Buy(new TradingOrder("MSFT", 20,
             new DateTime(2023, 1, 1, 10, 0, 0)));
 
-    [Then("I should have :w shares of :y stock")]
     [Then(@"Eu deveria ter :w ações de :y")]
+    [Then("I should have :w shares of :y stock")]
     public void ShouldHaveDynamicSharesOfMsftStock() =>
         Context?.Trading.Shares[Let["y"].As<string>()].Should().Be(Let["w"].As<int>());
 

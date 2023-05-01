@@ -1,6 +1,5 @@
-using Gwtdo.Constants;
-using Gwtdo.Linguistic;
-using Gwtdo.Scenarios;
+using Gwtdo.Output;
+using Gwtdo.Scenarios.Linguistic;
 using Gwtdo.Steps;
 
 namespace Gwtdo;
@@ -40,21 +39,18 @@ public abstract partial class Feature<TContext> where TContext : class
 
     public static Feature<TContext> operator |(Feature<TContext> feature, And other) 
         => feature;
-    public static Feature<TContext> operator |(Feature<TContext> feature, ScenarioVariables other) 
-        => feature;
     public static Feature<TContext> operator |(Feature<TContext> feature, Arrange<TContext> other) 
-        => GwtStatements(feature, GwtConstants.GIVEN);
+        => GwtStatements(feature, OutputConstants.GIVEN);
     public static Feature<TContext> operator |(Feature<TContext> feature, Act<TContext> other) 
-        => GwtStatements(feature, GwtConstants.WHEN);
+        => GwtStatements(feature, OutputConstants.WHEN);
     public static Feature<TContext> operator |(Feature<TContext> feature, Assert<TContext> other) 
-        => GwtStatements(feature, GwtConstants.THEN);
+        => GwtStatements(feature, OutputConstants.THEN);
 
     /// <summary>
-    /// Sign default statements GWT in SCENARIO to satisfy mapping methods when It is processed.
+    /// Adds the given-when-then statement to the scenario paradigms.
     /// </summary>
-    /// <param name="feature"></param>
-    /// <param name="value"></param>
-    /// <returns></returns>
+    /// <param name="feature">The feature under test.</param>
+    /// <param name="value">The given-when-then statement to be added to the scenario paradigms.</param>
     private static Feature<TContext> GwtStatements(Feature<TContext> feature, string value)
     {
         var syntagma = new Syntagma<TContext>(value, null);

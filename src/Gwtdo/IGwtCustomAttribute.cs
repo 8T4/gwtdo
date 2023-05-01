@@ -1,4 +1,4 @@
-namespace Gwtdo.Attributes;
+namespace Gwtdo;
 
 public interface IGwtCustomAttribute
 {

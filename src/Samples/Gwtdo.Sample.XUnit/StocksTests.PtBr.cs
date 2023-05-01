@@ -1,7 +1,7 @@
-using Gwtdo.Attributes;
 using Xunit.Abstractions;
 using Gwtdo.Sample.XUnit;
 using Gwtdo.Sample.XUnit.Localizations;
+using Gwtdo.Scenarios.Attributes;
 
 namespace Gwtdo.Sample.XUnit;
 

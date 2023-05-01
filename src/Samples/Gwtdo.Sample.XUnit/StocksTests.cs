@@ -1,4 +1,4 @@
-using Gwtdo.Attributes;
+using Gwtdo.Scenarios.Attributes;
 using Xunit.Abstractions;
 
 namespace Gwtdo.Sample.XUnit;

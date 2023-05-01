@@ -1,6 +1,6 @@
 using System;
 
-namespace Gwtdo.Console;
+namespace Gwtdo.Output;
 
 /// <summary>
 /// Console OutputColorMethods Method
