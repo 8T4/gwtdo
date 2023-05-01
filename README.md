@@ -14,7 +14,7 @@ Given-When-Then (GWT) is a format for writing executable specifications or autom
 The Given-When-Then structure helps to ensure that the requirements of the system or feature being developed are clearly defined and that everyone involved in the development process has a shared understanding of what is expected.
 
 ## What is GWTDO?
-It´s a dotnet library that helps developers write readable tests. Also, it's a DSL based on the <strong>Given-When-Then</strong> style which could be used in your test projects
+GWTDO defines a BDD-style test suite, with a clear separation of concerns between the test scenario definition and the implementation details.
 
 ## How to use GWTDO?
 To use a GWTDO library, you need to follow these steps:
