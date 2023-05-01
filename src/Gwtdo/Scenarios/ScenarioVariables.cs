@@ -3,42 +3,62 @@ using System.Collections.Generic;
 
 namespace Gwtdo.Scenarios;
 
-public class ScenarioVariables
+/// <summary>
+/// Represents a collection of lazy-loaded objects that can be used to define and access variables within a scenario.
+/// </summary>
+public sealed class ScenarioVariables
 {
-    private readonly Dictionary<string, Lazy<object>> _objects;
+    private readonly IDictionary<string, Lazy<object?>> _objects;
 
-    public object this[string key]
+    /// <summary>
+    /// Gets or sets the object associated with the specified key.
+    /// </summary>
+    /// <param name="key">The key of the object to get or set.</param>
+    /// <returns>The object associated with the specified key, or <see langword="null"/> if the key is not found.</returns>
+    public object? this[string key]
     {
-        set => Add(key, value);
+        set => Load(key, value);
         get => Contains(key) ? _objects[NormalizeKey(key)].Value : default;
     }
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ScenarioVariables"/> class.
+    /// </summary>
     public ScenarioVariables()
     {
-        _objects = new Dictionary<string, Lazy<object>>();
+        _objects = new Dictionary<string, Lazy<object?>>();
     }
 
-    public string Replace(string input)
+    /// <summary>
+    /// Replaces all occurrences of keys in the input string with the associated objects.
+    /// </summary>
+    /// <param name="input">The string in which to replace the keys.</param>
+    /// <returns>A copy of the input string with all keys replaced with their associated objects.</returns>
+    internal string Replace(string input)
     {
-        foreach (var (key, value) in _objects)
+        foreach (var (key, lazy) in _objects)
         {
-            input = input.Replace(key, value.Value.ToString());
+            input = input.Replace(key, lazy.Value?.ToString());
         }
         return input;
     }
 
-    private bool Contains(string key)
+    /// <summary>
+    /// Adds the properties of the specified object to this <see cref="ScenarioVariables"/> instance.
+    /// </summary>
+    /// <param name="value">The object whose properties to add.</param>
+    /// <exception cref="ArgumentNullException">Thrown when <paramref name="value"/> is <see langword="null"/>.</exception>
+    public void Load(object value)
     {
-        return _objects.ContainsKey(NormalizeKey(key));
+        if (value is null)
+            throw new ArgumentNullException(nameof(value));
+
+        var properties = value.GetType().GetProperties();
+        foreach (var propertyInfo in properties)
+            Load(propertyInfo.Name, propertyInfo.GetValue(value));        
     }
 
-    private void Add(string key, object value)
-    {
-        _objects[NormalizeKey(key)] = new Lazy<object>(value);
-    }        
-
-    private static string NormalizeKey(string key)
-    {
-        return key.StartsWith(":") ? key : $":{key}";
-    }
+    private bool Contains(string key) => _objects.ContainsKey(NormalizeKey(key));
+    private void Load(string key, object? value) => _objects[NormalizeKey(key)] = new Lazy<object?>(() => value);
+    private static string NormalizeKey(string key) => key.StartsWith(":") ? key : $":{key}";
 }
