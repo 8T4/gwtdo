@@ -3,9 +3,9 @@
     <PropertyGroup>
         <TargetFramework>netstandard2.1</TargetFramework>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-        <Title>GWTdo - Tests more readable</Title>
+        <Title>GWTDO - a BDD-style test suite</Title>
         <Authors>yanjustino</Authors>
-        <Description>GWTdo uses Given-When-Then style to make your tests more readable.</Description>
+        <Description>GWTDO defines a BDD-style test suite, with a clear separation of concerns between the test scenario definition and the implementation details.</Description>
         <PackageProjectUrl>https://github.com/8T4/gwtdo</PackageProjectUrl>
         <PackageIcon>icon.png</PackageIcon>
         <RepositoryUrl>https://github.com/8T4/gwtdo</RepositoryUrl>
