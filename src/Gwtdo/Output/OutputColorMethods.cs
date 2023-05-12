@@ -7,40 +7,36 @@ namespace Gwtdo.Output;
 /// </summary>
 internal static class OutputColorMethods
 {
-    internal static string Error(this string value) =>
-        Write(
-            @$"\u001b[0m\u001b[31m{value}\u001b[0m",
-            value.ColorString(ConsoleColor.Red).Value
-        );
+    internal static string Error(this string value) => Write(
+        $"\\u001b[31m{value}\\u001b[0m",
+        value.ColorString(ConsoleColor.Red).Value
+    );
 
-    internal static string Success(this string value) =>
-        Write(
-            $"\\u001b[32m{value}\\u001b[0m",
-            value.ColorString(ConsoleColor.Green).Value
-        );
+    internal static string Success(this string value) => Write(
+        $"\\u001b[32m{value}\\u001b[0m",
+        value.ColorString(ConsoleColor.Green).Value
+    );
 
-    internal static string Warning(this string value) =>
-        Write(
-            @$"\u001b[0m\u001b[33m{value}\u001b[0m",
-            value.ColorString(ConsoleColor.Yellow).Value
-        );
+    internal static string Warning(this string value) => Write(
+        $"\\u001b[33m{value}\\u001b[0m",
+        value.ColorString(ConsoleColor.Yellow).Value
+    );
 
-    internal static string Reset(this string value) =>
-        Write(
-            @$"\u001b[0m\u001b[0m{value}\u001b[0m",
-            value.ColorString(ConsoleColor.White).Value
-        );
+    internal static string Reset(this string value) => Write(
+        $"\\u001b[0m{value}\\u001b[0m",
+        value.ColorString(ConsoleColor.White).Value
+    );
 
-    private static string Write(string colorUnix, string colorWindows)
+    private static string Write(string ansiColor, string colorWindows)
     {
-        return Console.IsOutputRedirected
-            ? Environment.OSVersion.Platform switch
-            {
-                PlatformID.MacOSX => colorUnix,
-                PlatformID.Unix => colorUnix,
-                _ => colorWindows
-            }
-            : colorWindows;
+        var redirectResult = Environment.OSVersion.Platform switch
+        {
+            PlatformID.MacOSX => ansiColor,
+            PlatformID.Unix => ansiColor,
+            _ => colorWindows
+        };
+        
+        return Console.IsOutputRedirected ? redirectResult : colorWindows;
     }
 
     private static OutputRichString ColorString(this string value, ConsoleColor color)
